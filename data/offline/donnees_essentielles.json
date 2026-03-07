@@ -1,0 +1,124 @@
+{
+  "derniere_mise_a_jour": "2026-03-07T01:36:30.077574",
+  "ecole": {
+    "nom": "SUP MTI Meknès",
+    "telephone": "+212 5 35 51 10 11",
+    "email": "contact@supmtimeknes.ac.ma",
+    "horaires": {
+      "lundi_vendredi": "08:30 - 18:00",
+      "samedi": "08:30 - 12:00"
+    }
+  },
+  "frais": {
+    "frais_annuels": 35000,
+    "frais_inscription": 3500,
+    "total_annuel": 38500,
+    "mensualites": 10,
+    "montant_mensuel": 3500,
+    "devise": "MAD (Dirhams Marocains)"
+  },
+  "filieres": {
+    "ME": {
+      "nom": "Management des Entreprises",
+      "niveau": "BAC+3",
+      "duree": 3,
+      "description": "Formation en management digital, informatique de gestion, marketing digital et e-commerce. Prépare à des carrières en management ou à des poursuites d'études.",
+      "debouches": [
+        "Cadre bancaire",
+        "Responsable commercial",
+        "Chargé d'opérations",
+        "Analyste financier",
+        "Chargé d'études marketing",
+        "Assistant RH",
+        "Cadre administratif"
+      ]
+    },
+    "FACG": {
+      "nom": "Finance, Audit et Contrôle de Gestion",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation de cadres financiers et contrôleurs de gestion hautement qualifiés pour des postes à responsabilités dans des entreprises nationales et internationales.",
+      "debouches": [
+        "Auditeur interne ou externe",
+        "Auditeur financier",
+        "Commissaire aux comptes",
+        "Contrôleur de gestion",
+        "Expert-comptable",
+        "Directeur comptable et financier",
+        "Conseiller en finance internationale"
+      ]
+    },
+    "MSTIC": {
+      "nom": "Management des Systèmes et Technologies de l'Information et de la Communication",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation de cadres supérieurs capables de manager des entreprises en s'appuyant sur les nouvelles technologies (Big Data, IoT, Cloud, IA, Blockchain).",
+      "debouches": [
+        "Manager d'entreprise",
+        "Responsable des systèmes d'information",
+        "Responsable marketing digital",
+        "Responsable commercial",
+        "Responsable RH",
+        "Responsable administratif et financier"
+      ]
+    },
+    "ISI": {
+      "nom": "Ingénierie Intelligente des Systèmes Informatiques",
+      "niveau": "BAC+3",
+      "duree": 3,
+      "description": "Formation de techniciens spécialisés capables de concevoir, déployer et gérer des solutions informatiques performantes.",
+      "debouches": [
+        "Développeur web",
+        "Analyste programmeur",
+        "Administrateur réseaux",
+        "Responsable informatique",
+        "Webmaster",
+        "Intégrateur de solutions"
+      ]
+    },
+    "IISIC": {
+      "nom": "Ingénierie Intelligente des Systèmes d'Information et Communications",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation d'ingénieurs spécialisés dans la conception et le développement de solutions technologiques intelligentes alliant systèmes d'information et intelligence artificielle.",
+      "debouches": [
+        "Architecte des systèmes d'information",
+        "Ingénieur IA",
+        "Data Scientist",
+        "Chef de projet informatique",
+        "Consultant en transformation digitale"
+      ]
+    },
+    "IISRT": {
+      "nom": "Ingénierie Intelligente des Systèmes Réseaux et Télécommunications",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation d'ingénieurs spécialisés dans les réseaux intelligents, les télécommunications et les technologies de l'Industrie 4.0.",
+      "debouches": [
+        "Architecte des systèmes réseaux",
+        "Administrateur réseaux",
+        "Responsable infrastructures télécoms",
+        "Ingénieur en télécommunications",
+        "Technico-commercial en solutions réseaux"
+      ]
+    }
+  },
+  "faq": [
+    {
+      "question": "frais scolarite",
+      "reponse": "Les frais sont de 35000 DH/an payables en 10 mensualités de 3500 DH, plus 3500 DH d'inscription. Total annuel : 38500 DH."
+    },
+    {
+      "question": "filieres formations",
+      "reponse": "SUPMTI Meknès propose 6 filières : Ingénierie (ISI, IISRT, IISIC) et Management (ME, FACG, MSTIC)."
+    },
+    {
+      "question": "contact telephone email",
+      "reponse": "Téléphone : +212 5 35 51 10 11 | Email : contact@supmtimeknes.ac.ma | Horaires : Lun-Ven 08h30-18h00, Sam 08h30-12h00"
+    },
+    {
+      "question": "admission bac",
+      "reponse": "L'admission se fait sur dossier et entretien. Bac scientifique pour l'ingénierie, tous bacs pour le management."
+    }
+  ]
+}
