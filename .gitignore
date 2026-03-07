@@ -1,7 +1,15 @@
+# Secrets
 .env
 
+# Fichiers de test locaux
 app_web.py
-
 test_fitscore.py
-
 templates/index.html
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Vectorstore généré automatiquement
+data/vectorstore/

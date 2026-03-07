@@ -543,12 +543,34 @@ def reponse_hors_ligne(question):
     with open(chemin, "r", encoding="utf-8") as f:
         donnees = json.load(f)
 
-    question_lower = question.lower()
+    question_lower = question.lower().strip()
+
+    # ── Messages sociaux — répondre simplement sans le bloc filières ──
+    mots_sociaux = [
+        "merci", "thank", "ok", "okay", "safi", "wakha",
+        "super", "parfait", "d'accord", "bien", "bonjour",
+        "salut", "bonsoir", "bonne", "au revoir", "bye"
+    ]
+    if any(m in question_lower for m in mots_sociaux):
+        return {
+            "reponse": (
+                "⚠️ Mode hors ligne actif.\n\n"
+                "Je suis limité en ce moment, mais je reste disponible "
+                "pour tes questions sur SUPMTI 😊\n"
+                "📞 +212 5 35 51 10 11"
+            ),
+            "mode": "hors_ligne"
+        }
+
+    # ── FAQ — chercher dans les mots clés ──
     for faq in donnees["faq"]:
         if any(m in question_lower for m in faq["question"].split()):
-            return {"reponse": f"⚠️ Mode hors ligne actif.\n\n{faq['reponse']}",
-                    "mode": "hors_ligne"}
+            return {
+                "reponse": f"⚠️ Mode hors ligne actif.\n\n{faq['reponse']}",
+                "mode": "hors_ligne"
+            }
 
+    # ── Question inconnue — message clair sans le bloc filières ──
     filieres_liste = "\n".join([
         f"• {fid} — {f['nom']} ({f['niveau']})"
         for fid, f in donnees["filieres"].items()
@@ -556,13 +578,14 @@ def reponse_hors_ligne(question):
     return {
         "reponse": (
             f"⚠️ Mode hors ligne actif.\n\n"
-            f"📚 NOS FILIÈRES :\n{filieres_liste}\n\n"
-            f"💰 FRAIS : {donnees['frais']['total_annuel']} DH/an\n\n"
-            f"📞 CONTACT : {donnees['ecole']['telephone']}\n\n"
+            f"Je n'ai pas cette information en mode hors ligne.\n\n"
+            f"📞 Veillez verifier votre connexion internet  ou Contactez SUPMTI pour plus d'infos : "
+            f"{donnees['ecole']['telephone']}\n"
             f"Connectez-vous à internet pour des informations complètes."
         ),
         "mode": "hors_ligne"
     }
+
 
 # ============================================================
 # ÉTAPE 7 — SYNCHRONISATION AUTOMATIQUE
