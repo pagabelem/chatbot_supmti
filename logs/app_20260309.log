@@ -1,0 +1,1136 @@
+2026-03-09 10:32:38 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 10:32:40 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 10:32:41 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 10:32:42 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 10:32:42 - chatbot - INFO - main.py:71 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 10:32:42 - chatbot - INFO - main.py:77 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 10:32:44 - fastapi - WARNING - models.py:38 - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2026-03-09 13:50:23 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 13:50:23 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 13:50:25 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 13:50:25 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 13:50:25 - chatbot - INFO - main.py:71 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 13:50:25 - chatbot - INFO - main.py:77 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 13:51:43 - fastapi - WARNING - models.py:38 - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2026-03-09 13:55:37 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 13:55:37 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 13:55:37 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 13:55:37 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 13:55:37 - chatbot - INFO - main.py:71 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 13:55:37 - chatbot - INFO - main.py:77 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 13:57:20 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 13:57:20 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 13:57:20 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 13:57:20 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 13:57:20 - chatbot - INFO - main.py:71 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 13:57:20 - chatbot - INFO - main.py:77 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 13:58:19 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 13:58:19 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 13:58:19 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 13:58:19 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 13:58:19 - chatbot - INFO - main.py:71 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 13:58:19 - chatbot - INFO - main.py:77 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 14:07:52 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 14:07:52 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 14:07:52 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 14:07:52 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 14:07:52 - chatbot - INFO - main.py:71 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 14:07:52 - chatbot - INFO - main.py:77 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 17:16:52 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:16:56 - easyocr.easyocr - WARNING - easyocr.py:80 - Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:17:17 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:17:22 - easyocr.easyocr - WARNING - easyocr.py:80 - Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:18:40 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:18:46 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:19:03 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:19:09 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:20:39 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:20:44 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:20:48 - fastapi - ERROR - utils.py:117 - Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
+2026-03-09 17:20:52 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:20:58 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:21:02 - fastapi - ERROR - utils.py:117 - Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
+2026-03-09 17:21:19 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:21:23 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:21:25 - fastapi - ERROR - utils.py:117 - Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
+2026-03-09 17:22:29 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:22:36 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:22:40 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:22:40 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:22:40 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 17:22:40 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 17:22:40 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 17:24:41 - fastapi - WARNING - models.py:38 - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:117]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[119:131]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[133:148]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[152:131072]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16383]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:1]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:102146]
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:26:01 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:26:01 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: test_française.pdf
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:123]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[125:137]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[139:154]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[158:114688]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:51617]
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:26:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:26:38 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: relev_note_compressed.pdf
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:131072]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:229376]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:196608]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:180224]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:69881]
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:28:09 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:28:09 - chatbot - INFO - ocr.py:46 - 📝 OCR Bulletin - Fichier: relev_note.pdf
+2026-03-09 17:32:39 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:32:47 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:32:51 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:32:51 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:32:51 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 17:32:51 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 17:32:51 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:123]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[125:137]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[139:154]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[158:32768]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:196608]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:18849]
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:33:14 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:33:14 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: relev_note_compressed.pdf
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:123]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[125:137]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[139:154]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[158:49152]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:245760]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:117153]
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:33:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:33:19 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: relev_note_compressed.pdf
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:123]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[125:137]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[139:154]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[158:229376]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:196608]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:84385]
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:33:20 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:33:20 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: relev_note_compressed.pdf
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:123]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[125:137]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[139:154]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[158:147456]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:166305]
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:33:22 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:33:22 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: relev_note_compressed.pdf
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262143]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:1]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:4345]
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:33:28 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:33:28 - chatbot - INFO - ocr.py:46 - 📝 OCR Bulletin - Fichier: relev_note.pdf
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:147456]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:32 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:184569]
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:33:33 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:33:33 - chatbot - INFO - ocr.py:46 - 📝 OCR Bulletin - Fichier: relev_note.pdf
+2026-03-09 17:35:05 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:35:09 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:35:11 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:35:11 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:35:11 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 17:35:11 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 17:35:11 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:123]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[125:137]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[139:154]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[158:49152]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:229376]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:2465]
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:35:24 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:35:24 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: relev_note_compressed.pdf
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:212992]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:245760]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:180224]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:233721]
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:36:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:36:48 - chatbot - INFO - ocr.py:47 - 📝 OCR Bulletin - Fichier: relev_note.pdf
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:163840]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:245760]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:229376]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:135417]
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:39:38 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:39:38 - chatbot - INFO - ocr.py:68 - 👤 OCR Student Info - Fichier: relev_note.pdf
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:196608]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:163840]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:229376]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:147456]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:184569]
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:40:58 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:40:58 - chatbot - INFO - ocr.py:90 - ✨ Création profil depuis bulletin - Fichier: relev_note.pdf
+2026-03-09 17:42:21 - chatbot - INFO - profile_service.py:29 - 📝 Création de profil pour: Étudiant_relev_note
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO users (id, full_name, email, password_hash, is_active, created_at, role) VALUES (%(id)s::UUID, %(full_name)s, %(email)s, %(password_hash)s, %(is_active)s, %(created_at)s, %(role)s)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00172s] {'id': UUID('e98ebfba-9364-40e0-80b9-f06399c79541'), 'full_name': 'Étudiant_relev_note', 'email': 'étudiant_relev_note.5393@example.com', 'password_hash': 'temp_hash', 'is_active': True, 'created_at': datetime.datetime(2026, 3, 9, 16, 42, 21, 239114), 'role': 'student'}
+2026-03-09 17:42:21 - chatbot - DEBUG - profile_service.py:61 - ✅ Utilisateur créé: e98ebfba-9364-40e0-80b9-f06399c79541
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO students (id, user_id, average, level, bac_type, city, created_at) VALUES (%(id)s::UUID, %(user_id)s::UUID, %(average)s, %(level)s, %(bac_type)s, %(city)s, %(created_at)s)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00108s] {'id': UUID('00d2148e-eda7-403f-9206-095228f20ee4'), 'user_id': UUID('e98ebfba-9364-40e0-80b9-f06399c79541'), 'average': 14.5, 'level': 'BAC', 'bac_type': 'Scientifique', 'city': 'Non spécifié', 'created_at': datetime.datetime(2026, 3, 9, 16, 42, 21, 263949)}
+2026-03-09 17:42:21 - chatbot - DEBUG - profile_service.py:74 - ✅ Étudiant créé: 00d2148e-eda7-403f-9206-095228f20ee4
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT interests.id AS interests_id, interests.name AS interests_name 
+FROM interests 
+WHERE interests.name = %(name_1)s 
+ LIMIT %(param_1)s
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00149s] {'name_1': 'Études', 'param_1': 1}
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO interests (id, name) VALUES (%(id)s::UUID, %(name)s)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00146s] {'id': UUID('6c3838b2-586d-4ae0-a8ad-6f79b30193b1'), 'name': 'Études'}
+2026-03-09 17:42:21 - chatbot - DEBUG - profile_service.py:84 - ✅ Intérêt créé: Études
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT interests.id AS interests_id, interests.name AS interests_name 
+FROM interests 
+WHERE interests.name = %(name_1)s 
+ LIMIT %(param_1)s
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [cached since 0.02102s ago] {'name_1': 'Sciences', 'param_1': 1}
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO interests (id, name) VALUES (%(id)s::UUID, %(name)s)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [cached since 0.01036s ago] {'id': UUID('6beb171b-b32d-4eb1-b9a7-7e8d929e9842'), 'name': 'Sciences'}
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO student_interests (student_id, interest_id) VALUES (%(student_id)s::UUID, %(interest_id)s::UUID)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00113s] {'student_id': UUID('00d2148e-eda7-403f-9206-095228f20ee4'), 'interest_id': UUID('6c3838b2-586d-4ae0-a8ad-6f79b30193b1')}
+2026-03-09 17:42:21 - chatbot - DEBUG - profile_service.py:84 - ✅ Intérêt créé: Sciences
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO student_interests (student_id, interest_id) VALUES (%(student_id)s::UUID, %(interest_id)s::UUID)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [cached since 0.009786s ago] {'student_id': UUID('00d2148e-eda7-403f-9206-095228f20ee4'), 'interest_id': UUID('6beb171b-b32d-4eb1-b9a7-7e8d929e9842')}
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT students.id AS students_id, students.user_id AS students_user_id, students.average AS students_average, students.level AS students_level, students.bac_type AS students_bac_type, students.city AS students_city, students.created_at AS students_created_at 
+FROM students 
+WHERE students.id = %(pk_1)s::UUID
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00159s] {'pk_1': UUID('00d2148e-eda7-403f-9206-095228f20ee4')}
+2026-03-09 17:42:21 - chatbot - INFO - profile_service.py:94 - ✅ Profil créé avec succès: 00d2148e-eda7-403f-9206-095228f20ee4
+2026-03-09 17:42:21 - sqlalchemy.engine.Engine - INFO - base.py:2713 - ROLLBACK
+2026-03-09 17:47:21 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:47:25 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:47:27 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:47:27 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:47:27 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 17:47:27 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 17:47:27 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:98304]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:196608]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:32768]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:16384]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:49152]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:196608]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:180224]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:65536]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:98304]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:81920]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:131072]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:114688]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:86265]
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:48:11 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:48:11 - chatbot - INFO - ocr.py:47 - 📝 OCR Bulletin - Fichier: relev_note.pdf
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:196608]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:123]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[125:137]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[139:154]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[158:196608]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:112]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[114:126]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[128:143]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[147:196608]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:35233]
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:49:35 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:49:35 - chatbot - INFO - ocr.py:25 - 📸 OCR Extract - Fichier: relev_note_compressed.pdf
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:69881]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:50:55 - chatbot - INFO - ocr.py:68 - 👤 OCR Student Info - Fichier: relev_note.pdf
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:262144]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[0:69881]
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-09 17:50:55 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-09 17:52:17 - chatbot - INFO - ocr.py:90 - ✨ Création profil depuis bulletin - Fichier: relev_note.pdf
+2026-03-09 17:53:28 - chatbot - INFO - profile_service.py:29 - 📝 Création de profil pour: Étudiant_relev_note
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO users (id, full_name, email, password_hash, is_active, created_at, role) VALUES (%(id)s::UUID, %(full_name)s, %(email)s, %(password_hash)s, %(is_active)s, %(created_at)s, %(role)s)
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00166s] {'id': UUID('0ad98557-d258-47df-b7b8-1894fdebd759'), 'full_name': 'Étudiant_relev_note', 'email': 'étudiant_relev_note.9988@example.com', 'password_hash': 'temp_hash', 'is_active': True, 'created_at': datetime.datetime(2026, 3, 9, 16, 53, 28, 193868), 'role': 'student'}
+2026-03-09 17:53:28 - chatbot - DEBUG - profile_service.py:61 - ✅ Utilisateur créé: 0ad98557-d258-47df-b7b8-1894fdebd759
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - INSERT INTO students (id, user_id, average, level, bac_type, city, created_at) VALUES (%(id)s::UUID, %(user_id)s::UUID, %(average)s, %(level)s, %(bac_type)s, %(city)s, %(created_at)s)
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00133s] {'id': UUID('f79a3dc9-f57a-4381-850c-fde52eb7ce1a'), 'user_id': UUID('0ad98557-d258-47df-b7b8-1894fdebd759'), 'average': 14.5, 'level': 'BAC', 'bac_type': 'Scientifique', 'city': 'Non spécifié', 'created_at': datetime.datetime(2026, 3, 9, 16, 53, 28, 204551)}
+2026-03-09 17:53:28 - chatbot - DEBUG - profile_service.py:74 - ✅ Étudiant créé: f79a3dc9-f57a-4381-850c-fde52eb7ce1a
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT interests.id AS interests_id, interests.name AS interests_name 
+FROM interests 
+WHERE interests.name = %(name_1)s 
+ LIMIT %(param_1)s
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00152s] {'name_1': 'Études', 'param_1': 1}
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT interests.id AS interests_id, interests.name AS interests_name 
+FROM interests 
+WHERE interests.name = %(name_1)s 
+ LIMIT %(param_1)s
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [cached since 0.01105s ago] {'name_1': 'Sciences', 'param_1': 1}
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1844 - INSERT INTO student_interests (student_id, interest_id) VALUES (%(student_id__0)s::UUID, %(interest_id__0)s::UUID), (%(student_id__1)s::UUID, %(interest_id__1)s::UUID)
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1844 - [generated in 0.00019s (insertmanyvalues) 1/1 (unordered)] {'interest_id__0': UUID('6c3838b2-586d-4ae0-a8ad-6f79b30193b1'), 'student_id__0': UUID('f79a3dc9-f57a-4381-850c-fde52eb7ce1a'), 'interest_id__1': UUID('6beb171b-b32d-4eb1-b9a7-7e8d929e9842'), 'student_id__1': UUID('f79a3dc9-f57a-4381-850c-fde52eb7ce1a')}
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT students.id AS students_id, students.user_id AS students_user_id, students.average AS students_average, students.level AS students_level, students.bac_type AS students_bac_type, students.city AS students_city, students.created_at AS students_created_at 
+FROM students 
+WHERE students.id = %(pk_1)s::UUID
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00154s] {'pk_1': UUID('f79a3dc9-f57a-4381-850c-fde52eb7ce1a')}
+2026-03-09 17:53:28 - chatbot - INFO - profile_service.py:94 - ✅ Profil créé avec succès: f79a3dc9-f57a-4381-850c-fde52eb7ce1a
+2026-03-09 17:53:28 - sqlalchemy.engine.Engine - INFO - base.py:2713 - ROLLBACK
+2026-03-09 17:56:56 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:57:09 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:57:13 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:57:13 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:57:13 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 17:57:13 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 17:57:13 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 17:57:28 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 17:57:42 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 17:57:49 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 17:57:49 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 17:57:49 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 17:57:49 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 17:57:49 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 18:07:29 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:07:32 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:07:35 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:07:35 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 18:07:35 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 18:07:35 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 18:07:35 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 18:08:58 - fastapi - WARNING - models.py:38 - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2026-03-09 18:10:21 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:10:27 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:10:33 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:10:38 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:10:45 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:10:50 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:12:47 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:12:52 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:15:33 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:15:37 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:17:14 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:17:21 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:19:16 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:19:20 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:20:58 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:21:05 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:22:57 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:23:10 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:23:29 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:23:33 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:23:47 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:23:51 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:26:27 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:26:33 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:26:44 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:26:55 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:34:33 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:34:36 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:34:39 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:34:39 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:34:39 - chatbot - INFO - telegram_service.py:29 - ✅ Handlers Telegram configurés
+2026-03-09 18:34:39 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 18:34:39 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 18:34:39 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:34:39 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 18:34:39 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 18:34:39 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 18:34:39 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 18:34:41 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:34:45 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:34:48 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:34:48 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:34:48 - chatbot - INFO - telegram_service.py:29 - ✅ Handlers Telegram configurés
+2026-03-09 18:34:48 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 18:34:48 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 18:34:48 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:34:48 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 18:34:48 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 18:34:48 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 18:34:48 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 18:34:56 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:34:59 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:35:05 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:35:05 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:35:05 - chatbot - INFO - telegram_service.py:29 - ✅ Handlers Telegram configurés
+2026-03-09 18:35:05 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 18:35:05 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 18:35:05 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:35:06 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 18:35:06 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 18:35:06 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 18:35:06 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 18:36:11 - fastapi - WARNING - models.py:38 - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2026-03-09 18:37:09 - chatbot - INFO - telegram.py:54 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:37:09 - chatbot - INFO - telegram_service.py:147 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:37:09 - chatbot - WARNING - openai_service.py:26 - ⚠️ Service OpenAI en mode démo (pas de clé API)
+2026-03-09 18:37:09 - chatbot - INFO - openai_service.py:33 - 💭 Génération réponse pour: Bonjour, quels sont les programmes ?...
+2026-03-09 18:37:09 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:37:09 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT programs.id AS programs_id, programs.name AS programs_name, programs.description AS programs_description, programs.required_average AS programs_required_average, programs.duration AS programs_duration, programs.diploma AS programs_diploma, programs.created_at AS programs_created_at 
+FROM programs 
+ LIMIT %(param_1)s
+2026-03-09 18:37:09 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00113s] {'param_1': 10}
+2026-03-09 18:37:09 - chatbot - INFO - openai_service.py:51 - ✅ Réponse générée avec succès
+2026-03-09 18:37:09 - chatbot - ERROR - telegram_service.py:155 - ❌ Erreur test local: 'dict' object can't be awaited
+2026-03-09 18:37:09 - sqlalchemy.engine.Engine - INFO - base.py:2713 - ROLLBACK
+2026-03-09 18:40:02 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:40:05 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:40:08 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:40:08 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:40:08 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 18:40:08 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 18:40:08 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 18:40:08 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:40:08 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 18:40:08 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 18:40:08 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 18:40:08 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 18:40:49 - chatbot - INFO - telegram.py:54 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:40:49 - chatbot - INFO - telegram_service.py:185 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:40:49 - chatbot - WARNING - openai_service.py:26 - ⚠️ Service OpenAI en mode démo (pas de clé API)
+2026-03-09 18:40:49 - chatbot - INFO - openai_service.py:33 - 💭 Génération réponse pour: Bonjour, quels sont les programmes ?...
+2026-03-09 18:40:49 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:40:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT programs.id AS programs_id, programs.name AS programs_name, programs.description AS programs_description, programs.required_average AS programs_required_average, programs.duration AS programs_duration, programs.diploma AS programs_diploma, programs.created_at AS programs_created_at 
+FROM programs 
+ LIMIT %(param_1)s
+2026-03-09 18:40:49 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00115s] {'param_1': 10}
+2026-03-09 18:40:49 - chatbot - INFO - openai_service.py:51 - ✅ Réponse générée avec succès
+2026-03-09 18:40:49 - chatbot - ERROR - telegram_service.py:176 - ❌ Erreur AI: 'dict' object can't be awaited
+2026-03-09 18:40:49 - sqlalchemy.engine.Engine - INFO - base.py:2713 - ROLLBACK
+2026-03-09 18:40:59 - chatbot - INFO - telegram.py:54 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:40:59 - chatbot - INFO - telegram_service.py:185 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:40:59 - chatbot - WARNING - openai_service.py:26 - ⚠️ Service OpenAI en mode démo (pas de clé API)
+2026-03-09 18:40:59 - chatbot - INFO - openai_service.py:33 - 💭 Génération réponse pour: Bonjour, quels sont les programmes ?...
+2026-03-09 18:40:59 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:40:59 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT programs.id AS programs_id, programs.name AS programs_name, programs.description AS programs_description, programs.required_average AS programs_required_average, programs.duration AS programs_duration, programs.diploma AS programs_diploma, programs.created_at AS programs_created_at 
+FROM programs 
+ LIMIT %(param_1)s
+2026-03-09 18:40:59 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [cached since 10.57s ago] {'param_1': 10}
+2026-03-09 18:40:59 - chatbot - INFO - openai_service.py:51 - ✅ Réponse générée avec succès
+2026-03-09 18:40:59 - chatbot - ERROR - telegram_service.py:176 - ❌ Erreur AI: 'dict' object can't be awaited
+2026-03-09 18:40:59 - sqlalchemy.engine.Engine - INFO - base.py:2713 - ROLLBACK
+2026-03-09 18:41:22 - fastapi - WARNING - models.py:38 - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2026-03-09 18:41:46 - chatbot - INFO - telegram.py:54 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:41:46 - chatbot - INFO - telegram_service.py:185 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:41:46 - chatbot - WARNING - openai_service.py:26 - ⚠️ Service OpenAI en mode démo (pas de clé API)
+2026-03-09 18:41:46 - chatbot - INFO - openai_service.py:33 - 💭 Génération réponse pour: Bonjour, quels sont les programmes ?...
+2026-03-09 18:41:46 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:41:46 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT programs.id AS programs_id, programs.name AS programs_name, programs.description AS programs_description, programs.required_average AS programs_required_average, programs.duration AS programs_duration, programs.diploma AS programs_diploma, programs.created_at AS programs_created_at 
+FROM programs 
+ LIMIT %(param_1)s
+2026-03-09 18:41:46 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [cached since 57.31s ago] {'param_1': 10}
+2026-03-09 18:41:46 - chatbot - INFO - openai_service.py:51 - ✅ Réponse générée avec succès
+2026-03-09 18:41:46 - chatbot - ERROR - telegram_service.py:176 - ❌ Erreur AI: 'dict' object can't be awaited
+2026-03-09 18:41:46 - sqlalchemy.engine.Engine - INFO - base.py:2713 - ROLLBACK
+2026-03-09 18:43:25 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 18:43:29 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 18:43:33 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:43:33 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 18:43:33 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 18:43:33 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 18:43:33 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 18:43:33 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:43:33 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 18:43:33 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 18:43:33 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 18:43:33 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 18:43:56 - chatbot - INFO - telegram.py:54 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:43:56 - chatbot - INFO - telegram_service.py:187 - 🧪 Test local - Message: Bonjour, quels sont les programmes ?
+2026-03-09 18:43:56 - chatbot - WARNING - openai_service.py:26 - ⚠️ Service OpenAI en mode démo (pas de clé API)
+2026-03-09 18:43:56 - chatbot - INFO - openai_service.py:33 - 💭 Génération réponse pour: Bonjour, quels sont les programmes ?...
+2026-03-09 18:43:56 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 18:43:56 - sqlalchemy.engine.Engine - INFO - base.py:1846 - SELECT programs.id AS programs_id, programs.name AS programs_name, programs.description AS programs_description, programs.required_average AS programs_required_average, programs.duration AS programs_duration, programs.diploma AS programs_diploma, programs.created_at AS programs_created_at 
+FROM programs 
+ LIMIT %(param_1)s
+2026-03-09 18:43:56 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [generated in 0.00110s] {'param_1': 10}
+2026-03-09 18:43:56 - chatbot - INFO - openai_service.py:51 - ✅ Réponse générée avec succès
+2026-03-09 18:43:56 - sqlalchemy.engine.Engine - INFO - base.py:2713 - ROLLBACK
+2026-03-09 19:05:26 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 19:05:40 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 19:05:50 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:05:50 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:05:50 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 19:05:50 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 19:05:50 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 19:05:50 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 19:05:51 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 19:05:51 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 19:05:51 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 19:05:51 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 19:08:20 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 19:08:27 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 19:08:34 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:08:34 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:08:34 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 19:08:34 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 19:08:34 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 19:08:34 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 19:08:34 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 19:08:35 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 19:08:35 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 19:08:35 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 19:15:23 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 19:15:36 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 19:15:43 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:15:43 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:15:43 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 19:15:43 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 19:15:43 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 19:15:43 - chatbot - INFO - main.py:17 - 🗄️ Création des tables dans la base de données...
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 19:15:43 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 19:15:43 - chatbot - INFO - main.py:19 - ✅ Tables créées avec succès
+2026-03-09 19:15:43 - chatbot - INFO - main.py:72 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 19:15:43 - chatbot - INFO - main.py:78 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 19:23:42 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 19:23:46 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 19:23:50 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:23:50 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:23:50 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 19:23:50 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 19:23:50 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 19:23:50 - chatbot - INFO - main.py:18 - 🗄️ Création des tables dans la base de données...
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 19:23:50 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 19:23:50 - chatbot - INFO - main.py:20 - ✅ Tables créées avec succès
+2026-03-09 19:23:50 - chatbot - INFO - main.py:74 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 19:23:50 - chatbot - INFO - main.py:80 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 19:24:22 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 19:24:25 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 19:24:29 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:24:29 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:24:29 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 19:24:29 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 19:24:29 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 19:24:29 - chatbot - INFO - main.py:18 - 🗄️ Création des tables dans la base de données...
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 19:24:29 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 19:24:29 - chatbot - INFO - main.py:20 - ✅ Tables créées avec succès
+2026-03-09 19:24:29 - chatbot - INFO - main.py:74 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 19:24:29 - chatbot - INFO - main.py:80 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 19:25:29 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-09 19:25:33 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-09 19:25:36 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:25:36 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-09 19:25:36 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-09 19:25:36 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-09 19:25:36 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-09 19:25:36 - chatbot - INFO - main.py:18 - 🗄️ Création des tables dans la base de données...
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-09 19:25:36 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-09 19:25:36 - chatbot - INFO - main.py:20 - ✅ Tables créées avec succès
+2026-03-09 19:25:36 - chatbot - INFO - main.py:74 - 🚀 Application démarrée - Version 0.2.0
+2026-03-09 19:25:36 - chatbot - INFO - main.py:80 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-09 19:27:05 - fastapi - WARNING - models.py:38 - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator

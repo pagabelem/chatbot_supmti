@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Adaptatif SUP MTI</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h2 {
+            color: #003366;
+            text-align: center;
+        }
+        #chat {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid #003366;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .user {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .bot {
+            background: #f1f1f1;
+            color: black;
+        }
+        .voice-message {
+            background: #e3f2fd;
+            color: black;
+            border-left: 4px solid #2196f3;
+        }
+        .transcript-message {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        #input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #003366;
+            border-radius: 5px;
+            min-width: 200px;
+        }
+        #sendBtn, #recordBtn, #langSelect, #statusBtn {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #sendBtn {
+            background: #003366;
+            color: white;
+        }
+        #sendBtn:hover {
+            background: #0044aa;
+        }
+        #recordBtn {
+            background: #dc3545;
+            color: white;
+        }
+        #recordBtn:hover {
+            background: #c82333;
+        }
+        #recordBtn.recording {
+            background: #ff0000;
+            animation: pulse 1s infinite;
+        }
+        #langSelect {
+            background: white;
+            border: 1px solid #003366;
+        }
+        #statusBtn {
+            background: #28a745;
+            color: white;
+        }
+        #prefDisplay {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e8f4ff;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .play-btn {
+            margin-left: 10px;
+            padding: 2px 8px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .play-btn:hover {
+            background: #218838;
+        }
+        .transcript {
+            font-style: italic;
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.9em;
+            border-top: 1px dashed #ccc;
+            padding-top: 5px;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .debug-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+        #toggleDebug {
+            margin-top: 10px;
+            padding: 5px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .timestamp {
+            font-size: 0.7em;
+            color: #999;
+            margin-top: 2px;
+        }
+        .message-header {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .recording-indicator {
+            color: #dc3545;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <h2 id="title">🤖 Chat Adaptatif SUP MTI</h2>
+    
+    <div id="prefDisplay">Chargement des préférences...</div>
+    
+    <div id="chat"></div>
+    
+    <div class="controls">
+        <select id="langSelect">
+            <option value="fr" selected>🇫🇷 Français</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="ar">🇲🇦 العربية</option>
+        </select>
+        <input type="text" id="input" placeholder="Tapez votre message ou parlez...">
+        <button id="sendBtn">Envoyer</button>
+        <button id="recordBtn">🎤 Parler</button>
+        <button id="statusBtn">🔍 Test STT</button>
+    </div>
+    
+    <button id="toggleDebug">🐛 Afficher/Masquer debug</button>
+    <div id="debugInfo" class="debug-info"></div>
+
+    <script>
+        // Configuration
+        const studentId = "test-user-123";
+        const API_BASE = 'http://127.0.0.1:8000';
+        
+        // Éléments DOM
+        const title = document.getElementById('title');
+        const chat = document.getElementById('chat');
+        const input = document.getElementById('input');
+        const sendBtn = document.getElementById('sendBtn');
+        const recordBtn = document.getElementById('recordBtn');
+        const statusBtn = document.getElementById('statusBtn');
+        const langSelect = document.getElementById('langSelect');
+        const prefDisplay = document.getElementById('prefDisplay');
+        const debugDiv = document.getElementById('debugInfo');
+        const toggleDebug = document.getElementById('toggleDebug');
+        
+        // Variables d'état
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+        let recordingStartTime;
+        
+        // Dictionnaire de traductions
+        const translations = {
+            fr: {
+                title: "🤖 Chat Adaptatif SUP MTI",
+                prefLoading: "Chargement des préférences...",
+                prefDefault: "Mode préféré: Texte (par défaut)",
+                prefVoice: "🎤 Vocal",
+                prefText: "✍️ Texte",
+                inputPlaceholder: "Tapez votre message ou parlez...",
+                sendBtn: "Envoyer",
+                recordBtn: "🎤 Parler",
+                recordBtnStop: "⏹ Arrêter",
+                statusBtn: "🔍 Test STT",
+                debugShow: "🐛 Afficher debug",
+                debugHide: "🐛 Masquer debug",
+                transcript: "🗣 Transcription",
+                voiceUser: "🎤 Votre message vocal",
+                voiceBot: "🔊 Réponse audio",
+                you: "👤 Vous",
+                assistant: "🤖 Assistant",
+                recording: "🎤 Enregistrement...",
+                speakNow: "🎤 Parlez maintenant...",
+                play: "🔊 Réécouter",
+                seconds: "s"
+            },
+            en: {
+                title: "🤖 Adaptive Chat SUP MTI",
+                prefLoading: "Loading preferences...",
+                prefDefault: "Preferred mode: Text (default)",
+                prefVoice: "🎤 Voice",
+                prefText: "✍️ Text",
+                inputPlaceholder: "Type your message or speak...",
+                sendBtn: "Send",
+                recordBtn: "🎤 Speak",
+                recordBtnStop: "⏹ Stop",
+                statusBtn: "🔍 Test STT",
+                debugShow: "🐛 Show debug",
+                debugHide: "🐛 Hide debug",
+                transcript: "🗣 Transcription",
+                voiceUser: "🎤 Your voice message",
+                voiceBot: "🔊 Audio response",
+                you: "👤 You",
+                assistant: "🤖 Assistant",
+                recording: "🎤 Recording...",
+                speakNow: "🎤 Speak now...",
+                play: "🔊 Play",
+                seconds: "s"
+            },
+            ar: {
+                title: "🤖 دردشة تكيفية SUP MTI",
+                prefLoading: "جاري تحميل التفضيلات...",
+                prefDefault: "الوضع المفضل: نص (افتراضي)",
+                prefVoice: "🎤 صوتي",
+                prefText: "✍️ نص",
+                inputPlaceholder: "اكتب رسالتك أو تحدث...",
+                sendBtn: "إرسال",
+                recordBtn: "🎤 تحدث",
+                recordBtnStop: "⏹ توقف",
+                statusBtn: "🔍 اختبار STT",
+                debugShow: "🐛 إظهار التصحيح",
+                debugHide: "🐛 إخفاء التصحيح",
+                transcript: "🗣 نسخ",
+                voiceUser: "🎤 رسالتك الصوتية",
+                voiceBot: "🔊 رد صوتي",
+                you: "👤 أنت",
+                assistant: "🤖 مساعد",
+                recording: "🎤 جاري التسجيل...",
+                speakNow: "🎤 تحدث الآن...",
+                play: "🔊 استمع",
+                seconds: "ث"
+            }
+        };
+        
+        // Fonction de debug
+        function addDebug(message, data) {
+            const timestamp = new Date().toLocaleTimeString();
+            let log = '[' + timestamp + '] ' + message;
+            if (data) {
+                log += '\n' + JSON.stringify(data, null, 2);
+            }
+            debugDiv.innerHTML += '<div>' + log.replace(/\n/g, '<br>') + '</div>';
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+            console.log(log);
+        }
+        
+        // Toggle debug
+        toggleDebug.onclick = function() {
+            const t = translations[langSelect.value] || translations.fr;
+            if (debugDiv.style.display === 'none') {
+                debugDiv.style.display = 'block';
+                toggleDebug.textContent = t.debugHide;
+            } else {
+                debugDiv.style.display = 'none';
+                toggleDebug.textContent = t.debugShow;
+            }
+        };
+        
+        // Fonction pour changer la langue de l'interface
+        function setUILanguage(lang) {
+            const t = translations[lang] || translations.fr;
+            
+            // Titre
+            title.textContent = t.title;
+            
+            // Placeholder
+            input.placeholder = t.inputPlaceholder;
+            
+            // Boutons
+            sendBtn.textContent = t.sendBtn;
+            
+            if (isRecording) {
+                recordBtn.textContent = t.recordBtnStop;
+            } else {
+                recordBtn.textContent = t.recordBtn;
+            }
+            
+            statusBtn.textContent = t.statusBtn;
+            
+            // Debug button
+            if (debugDiv.style.display === 'none') {
+                toggleDebug.textContent = t.debugShow;
+            } else {
+                toggleDebug.textContent = t.debugHide;
+            }
+            
+            // Mettre à jour l'affichage des préférences
+            updatePrefDisplayWithLang(lang);
+            
+            // Sauvegarder la langue préférée
+            localStorage.setItem('preferredLanguage', lang);
+        }
+        
+        // Mettre à jour l'affichage des préférences avec la langue
+        async function updatePrefDisplayWithLang(lang) {
+            const t = translations[lang] || translations.fr;
+            
+            try {
+                const res = await fetch(API_BASE + '/chat-adaptive/preferences/' + studentId);
+                if (res.ok) {
+                    const data = await res.json();
+                    const modeText = data.preferred_mode === 'voice' ? t.prefVoice : t.prefText;
+                    prefDisplay.innerHTML = '<strong>Mode préféré:</strong> ' + modeText;
+                } else {
+                    prefDisplay.innerHTML = t.prefDefault;
+                }
+            } catch (e) {
+                prefDisplay.innerHTML = t.prefDefault;
+            }
+        }
+        
+        // Version modifiée de loadPreferences
+        async function loadPreferences() {
+            await updatePrefDisplayWithLang(langSelect.value);
+        }
+        
+        // Test STT
+        statusBtn.onclick = async function() {
+            try {
+                const res = await fetch(API_BASE + '/chat-adaptive/stt-status');
+                const data = await res.json();
+                if (data.success) {
+                    alert('✅ STT OK - ' + data.models_count + ' modèles');
+                } else {
+                    alert('❌ STT Error: ' + (data.error || 'Inconnu'));
+                }
+            } catch (e) {
+                alert('❌ Serveur inaccessible');
+            }
+        };
+        
+        // Ajouter un message (version modifiée pour utiliser les traductions)
+        function addMessage(text, isUser, options) {
+            options = options || {};
+            const t = translations[langSelect.value] || translations.fr;
+            
+            const div = document.createElement('div');
+            div.className = 'message ' + (isUser ? 'user' : 'bot');
+            
+            if (options.isTranscript) {
+                div.classList.add('transcript-message');
+            } else if (options.isAudio) {
+                div.classList.add('voice-message');
+            }
+            
+            // Horodatage
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'timestamp';
+            timeDiv.textContent = new Date().toLocaleTimeString();
+            div.appendChild(timeDiv);
+            
+            // En-tête
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'message-header';
+            
+            if (options.isRecording) {
+                headerDiv.innerHTML = '🎤 <span class="recording-indicator">' + t.recording + '</span>';
+            } else if (options.isTranscript) {
+                headerDiv.textContent = t.transcript;
+            } else if (options.isAudio && !isUser) {
+                headerDiv.textContent = t.voiceBot;
+            } else if (options.isAudio && isUser) {
+                headerDiv.textContent = t.voiceUser;
+            } else if (isUser) {
+                headerDiv.textContent = t.you;
+            } else {
+                headerDiv.textContent = t.assistant;
+            }
+            div.appendChild(headerDiv);
+            
+            // Contenu
+            const contentDiv = document.createElement('div');
+            
+            if (options.isRecording) {
+                contentDiv.innerHTML = '<span class="recording-indicator">' + t.speakNow + '</span>';
+            } else if (options.isAudio && !isUser) {
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.src = URL.createObjectURL(new Blob([text], {type: 'audio/mpeg'}));
+                contentDiv.appendChild(audio);
+            } else if (options.isAudio && isUser) {
+                contentDiv.textContent = t.voiceUser;
+                const playBtn = document.createElement('button');
+                playBtn.className = 'play-btn';
+                playBtn.textContent = t.play;
+                playBtn.onclick = function() {
+                    const audio = new Audio(URL.createObjectURL(new Blob([options.audioData], {type: 'audio/webm'})));
+                    audio.play();
+                };
+                contentDiv.appendChild(playBtn);
+                if (options.duration) {
+                    const span = document.createElement('span');
+                    span.style.marginLeft = '10px';
+                    span.textContent = '(' + options.duration + t.seconds + ')';
+                    contentDiv.appendChild(span);
+                }
+            } else {
+                contentDiv.textContent = text;
+            }
+            
+            div.appendChild(contentDiv);
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+        
+        // Envoyer message texte
+        sendBtn.onclick = async function() {
+            const message = input.value.trim();
+            if (message === '') return;
+            
+            addMessage(message, true);
+            input.value = '';
+            
+            try {
+                const res = await fetch(API_BASE + '/chat-adaptive/text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        student_id: studentId,
+                        preferred_lang: langSelect.value
+                    })
+                });
+                
+                const data = await res.json();
+                if (data.data && data.data.response) {
+                    addMessage(data.data.response, false);
+                }
+            } catch (e) {
+                addMessage('❌ Erreur de connexion', false);
+            }
+        };
+        
+        // Gestion de l'enregistrement
+        recordBtn.onclick = async function() {
+            const t = translations[langSelect.value] || translations.fr;
+            
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    recordingStartTime = Date.now();
+                    
+                    mediaRecorder.ondataavailable = function(e) {
+                        audioChunks.push(e.data);
+                    };
+                    
+                    mediaRecorder.onstop = sendAudio;
+                    
+                    mediaRecorder.start();
+                    isRecording = true;
+                    recordBtn.classList.add('recording');
+                    recordBtn.textContent = t.recordBtnStop;
+                    
+                    addMessage('', true, { isRecording: true });
+                    
+                } catch (e) {
+                    alert('Microphone inaccessible');
+                }
+            } else {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(function(t) { t.stop(); });
+                isRecording = false;
+                recordBtn.classList.remove('recording');
+                recordBtn.textContent = t.recordBtn;
+            }
+        };
+        
+        // Envoyer l'audio et transcrire
+        async function sendAudio() {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+            const duration = ((Date.now() - recordingStartTime) / 1000).toFixed(1);
+            
+            const audioData = await audioBlob.arrayBuffer();
+            addMessage('', true, { isAudio: true, audioData: audioData, duration: duration });
+            
+            const formData = new FormData();
+            formData.append('file', audioBlob, 'voice.webm');
+            
+            try {
+                addDebug('📤 Envoi audio...', { size: audioBlob.size });
+                
+                const res = await fetch(API_BASE + '/chat-adaptive/voice?student_id=' + studentId + '&preferred_lang=' + langSelect.value, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                addDebug('📥 Réponse reçue', { 
+                    status: res.status,
+                    contentType: res.headers.get('content-type')
+                });
+                
+                // Afficher TOUS les headers pour debug
+                const allHeaders = {};
+                for (const [key, value] of res.headers.entries()) {
+                    allHeaders[key] = value;
+                }
+                addDebug('📋 Tous les headers', allHeaders);
+                
+                // Chercher la transcription dans TOUS les noms possibles
+                const possibleHeaderNames = [
+                    'x-transcribed', 
+                    'transcribed', 
+                    'X-Transcribed', 
+                    'Transcribed',
+                    'x-text',
+                    'text'
+                ];
+                
+                let transcribed = null;
+                for (const name of possibleHeaderNames) {
+                    const value = res.headers.get(name);
+                    if (value) {
+                        transcribed = value;
+                        addDebug(`✅ Transcription trouvée dans header: ${name} = ${value.substring(0, 50)}...`);
+                        break;
+                    }
+                }
+                
+                // Si transcription trouvée, l'afficher
+                if (transcribed) {
+                    addMessage('🗣 "' + transcribed + '"', false, { 
+                        isTranscript: true 
+                    });
+                    input.value = transcribed;
+                    input.focus();
+                } else {
+                    addDebug('⚠️ Aucune transcription trouvée dans les headers');
+                }
+                
+                const contentType = res.headers.get('content-type');
+                
+                if (contentType && contentType.includes('audio')) {
+                    // Réponse audio
+                    addDebug('🔊 Réponse audio reçue');
+                    const audioBlob = await res.blob();
+                    addMessage(audioBlob, false, { isAudio: true });
+                    
+                } else {
+                    // Réponse JSON
+                    try {
+                        const data = await res.json();
+                        addDebug('📊 Données JSON', data);
+                        
+                        // Chercher la transcription dans le JSON
+                        const jsonTranscribed = data.transcribed || data.text || data.message;
+                        if (jsonTranscribed && !transcribed) {
+                            addMessage('🗣 "' + jsonTranscribed + '"', false, { 
+                                isTranscript: true 
+                            });
+                            input.value = jsonTranscribed;
+                            input.focus();
+                        }
+                        
+                        // Afficher la réponse du bot
+                        const botResponse = data.data?.response || data.response || data.message;
+                        if (botResponse) {
+                            addMessage(botResponse, false);
+                        }
+                    } catch (e) {
+                        addDebug('❌ Erreur parsing JSON', e);
+                        const text = await res.text();
+                        addDebug('📄 Réponse texte', text);
+                    }
+                }
+                
+            } catch (e) {
+                addDebug('❌ Erreur', e);
+                addMessage('❌ Erreur transcription', false);
+            }
+            
+            loadPreferences();
+        }
+        
+        // Entrée pour envoyer
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+        
+        // Écouteur pour le changement de langue
+        langSelect.addEventListener('change', function() {
+            setUILanguage(this.value);
+        });
+        
+        // Charger la langue sauvegardée au démarrage
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang && ['fr', 'en', 'ar'].includes(savedLang)) {
+            langSelect.value = savedLang;
+        }
+        
+        // Initialisation
+        setUILanguage(langSelect.value);
+        loadPreferences();
+    </script>
+</body>
+</html>
