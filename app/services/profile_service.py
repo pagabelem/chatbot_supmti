@@ -320,50 +320,70 @@ QUESTIONS_INITIALES = {
 
 
 def demarrer_test_psychometrique(profil_etudiant):
+    TOTAL_QUESTIONS = 10  # ← ajouter cette ligne en haut
+
     prenom = profil_etudiant.get("informations_personnelles", {}).get("prenom", "")
 
     etat_test = {
         "en_cours": True,
         "question_actuelle": 1,
-        "total_questions": 18,
+        "total_questions": TOTAL_QUESTIONS,
         "dimension_actuelle": PLAN_QUESTIONS[0],
-        "plan_questions": PLAN_QUESTIONS.copy(),
+        "plan_questions": PLAN_QUESTIONS[:TOTAL_QUESTIONS],
         "questions_posees": [],
         "reponses": [],
-        "scores_somme":    {dim: 0 for dim in DIMENSIONS_PSYCHO},
+        "scores_somme": {dim: 0 for dim in DIMENSIONS_PSYCHO},
         "scores_compteur": {dim: 0 for dim in DIMENSIONS_PSYCHO},
         "complete": False
     }
 
     premiere_question = QUESTIONS_INITIALES["logique"]
-    message_intro = f"""🧠 **Test de personnalité académique**
+
+    message_intro = f"""
+🧠 **Test de personnalité académique**
 
 {'Parfait ' + prenom + ' !' if prenom else 'Parfait !'}
-Pour t'orienter au mieux, je vais te poser **18 questions rapides** sur ton profil.
-Il n'y a pas de bonnes ou mauvaises réponses — sois simplement honnête 😊
 
-**Question 1/18 — {DIMENSIONS_PSYCHO['logique']} :**
+Pour mieux comprendre ton profil, je vais te poser **{TOTAL_QUESTIONS} questions rapides**.
 
-{premiere_question}"""
+👉 Il n'y a **pas de bonnes ou mauvaises réponses**.  
+Sois simplement honnête 😊
+
+━━━━━━━━━━━━━━━━━━
+
+**Question 1/{TOTAL_QUESTIONS} — {DIMENSIONS_PSYCHO['logique']}**
+
+{premiere_question}
+"""
 
     etat_test["questions_posees"].append({
-        "numero": 1, "dimension": "logique", "question": premiere_question
+        "numero": 1,
+        "dimension": "logique",
+        "question": premiere_question
     })
-    return message_intro, etat_test
+
+    return message_intro.strip(), etat_test
 
 
 def generer_question_suivante(reponse_precedente, etat_test, profil_etudiant):
+
     if etat_test["complete"]:
         return None, etat_test
 
-    numero_actuel     = etat_test["question_actuelle"]
+    numero_actuel = etat_test["question_actuelle"]
     dimension_actuelle = etat_test["dimension_actuelle"]
 
     etat_test["reponses"].append({
-        "numero": numero_actuel, "dimension": dimension_actuelle,
+        "numero": numero_actuel,
+        "dimension": dimension_actuelle,
         "reponse": reponse_precedente
     })
-    etat_test = analyser_reponse_psycho(reponse_precedente, dimension_actuelle, etat_test)
+
+    etat_test = analyser_reponse_psycho(
+        reponse_precedente,
+        dimension_actuelle,
+        etat_test
+    )
 
     if numero_actuel >= etat_test["total_questions"]:
         etat_test["complete"] = True
@@ -371,55 +391,55 @@ def generer_question_suivante(reponse_precedente, etat_test, profil_etudiant):
         return None, etat_test
 
     prochaine_dimension = etat_test["plan_questions"][numero_actuel]
+
     etat_test["dimension_actuelle"] = prochaine_dimension
-    etat_test["question_actuelle"]  = numero_actuel + 1
+    etat_test["question_actuelle"] = numero_actuel + 1
 
-    passage = sum(
-        1 for q in etat_test["questions_posees"] if q["dimension"] == prochaine_dimension
-    ) + 1
-    reponses_dim = [
-        r["reponse"] for r in etat_test["reponses"] if r["dimension"] == prochaine_dimension
-    ]
+    prompt = f"""
+Tu es psychologue académique.
 
-    prompt = f"""Tu es un expert en psychologie académique.
-Génère UNE question psychométrique pour évaluer : "{DIMENSIONS_PSYCHO[prochaine_dimension]}"
+Génère UNE question courte pour évaluer :
+{DIMENSIONS_PSYCHO[prochaine_dimension]}
 
-- BAC : {profil_etudiant.get('parcours_academique', {}).get('type_bac', 'inconnu')}
-- Prénom : {profil_etudiant.get('informations_personnelles', {}).get('prenom', '')}
-- Dernière réponse : "{reponse_precedente}"
-- Passage n°{passage} pour cette dimension
-- Réponses précédentes sur cette dimension : {reponses_dim if reponses_dim else 'aucune'}
+Réponse précédente :
+"{reponse_precedente}"
 
-RÈGLES : question DIFFÉRENTE des précédentes, courte (max 2 lignes), ouverte,
-sans choix multiples, française simple. Retourne UNIQUEMENT la question."""
+Question simple, ouverte, max 1 phrase.
+"""
+
+    question = None
 
     try:
+
         r = client.chat.completions.create(
             model="gpt-5.2",
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.8,
-            max_completion_tokens=150
+            temperature=0.7,
+            max_completion_tokens=100
         )
+
         question = r.choices[0].message.content.strip()
+
     except Exception as e:
-        print(f"[PSYCHO] Erreur génération question : {e}")
-        fallbacks = {
-            "logique":        ["Comment tu identifies l'info essentielle dans un énoncé difficile ?",
-                               "Comment tu vérifies ta solution avant de la rendre ?"],
-            "creativite":     ["As-tu déjà proposé une solution originale en classe ?",
-                               "Quand tu bloques, quelle nouvelle approche essaies-tu ?"],
-            "leadership":     ["Comment tu motives un groupe quand l'ambiance est basse ?",
-                               "As-tu déjà pris une initiative dans un projet d'équipe ?"],
-            "gestion_stress": ["Comment tu organises ton temps avant les examens ?",
-                               "As-tu une technique pour rester concentré sous pression ?"],
-            "travail_equipe": ["Comment tu gères un désaccord avec un coéquipier ?",
-                               "Quel est ton rôle naturel dans un groupe de travail ?"],
-            "style_cognitif": ["Tu fais d'abord une liste pros/cons ou tu suis ton ressenti ?",
-                               "Comment tu évites de te tromper dans un raisonnement ?"]
+
+        print("[PSYCHO ERROR]", e)
+
+    # fallback si GPT retourne vide
+    if not question or len(question) < 5:
+
+        fallback_questions = {
+            "logique": "Comment vérifies-tu que ta solution à un problème est correcte ?",
+            "creativite": "Quand tu bloques sur un projet, que fais-tu pour trouver une nouvelle idée ?",
+            "leadership": "Comment réagis-tu quand ton groupe n'arrive pas à se décider ?",
+            "gestion_stress": "Comment gères-tu plusieurs examens la même semaine ?",
+            "travail_equipe": "Qu'est-ce qui est le plus important pour bien travailler en équipe ?",
+            "style_cognitif": "Préfères-tu analyser beaucoup d'informations ou suivre ton intuition ?"
         }
-        lst = fallbacks.get(prochaine_dimension, [])
-        question = lst[min(passage - 1, len(lst) - 1)] if lst else \
-            f"Parle-moi de ta façon de gérer '{DIMENSIONS_PSYCHO[prochaine_dimension]}'."
+
+        question = fallback_questions.get(
+            prochaine_dimension,
+            "Peux-tu décrire comment tu abordes cette situation ?"
+        )
 
     etat_test["questions_posees"].append({
         "numero": etat_test["question_actuelle"],
@@ -427,11 +447,15 @@ sans choix multiples, française simple. Retourne UNIQUEMENT la question."""
         "question": question
     })
 
-    return (
-        f"**Question {etat_test['question_actuelle']}/18 — "
-        f"{DIMENSIONS_PSYCHO[prochaine_dimension]} :**\n\n{question}",
-        etat_test
-    )
+    message = f"""
+━━━━━━━━━━━━━━━━━━
+
+**Question {etat_test['question_actuelle']}/{etat_test['total_questions']} — {DIMENSIONS_PSYCHO[prochaine_dimension]}**
+
+{question}
+"""
+
+    return message.strip(), etat_test
 
 
 def analyser_reponse_psycho(reponse, dimension, etat_test):
