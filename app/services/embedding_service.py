@@ -6,14 +6,15 @@
 
 import os
 import json
-import pickle
+import hashlib
 import numpy as np
 from openai import OpenAI
 from dotenv import load_dotenv
+from pypdf import PdfReader   # Import unique — supprimé le doublon dans charger_documents()
 import faiss
 import tiktoken
 from app.academic_config import CHATBOT_CONFIG
-import pypdf
+
 # ============================================================
 # INITIALISATION
 # ============================================================
@@ -25,8 +26,8 @@ DOCUMENTS_PATH = os.getenv("DOCUMENTS_PATH", "./data/documents")
 VECTOR_DB_PATH = os.getenv("VECTOR_DB_PATH", "./data/vectorstore")
 
 MODELE_EMBEDDING = CHATBOT_CONFIG["modele_embedding"]
-CHUNK_SIZE = CHATBOT_CONFIG["chunk_size"]
-CHUNK_OVERLAP = CHATBOT_CONFIG["chunk_overlap"]
+CHUNK_SIZE       = CHATBOT_CONFIG["chunk_size"]
+CHUNK_OVERLAP    = CHATBOT_CONFIG["chunk_overlap"]
 
 # ============================================================
 # ÉTAPE 1 — CHARGER LES DOCUMENTS
@@ -35,7 +36,7 @@ CHUNK_OVERLAP = CHATBOT_CONFIG["chunk_overlap"]
 def charger_documents():
     """
     Lit tous les fichiers .txt et .pdf dans data/documents/
-    Retourne une liste de textes bruts
+    Retourne une liste de textes bruts.
     """
     documents = []
 
@@ -43,34 +44,26 @@ def charger_documents():
         print(f"[ERREUR] Dossier introuvable : {DOCUMENTS_PATH}")
         return documents
 
-    for nom_fichier in os.listdir(DOCUMENTS_PATH):
+    for nom_fichier in sorted(os.listdir(DOCUMENTS_PATH)):
         chemin = os.path.join(DOCUMENTS_PATH, nom_fichier)
 
-        # Lire les fichiers .txt
         if nom_fichier.endswith(".txt"):
             try:
                 with open(chemin, "r", encoding="utf-8") as f:
                     texte = f.read()
-                    documents.append({
-                        "source": nom_fichier,
-                        "contenu": texte
-                    })
-                    print(f"[OK] Fichier chargé : {nom_fichier} ({len(texte)} caractères)")
+                documents.append({"source": nom_fichier, "contenu": texte})
+                print(f"[OK] Fichier chargé : {nom_fichier} ({len(texte)} caractères)")
             except Exception as e:
                 print(f"[ERREUR] Impossible de lire {nom_fichier} : {e}")
 
-        # Lire les fichiers .pdf
         elif nom_fichier.endswith(".pdf"):
             try:
-                from pypdf import PdfReader
+                # PdfReader importé en haut du fichier — pas de double import
                 reader = PdfReader(chemin)
-                texte = ""
+                texte  = ""
                 for page in reader.pages:
                     texte += page.extract_text() or ""
-                documents.append({
-                    "source": nom_fichier,
-                    "contenu": texte
-                })
+                documents.append({"source": nom_fichier, "contenu": texte})
                 print(f"[OK] PDF chargé : {nom_fichier} ({len(texte)} caractères)")
             except Exception as e:
                 print(f"[ERREUR] Impossible de lire {nom_fichier} : {e}")
@@ -85,46 +78,38 @@ def charger_documents():
 def decouper_en_chunks(documents):
     """
     Découpe chaque document en morceaux de CHUNK_SIZE tokens
-    avec un chevauchement de CHUNK_OVERLAP tokens
+    avec chevauchement de CHUNK_OVERLAP tokens.
     """
-    chunks = []
+    chunks  = []
     encodeur = tiktoken.get_encoding("cl100k_base")
 
     for document in documents:
-        texte = document["contenu"]
+        texte  = document["contenu"]
         source = document["source"]
 
-        # Nettoyer le texte
-        texte = texte.replace("\n\n\n", "\n\n").strip()
-
-        # Encoder le texte en tokens
+        texte  = texte.replace("\n\n\n", "\n\n").strip()
         tokens = encodeur.encode(texte)
         total_tokens = len(tokens)
-
         print(f"[INFO] {source} : {total_tokens} tokens au total")
 
-        # Découper en chunks avec chevauchement
-        debut = 0
+        debut        = 0
         numero_chunk = 0
 
         while debut < total_tokens:
-            fin = min(debut + CHUNK_SIZE, total_tokens)
-
-            # Décoder les tokens en texte
-            chunk_tokens = tokens[debut:fin]
-            chunk_texte = encodeur.decode(chunk_tokens)
+            fin          = min(debut + CHUNK_SIZE, total_tokens)
+            chunk_texte  = encodeur.decode(tokens[debut:fin])
 
             chunks.append({
-                "id": f"{source}_chunk_{numero_chunk}",
-                "source": source,
-                "contenu": chunk_texte,
-                "numero": numero_chunk,
+                "id":          f"{source}_chunk_{numero_chunk}",
+                "source":      source,
+                "contenu":     chunk_texte,
+                "numero":      numero_chunk,
                 "debut_token": debut,
-                "fin_token": fin
+                "fin_token":   fin
             })
 
             numero_chunk += 1
-            debut += CHUNK_SIZE - CHUNK_OVERLAP
+            debut        += CHUNK_SIZE - CHUNK_OVERLAP
 
     print(f"\n[RÉSUMÉ] {len(chunks)} chunk(s) créé(s) au total")
     return chunks
@@ -135,17 +120,17 @@ def decouper_en_chunks(documents):
 
 def generer_embeddings(chunks):
     """
-    Pour chaque chunk, génère un vecteur de 1536 dimensions
-    via l'API OpenAI text-embedding-ada-002
-    Traite par lots de 20 pour éviter les limites API
+    Génère un vecteur de 1536 dimensions pour chaque chunk
+    via l'API OpenAI text-embedding-ada-002.
+    Traite par lots de 20.
     """
-    embeddings = []
-    taille_lot = 20
+    embeddings  = []
+    taille_lot  = 20
 
     print(f"[INFO] Génération des embeddings pour {len(chunks)} chunks...")
 
     for i in range(0, len(chunks), taille_lot):
-        lot = chunks[i:i + taille_lot]
+        lot    = chunks[i:i + taille_lot]
         textes = [chunk["contenu"] for chunk in lot]
 
         try:
@@ -153,13 +138,11 @@ def generer_embeddings(chunks):
                 model=MODELE_EMBEDDING,
                 input=textes
             )
-
             for j, embedding_data in enumerate(reponse.data):
                 embeddings.append({
-                    "chunk": lot[j],
+                    "chunk":   lot[j],
                     "vecteur": embedding_data.embedding
                 })
-
             print(f"[OK] Lot {i // taille_lot + 1} traité ({len(lot)} chunks)")
 
         except Exception as e:
@@ -174,42 +157,32 @@ def generer_embeddings(chunks):
 
 def stocker_dans_faiss(embeddings):
     """
-    Stocke tous les vecteurs dans une base FAISS
-    Sauvegarde aussi les métadonnées (textes, sources)
+    Stocke tous les vecteurs dans une base FAISS.
+    Sauvegarde aussi les métadonnées (textes, sources).
     """
     if not embeddings:
         print("[ERREUR] Aucun embedding à stocker")
         return False
 
-    # Créer le dossier si inexistant
     os.makedirs(VECTOR_DB_PATH, exist_ok=True)
 
-    # Préparer les vecteurs numpy
-    vecteurs = np.array(
-        [e["vecteur"] for e in embeddings],
-        dtype=np.float32
-    )
+    vecteurs  = np.array([e["vecteur"] for e in embeddings], dtype=np.float32)
+    dimension = vecteurs.shape[1]
+    print(f"[INFO] Dimension : {dimension} | Vecteurs : {len(vecteurs)}")
 
-    dimension = vecteurs.shape[1]  # 1536 pour ada-002
-    print(f"[INFO] Dimension des vecteurs : {dimension}")
-    print(f"[INFO] Nombre de vecteurs : {len(vecteurs)}")
-
-    # Créer l'index FAISS
     index = faiss.IndexFlatL2(dimension)
     index.add(vecteurs)
 
-    # Sauvegarder l'index FAISS
     chemin_index = os.path.join(VECTOR_DB_PATH, "index.faiss")
     faiss.write_index(index, chemin_index)
     print(f"[OK] Index FAISS sauvegardé : {chemin_index}")
 
-    # Sauvegarder les métadonnées (textes originaux)
     metadonnees = [
         {
-            "id": e["chunk"]["id"],
-            "source": e["chunk"]["source"],
+            "id":      e["chunk"]["id"],
+            "source":  e["chunk"]["source"],
             "contenu": e["chunk"]["contenu"],
-            "numero": e["chunk"]["numero"]
+            "numero":  e["chunk"]["numero"]
         }
         for e in embeddings
     ]
@@ -227,23 +200,22 @@ def stocker_dans_faiss(embeddings):
 
 def charger_base_existante():
     """
-    Charge la base FAISS et les métadonnées depuis le disque
-    Retourne (index, metadonnees) ou (None, None) si inexistant
+    Charge la base FAISS et les métadonnées depuis le disque.
+    Retourne (index, metadonnees) ou (None, None).
     """
     chemin_index = os.path.join(VECTOR_DB_PATH, "index.faiss")
-    chemin_meta = os.path.join(VECTOR_DB_PATH, "metadata.json")
+    chemin_meta  = os.path.join(VECTOR_DB_PATH, "metadata.json")
 
     if not os.path.exists(chemin_index) or not os.path.exists(chemin_meta):
         print("[INFO] Aucune base vectorielle existante trouvée")
         return None, None
 
     try:
-        index = faiss.read_index(chemin_index)
+        index       = faiss.read_index(chemin_index)
         with open(chemin_meta, "r", encoding="utf-8") as f:
             metadonnees = json.load(f)
         print(f"[OK] Base vectorielle chargée : {index.ntotal} vecteurs")
         return index, metadonnees
-
     except Exception as e:
         print(f"[ERREUR] Impossible de charger la base : {e}")
         return None, None
@@ -254,8 +226,8 @@ def charger_base_existante():
 
 def recherche_semantique(question, index, metadonnees, top_k=None):
     """
-    Cherche les chunks les plus pertinents pour une question
-    Retourne les top_k chunks les plus proches sémantiquement
+    Cherche les chunks les plus pertinents pour une question.
+    Retourne les top_k chunks les plus proches sémantiquement.
     """
     if top_k is None:
         top_k = CHATBOT_CONFIG["top_k_recherche"]
@@ -265,23 +237,19 @@ def recherche_semantique(question, index, metadonnees, top_k=None):
         return []
 
     try:
-        # Générer le vecteur de la question
         reponse = client.embeddings.create(
             model=MODELE_EMBEDDING,
             input=[question]
         )
         vecteur_question = np.array(
-            [reponse.data[0].embedding],
-            dtype=np.float32
+            [reponse.data[0].embedding], dtype=np.float32
         )
 
-        # Rechercher dans FAISS
         distances, indices = index.search(vecteur_question, top_k)
 
-        # Récupérer les chunks correspondants
         resultats = []
         for i, idx in enumerate(indices[0]):
-            if idx < len(metadonnees) and idx >= 0:
+            if 0 <= idx < len(metadonnees):
                 chunk = metadonnees[idx].copy()
                 chunk["score_similarite"] = float(distances[0][i])
                 resultats.append(chunk)
@@ -293,7 +261,7 @@ def recherche_semantique(question, index, metadonnees, top_k=None):
         return []
 
 # ============================================================
-# ÉTAPE 7 — INITIALISATION COMPLÈTE (Pipeline complet)
+# ÉTAPE 7 — PIPELINE COMPLET D'INITIALISATION
 # ============================================================
 
 def initialiser_base_vectorielle():
@@ -303,37 +271,36 @@ def initialiser_base_vectorielle():
     2. Découpe en chunks
     3. Génère les embeddings
     4. Stocke dans FAISS
+    5. Sauvegarde le hash des documents sources
     """
     print("=" * 60)
     print("INITIALISATION DE LA BASE VECTORIELLE SUPMTI")
     print("=" * 60)
 
-    # Étape 1 : Charger les documents
     print("\n--- ÉTAPE 1 : Chargement des documents ---")
     documents = charger_documents()
     if not documents:
         print("[ERREUR] Aucun document trouvé dans", DOCUMENTS_PATH)
         return False
 
-    # Étape 2 : Découper en chunks
     print("\n--- ÉTAPE 2 : Découpage en chunks ---")
     chunks = decouper_en_chunks(documents)
     if not chunks:
         print("[ERREUR] Aucun chunk créé")
         return False
 
-    # Étape 3 : Générer les embeddings
     print("\n--- ÉTAPE 3 : Génération des embeddings ---")
     embeddings = generer_embeddings(chunks)
     if not embeddings:
         print("[ERREUR] Aucun embedding généré")
         return False
 
-    # Étape 4 : Stocker dans FAISS
     print("\n--- ÉTAPE 4 : Stockage dans FAISS ---")
     succes = stocker_dans_faiss(embeddings)
 
     if succes:
+        # Sauvegarder le hash des documents pour détecter les futurs changements
+        _sauvegarder_hash_documents(documents)
         print("\n" + "=" * 60)
         print("✅ BASE VECTORIELLE INITIALISÉE AVEC SUCCÈS !")
         print("=" * 60)
@@ -346,20 +313,64 @@ def initialiser_base_vectorielle():
 # ÉTAPE 8 — VÉRIFIER SI LA BASE DOIT ÊTRE RECONSTRUITE
 # ============================================================
 
+def _calculer_hash_documents(documents):
+    """Calcule un hash MD5 du contenu combiné de tous les documents."""
+    contenu_combine = "".join(
+        f"{d['source']}:{d['contenu']}" for d in documents
+    )
+    return hashlib.md5(contenu_combine.encode("utf-8")).hexdigest()
+
+
+def _sauvegarder_hash_documents(documents):
+    """Sauvegarde le hash des documents après reconstruction."""
+    os.makedirs(VECTOR_DB_PATH, exist_ok=True)
+    chemin_hash = os.path.join(VECTOR_DB_PATH, "documents_hash.txt")
+    hash_val    = _calculer_hash_documents(documents)
+    try:
+        with open(chemin_hash, "w") as f:
+            f.write(hash_val)
+        print(f"[INFO] Hash documents sauvegardé : {hash_val[:12]}...")
+    except Exception as e:
+        print(f"[AVERTISSEMENT] Impossible de sauvegarder le hash : {e}")
+
+
 def base_doit_etre_reconstruite():
     """
-    Vérifie si la base vectorielle existe déjà
-    Si elle n'existe pas → retourne True (besoin de reconstruction)
-    Si elle existe → retourne False
+    Vérifie si la base vectorielle doit être reconstruite.
+    Conditions déclenchant une reconstruction :
+    1. Les fichiers FAISS n'existent pas
+    2. Le contenu des documents sources a changé (hash différent)
     """
     chemin_index = os.path.join(VECTOR_DB_PATH, "index.faiss")
-    chemin_meta = os.path.join(VECTOR_DB_PATH, "metadata.json")
+    chemin_meta  = os.path.join(VECTOR_DB_PATH, "metadata.json")
+    chemin_hash  = os.path.join(VECTOR_DB_PATH, "documents_hash.txt")
 
-    existe = os.path.exists(chemin_index) and os.path.exists(chemin_meta)
-
-    if existe:
-        print("[INFO] Base vectorielle déjà existante — pas de reconstruction nécessaire")
-        return False
-    else:
+    # Condition 1 : fichiers FAISS absents
+    if not os.path.exists(chemin_index) or not os.path.exists(chemin_meta):
         print("[INFO] Base vectorielle inexistante — reconstruction nécessaire")
         return True
+
+    # Condition 2 : hash des documents sources
+    if not os.path.exists(chemin_hash):
+        print("[INFO] Hash documents absent — reconstruction par précaution")
+        return True
+
+    # Charger les documents actuels et comparer le hash
+    documents_actuels = charger_documents()
+    if not documents_actuels:
+        print("[INFO] Aucun document trouvé — pas de reconstruction")
+        return False
+
+    hash_actuel = _calculer_hash_documents(documents_actuels)
+    try:
+        with open(chemin_hash, "r") as f:
+            hash_sauvegarde = f.read().strip()
+    except Exception:
+        hash_sauvegarde = ""
+
+    if hash_actuel != hash_sauvegarde:
+        print("[INFO] Contenu des documents modifié — reconstruction nécessaire")
+        return True
+
+    print("[INFO] Base vectorielle à jour — pas de reconstruction nécessaire")
+    return False

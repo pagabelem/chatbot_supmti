@@ -1,5 +1,5 @@
 {
-  "derniere_mise_a_jour": "2026-03-07T03:25:30.738864",
+  "derniere_mise_a_jour": "2026-03-18T19:16:58.084349",
   "ecole": {
     "nom": "SUP MTI Meknès",
     "telephone": "+212 5 35 51 10 11",
@@ -18,74 +18,63 @@
     "devise": "MAD (Dirhams Marocains)"
   },
   "filieres": {
-    "ME": {
-      "nom": "Management des Entreprises",
+    "IISI": {
+      "nom": "Ingénierie Intelligente des Systèmes Informatiques",
       "niveau": "BAC+3",
       "duree": 3,
-      "description": "Formation en management digital, informatique de gestion, marketing digital et e-commerce. Prépare à des carrières en management ou à des poursuites d'études.",
+      "description": "Formation de techniciens spécialisés capables de concevoir, déployer et gérer des solutions informatiques performantes adaptées aux besoins opérationnels des entreprises. Le programme couvre le développement logiciel, les réseaux, la Data Science, la sécurité informatique et le cloud computing. Aussi référencé sous le sigle ISI en référence au département.",
+      "debouches": [
+        "Responsable informatique",
+        "Analyste programmeur",
+        "Développeur de solutions web",
+        "Webmaster",
+        "Administrateur de réseaux",
+        "Intégrateur de solutions informatiques clés en main"
+      ]
+    },
+    "MGE": {
+      "nom": "Management de l'Entreprise",
+      "niveau": "BAC+3",
+      "duree": 3,
+      "description": "Formation de professionnels capables de comprendre et d'optimiser le fonctionnement des entreprises. Couvre le management digital, l'informatique de gestion, le marketing digital et l'e-commerce. Prépare à des carrières en management ou à la poursuite d'études en MRI ou FACG.",
       "debouches": [
         "Cadre bancaire",
         "Responsable commercial",
-        "Chargé d'opérations",
+        "Chargé d'opérations dans une entreprise",
         "Analyste financier",
         "Chargé d'études marketing",
         "Assistant RH",
         "Cadre administratif"
       ]
     },
-    "FACG": {
-      "nom": "Finance, Audit et Contrôle de Gestion",
-      "niveau": "BAC+5",
-      "duree": 2,
-      "description": "Formation de cadres financiers et contrôleurs de gestion hautement qualifiés pour des postes à responsabilités dans des entreprises nationales et internationales.",
-      "debouches": [
-        "Auditeur interne ou externe",
-        "Auditeur financier",
-        "Commissaire aux comptes",
-        "Contrôleur de gestion",
-        "Expert-comptable",
-        "Directeur comptable et financier",
-        "Conseiller en finance internationale"
-      ]
-    },
-    "MSTIC": {
-      "nom": "Management des Systèmes et Technologies de l'Information et de la Communication",
-      "niveau": "BAC+5",
-      "duree": 2,
-      "description": "Formation de cadres supérieurs capables de manager des entreprises en s'appuyant sur les nouvelles technologies (Big Data, IoT, Cloud, IA, Blockchain).",
-      "debouches": [
-        "Manager d'entreprise",
-        "Responsable des systèmes d'information",
-        "Responsable marketing digital",
-        "Responsable commercial",
-        "Responsable RH",
-        "Responsable administratif et financier"
-      ]
-    },
-    "ISI": {
-      "nom": "Ingénierie Intelligente des Systèmes Informatiques",
+    "MDI": {
+      "nom": "Management et Développement International",
       "niveau": "BAC+3",
       "duree": 3,
-      "description": "Formation de techniciens spécialisés capables de concevoir, déployer et gérer des solutions informatiques performantes.",
+      "description": "Formation de professionnels capables de comprendre les dynamiques économiques internationales et de gérer des activités d'entreprise dans un environnement globalisé. Couvre le commerce international, la géopolitique, le marketing stratégique et la gestion financière internationale. Prépare à la poursuite d'études en MRI ou FACG.",
       "debouches": [
-        "Développeur web",
-        "Analyste programmeur",
-        "Administrateur réseaux",
-        "Responsable informatique",
-        "Webmaster",
-        "Intégrateur de solutions"
+        "Responsable du commerce international",
+        "Chargé de développement international",
+        "Responsable import-export",
+        "Chargé d'affaires internationales",
+        "Chargé d'études économiques et internationales",
+        "Responsable marketing international",
+        "Cadre administratif dans des entreprises multinationales",
+        "Consultant en développement international"
       ]
     },
     "IISIC": {
-      "nom": "Ingénierie Intelligente des Systèmes d'Information et Communications",
+      "nom": "Ingénierie Intelligente des Systèmes d'Information et Communication",
       "niveau": "BAC+5",
       "duree": 2,
-      "description": "Formation d'ingénieurs spécialisés dans la conception et le développement de solutions technologiques intelligentes alliant systèmes d'information et intelligence artificielle.",
+      "description": "Formation d'ingénieurs opérationnels capables de concevoir et piloter la mise en place des systèmes de l'information avec des technologies de pointe pour la digitalisation des processus industriels. Intègre l'IA, la Data Science et les réseaux de communication intelligents.",
       "debouches": [
         "Architecte des systèmes d'information",
-        "Ingénieur IA",
+        "Responsable de la cybersécurité des systèmes d'information",
+        "Ingénieur IA / Machine Learning",
         "Data Scientist",
-        "Chef de projet informatique",
+        "Technico-commercial en solutions TIC et systèmes d'information",
+        "Chef de projet digital",
         "Consultant en transformation digitale"
       ]
     },
@@ -93,13 +82,47 @@
       "nom": "Ingénierie Intelligente des Systèmes Réseaux et Télécommunications",
       "niveau": "BAC+5",
       "duree": 2,
-      "description": "Formation d'ingénieurs spécialisés dans les réseaux intelligents, les télécommunications et les technologies de l'Industrie 4.0.",
+      "description": "Formation d'ingénieurs spécialisés dans les réseaux intelligents, les télécommunications et les technologies de l'Industrie 4.0. Permet de superviser l'infrastructure hardware et software des entreprises et de maîtriser les solutions technologiques intelligentes des réseaux et télécommunications.",
       "debouches": [
         "Architecte des systèmes réseaux",
-        "Administrateur réseaux",
-        "Responsable infrastructures télécoms",
+        "Administrateur des réseaux informatiques et systèmes d'information",
+        "Responsable des infrastructures télécoms et réseaux",
+        "Technico-commercial en solutions réseaux et télécom",
         "Ingénieur en télécommunications",
-        "Technico-commercial en solutions réseaux"
+        "Expert en sécurité réseaux",
+        "Ingénieur IoT"
+      ]
+    },
+    "FACG": {
+      "nom": "Finance, Audit et Contrôle de Gestion",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation de cadres financiers et contrôleurs de gestion hautement qualifiés, capables d'occuper des postes à responsabilités au sein d'entreprises nationales et internationales. Maîtrise de la gestion financière, l'analyse des coûts, la mesure de la performance et les normes juridiques et fiscales.",
+      "debouches": [
+        "Auditeur interne ou externe",
+        "Auditeur financier ou comptable",
+        "Commissaire aux comptes",
+        "Contrôleur de gestion",
+        "Expert-comptable",
+        "Directeur comptable et financier",
+        "Conseiller en finance internationale",
+        "Cadre dans le secteur bancaire ou des assurances"
+      ]
+    },
+    "MRI": {
+      "nom": "Management et Relations Internationales",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation de cadres supérieurs capables de gérer des organisations dans un environnement économique globalisé, en intégrant les enjeux géopolitiques, économiques et stratégiques liés aux relations internationales. Solide maîtrise du management international avancé et de la finance internationale.",
+      "debouches": [
+        "Manager d'entreprise internationale",
+        "Responsable du commerce international",
+        "Responsable marketing international",
+        "Chargé d'affaires internationales",
+        "Responsable de la supply chain internationale",
+        "Consultant en stratégie internationale",
+        "Responsable des relations internationales",
+        "Cadre administratif ou commercial dans des entreprises multinationales"
       ]
     }
   },
@@ -110,7 +133,7 @@
     },
     {
       "question": "filieres formations",
-      "reponse": "SUPMTI Meknès propose 6 filières : Ingénierie (ISI, IISRT, IISIC) et Management (ME, FACG, MSTIC)."
+      "reponse": "SUPMTI Meknès propose 7 filières : Ingénierie (IISI → IISIC, IISRT) et Management (MGE/MDI → FACG, MRI)."
     },
     {
       "question": "contact telephone email",

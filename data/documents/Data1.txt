@@ -1,6 +1,6 @@
 ﻿TOUTES LES INFORMATIONS SUR L'ÉCOLE SUPMTI (École Supérieure de Management, de Télécommunication et d’Informatique).
 
-Qui sommes-nous?
+Qui sommes-nous ?
 Aujourd’hui l'école est une référence dans le développement des cursus de formation diplômants à bac+3 et bac+5 dans les métiers de demain tel que l’informatique industriel, l’intelligence artificielle, les Télécommunications, le contrôle de gestion et les finances.
 
 SUP MTI Meknès est fondée en 2014 par M. KRIOUILE Mohamed (Ex PDG Lafarge plâtre Maroc) et M. KRIOUILE Abdelaziz (Enseignant à l’ENSIAS de Rabat et Président du Groupe SUP MTI Maroc) pour répondre au besoin du secteur industriel en termes de Manager et spécialistes en systèmes d’informations et Télécommunications .
@@ -49,7 +49,8 @@ Samedi
 RÉSEAUX SOCIAUX DE L’ECOLE SUPMTI (École Supérieure de Management, de Télécommunication et d’Informatique) : 
 Facebook : https://www.facebook.com/ecolesupmtimeknes 
 Instagram : https://www.linkedin.com/company/ecolesupmti/ 
-Youtube : https://www.youtube.com/channel/UCzZnrI4YdZnRJgosOd71RDQ 
+Youtube : https://www.youtube.com/channel/UCzZnrI4YdZnRJg
+osOd71RDQ 
 
 
 
@@ -65,7 +66,6 @@ Directeur pédagogique
 Berrada mohammed fahd
 Professeur permanent
 Management et economie
-
 
 Mohamed Adamou
 Professeur permanent
@@ -97,6 +97,10 @@ Abdellah Azroual
 Professeur vacataire (ENSAM)
 Technique de communication et Soft skills Français
 
+Aymane Mestahi
+Professeur permanent
+Technique de communication et Soft skills Français
+
 Doha Mtalssi
 Professeur permanente
 Technique de communication et Soft skills Anglais
@@ -126,7 +130,7 @@ Les bourses accordées par SupMTI peuvent aller jusqu’à 100%.
 
 
 STATISTIQUES DE SUPMTI MEKNES: 
- 6 Filières d’enseignement supérieur
+ 7 Filières d’enseignement supérieur
 
  +450 Lauréats formés
 
@@ -149,11 +153,18 @@ Promouvoir l’excellence, le partage des compétences et le développement des 
 
 
 LES FORMATIONS À SUPMTI-MEKNES : 
+
     • DÉPARTEMENT DE MANAGEMENT ET DE FINANCE : 
-        ◦ MANAGEMENT DES ENTREPRISES (BAC +3) : 
+
+        ◦ MANAGEMENT DES ENTREPRISES (MGE) BAC +3 : 
+Intitulé en français : Management de l’Entreprise
+Intitulé en arabe : إدارة الشركة
+Intitulé en anglais : Company Management
             ▪ PRÉSENTATION
-La filière Management de l’Entreprise Bac+3 de SUPMTI-Meknès vise à former des professionnels capables de comprendre et d’optimiser le fonctionnement des entreprises. Cette formation, alliant théorie et pratique, prépare les étudiants à des carrières en management ou à des poursuites d’études en MSTIC ou FACG.
+La filière Management de l’Entreprise (MGE) Bac+3 de SUPMTI-Meknès vise à former des professionnels capables de comprendre et d’optimiser le fonctionnement des entreprises. Cette formation, alliant théorie et pratique, prépare les étudiants à des carrières en management ou à des poursuites d’études en MRI (Management et Relation Internationale) ou FACG (Finance, Audit et Contrôle de Gestion).
 Elle couvre des domaines variés tels que le management digital, l’informatique de gestion, le marketing digital et l’e-commerce. Des projets, TPs, stages, ainsi que des enseignements en anglais et en développement personnel, renforcent leur aptitude à évoluer dans un environnement professionnel multiculturel et dynamique.
+
+
 
             ▪ COMPÉTENCES
 Former des managers capables d’analyser et d’optimiser l’organisation de l’entreprise.
@@ -168,70 +179,125 @@ Renforcer les capacités d’expression, de communication et d’adaptation.
 Développer des soft skills tels que la gestion interpersonnelle, la citoyenneté et le développement personnel.
 
 Programme de la Formation :
-1. Management des Entreprises :
+Semestre 1
     • Structure et fonctionnement de l’entreprise
 
-    • Management de l’entreprise
+    • Initiation au management de l’entreprise
 
-    • Management de la production
+    • Introduction aux études juridiques et économiques
 
-    • Communication dans l’entreprise
+    • Mathématiques fondamentales
 
-    • Management stratégique et marketing
+    • Initiation à l’informatique de gestion et bureautique
 
-    • Comptabilité générale et analytique
+    • Langues étrangères
 
+    • Méthodologie de travail universitaire
+
+Semestre 2
+    • Comptabilité générale
+
+    • Management de projet
+
+    • Analyses micro et macro économiques
+
+    • Marketing de base
+
+    • Statistique descriptive et probabilités élémentaires
+
+    • Langues étrangères
+
+    • Culture digitale
+
+Semestre 3
+    • Marketing stratégique
+
+    • Comptabilité analytique
+
+    • Analyse et gestion financière de l’entreprise
+
+    • Droit de l’entreprise
+
+    • Réseaux informatique de l’entreprise
+
+    • Langues étrangères
+
+    • Culture and art skills
+
+Semestre 4
+    • Management des ressources humaines
+
+    • Fiscalité d’entreprise
+
+    • Droit des affaires
+
+    • Entreprenariat social et citoyenneté de l’entreprise
+
+    • Système d’information comptable et progiciels de gestion
+
+    • Développement personnel
+
+    • Langues étrangères
+
+Semestre 5
     • Économie et contrôle de gestion
 
-    • Droit des affaires et fiscalité de l’entreprise
+    • Management stratégique
 
-2. Systèmes d’Information et Outils Logiciels :
-    • Systèmes d’information
+    • Audit des procédures et des fonctions de l’entreprise
 
-    • Outils logiciels et introduction aux ERP
+    • Marketing digital et e-commerce
 
-    • Systèmes de gestion de bases de données
+    • Mathématiques financières actuarielles
+
+    • Langues étrangères
+
+    • CMS
+
+Semestre 6
+    • Management de la force de vente
+
+    • Modélisation statistique et analyse des données
 
     • Web de l’entreprise
 
-3. Informatique de l’Entreprise :
-    • Introduction à l’architecture des ordinateurs
+    • Langues étrangères
 
-    • Systèmes d’exploitation
+    • Droit, civisme et citoyenneté
 
-    • Algorithmique et développement logiciel
-
-    • Systèmes de gestion de bases de données
-
-    • Systèmes d’information et Web de l’entreprise
-
-4. Management et Économie Financière de Projet :
-    • Management par projet
-
-    • Évaluation économique et financière de projet
-
-5. Communication et Langues :
-    • Techniques de communication
-
-    • Anglais professionnel
-
-6. Mathématiques pour l’Économie
-    • Mathématiques financières
-
-    • Statistique élémentaire et descriptive
-
-    • Probabilités et techniques de prévision
-
-7. Réseaux Informatiques de l’Entreprise :
-    • Architecture et gestion des réseaux d’entreprise
-
-8. Projet de Fin d’Études :
-    • Réalisation d’un projet professionnel intégrant les compétences acquises.
-
+    • Projet de fin du cycle. 
 Conditions d’Admission :
-    • Être titulaire du baccalauréat pour une admission en 1ère année.
+Conditions d’accès à la 1ère année
+Séries du diplôme de Baccalauréat acceptées
+La filière est ouverte aux candidats titulaires des baccalauréats suivants, avec les matières principales correspondantes :
+•       Baccalauréat Sciences Mathématiques A
+◦       Matière principale : Langue française
+•       Baccalauréat Sciences Mathématiques B
+◦       Matière principale : Langue française
+•       Baccalauréat Sciences de la Gestion Comptable
+◦       Matière principale : Economie et Organisation Administrative des Entreprises
+•       Baccalauréat Sciences de la Vie et de la Terre
+◦       Matière principale : Langue française
+•       Baccalauréat Professionnel — Sciences Economiques et de Gestion (logistique, commerce, comptabilité...)
+◦       Matière principale : Matières professionnelles
+•       Baccalauréat Sciences Economiques
+◦       Matière principale : Economie Générale et Statistiques
+Modalités d’accès
+L’école SUP MTI Meknès se réserve le droit de sélectionner les dossiers de candidature pour l’admission en 1ère année selon les critères suivants :
+•       Résultats scolaires et universitaires du candidat
+•       Entretien oral — visant à appréhender la personnalité et la motivation
+•       Etude de dossier combinée à un entretien devant jury
+Conditions d’accès par passerelles
+Conditions générales
+Peut être admis par passerelle tout étudiant titulaire d’un baccalauréat scientifique et économique, avec une matière principale en mathématiques, après étude de dossier et test écrit.
+Modalités de sélection par passerelle
+L’école sélectionne les candidats en passerelle sur la base des critères suivants :
+•       Résultats scolaires et universitaires
+•       Entretien oral — visant à appréhender la personnalité et la motivation
+•       Etude de dossier combinée à un entretien devant jury
+Bourses d’excellence
+L’école organise des concours d’entrée pour les boursiers d’excellence. Des bourses d’étude de 30 % à 100 % sont octroyées chaque année aux étudiants présentant un bon dossier.
 
-    • Être titulaire d’un BAC+2 (DEUG, DUT, BTS, TS…) dans une filière à dominante gestion ou économie pour intégrer la 2e ou 3e année (une mise à niveau peut être prévue).
 
 Organisation du Programme :
     • Durée : 3 années de formation.
@@ -268,10 +334,199 @@ Les Points Forts du Programme :
 
     • Réseau professionnel solide pour faciliter l’insertion.
 
-        ◦ FINANCE, AUDIT ET CONTRÔLE DE GESTION (BAC +5) : 
 
+
+        ◦  MANAGEMENT ET DÉVELOPPEMENT INTERNATIONAL (MDI) BAC+3
+
+Intitulé en français : Management et Développement International
+Intitulé en arabe : الإدارة والتنمية الدولية
+Intitulé en anglais : Management and International Development
+
+La filière Management et Développement International (MDI) Bac+3 de SUPMTI-Meknès vise à former des professionnels capables de comprendre les dynamiques économiques internationales et de gérer des activités d’entreprise dans un environnement globalisé. Cette formation combine des enseignements théoriques et pratiques afin de préparer les étudiants à des carrières dans le commerce international, le management ou la gestion d’activités à dimension internationale, ainsi qu’à la poursuite d’études en master, notamment en Management et Relations Internationales (MRI) ou en Finance, Audit et Contrôle de Gestion (FACG).
+Le programme couvre plusieurs domaines essentiels tels que l’économie internationale, la géopolitique, le marketing stratégique, la gestion financière, le management des ressources humaines et le commerce international. Il intègre également des compétences en informatique de gestion, en systèmes d’information et en marketing digital. Des projets pédagogiques, des travaux pratiques et un projet de fin de cycle complètent la formation. L’apprentissage des langues étrangères, ainsi que les modules de développement personnel et de culture professionnelle, permettent aux étudiants de développer les compétences nécessaires pour évoluer efficacement dans un contexte économique international et multiculturel.
+
+COMPÉTENCES
+    • Former des managers capables d’analyser les environnements économiques internationaux et de comprendre les enjeux du développement global des entreprises.
+    • Maîtriser les outils et techniques du management international, du commerce international et de la gestion des activités à dimension mondiale.
+    • Assumer des fonctions de responsabilité dans des organisations opérant sur les marchés internationaux, les institutions économiques ou les entreprises multinationales.
+    • Développer des compétences en stratégie internationale, en géopolitique et en analyse des marchés mondiaux afin d’accompagner les entreprises dans leur expansion internationale.
+    • Encourager l’esprit d’initiative et la capacité à élaborer des projets d’entreprise et des stratégies de développement à l’échelle internationale.
+    • Maîtriser les outils numériques, les systèmes d’information et les techniques modernes de gestion nécessaires au management global des organisations.
+    • Acquérir un haut niveau de culture économique, internationale et interculturelle ainsi que des compétences linguistiques adaptées au contexte international.
+    • Renforcer les capacités d’expression, de communication et de négociation dans un environnement multiculturel.
+    • Développer des soft skills tels que le leadership, la gestion interculturelle, l’esprit d’analyse, la citoyenneté et le développement personnel.
+
+ Programme de la Formation :
+Semestre 1
+    • Structure et fonctionnement de l’entreprise
+
+    • Introduction aux sciences économiques
+
+    • Comptabilité générale
+
+    • Statistique descriptive simple
+
+    • Informatique de gestion et bureautique
+
+    • Langues étrangères
+
+    • Méthodologie universitaire
+
+Semestre 2
+    • Comptabilité générale II
+
+    • Analyse micro et macroéconomique
+
+    • Marketing de base
+
+    • Introduction au management
+
+    • Statistique descriptive double
+
+    • Langues étrangères
+
+    • Culture digitale
+
+Semestre 3
+    • Informatique de gestion
+
+    • Comptabilité analytique
+
+    • Environnement juridique des affaires
+
+    • Analyse et gestion financière
+
+    • Système d’information et ERP
+
+    • Langues étrangères
+
+    • Culture and art skills
+
+Semestre 4
+    • Marketing stratégique
+
+    • Business plan et création d’entreprises
+
+    • Gestion de la production et des opérations
+
+    • Management des RH
+
+    • Statistique élémentaire et mathématiques financières
+
+    • Langues étrangères
+
+    • Développement personnel
+
+Semestre 5
+    • Économie internationale
+
+    • Histoire et théories des relations internationales
+
+    • Introduction à la géopolitique
+
+    • Fiscalité
+
+    • Système d’information comptable et progiciels de gestion
+
+    • Langues étrangères
+
+    • CMS
+
+Semestre 6
+    • Droit, civisme et citoyenneté
+
+    • Commerce international
+
+    • Marketing digital et e-commerce
+
+    • Droit des contrats
+
+    • Langues étrangères
+
+    • Projet de fin du cycle.
+
+Conditions d’Admission :
+Conditions d’accès à la 1ère année
+Séries du diplôme de Baccalauréat acceptées
+La filière est ouverte à toutes les séries de baccalauréat, avec pour matière principale : la Langue française.
+Modalités d’accès
+L’admission se fait par étude du dossier, toutes séries de baccalauréat confondues.
+Conditions d’accès par passerelles
+Accès en 2ème année
+Peut être admis en 2ème année tout étudiant titulaire d’un baccalauréat (scientifique, littéraire ou technique) ayant validé la 1ère année universitaire dans les filières de management, d’économie, de commerce ou de gestion, provenant d’établissements publics ou privés accrédités.
+Prérequis pédagogiques exigés pour l’accès en 2ème année :
+•       Notions de base en comptabilité générale
+•       Organisation des entreprises
+•       Management des entreprises
+•       Introduction à l’économie
+ 
+Accès en 3ème année
+Peut être admis en 3ème année tout étudiant titulaire d’un DEUG ou de tout diplôme équivalent dans une filière de management, d’économie, de commerce ou de gestion, provenant d’établissements publics ou privés accrédités.
+Prérequis pédagogiques exigés pour l’accès en 3ème année :
+•       Comptabilité générale
+•       Notions de base en comptabilité analytique
+•       Droit des affaires
+•       Notions de marketing
+ 
+Modalités de sélection par passerelle
+Pour l’admission en 2ème année, l’école examine les critères suivants:
+•       Résultats de la 1ère année universitaire
+•       Entretien oral — visant à appréhender la personnalité et la motivation du candidat
+•       Etude du dossier combinée à un entretien devant jury
+Pour l’admission en 3ème année, l’école examine les critères suivants:
+•       Résultats de la 1ère et de la 2ème année universitaires
+•       Entretien oral  visant à appréhender la personnalité et la motivation du candidat
+•       Etude du dossier combinée à un entretien devant jury
+ Filières d’origine acceptées
+Pour l’admission en 2ème année, les étudiants doivent provenir de :
+•       La filière Management de l’Entreprise de SUP MTI Meknès
+•       Toute filière de management, juridique, économique ou scientifique
+Pour l’admission en 3ème année, les étudiants titulaires d’un DEUG (scientifique, littéraire ou technique) ou équivalent, ou ayant validé la 2ème année universitaire dans l’une des filières suivantes :
+•       La filière Management de l’Entreprise de SUP MTI Meknès
+•       Toute filière de management, juridique, économique ou scientifique
+Organisation du Programme :
+    • Durée : 3 années de formation.
+
+    • Encadrement : enseignants et professionnels expérimentés.
+
+    • Méthode pédagogique : formation pratique et pluridisciplinaire avec plus de 50 % des heures consacrées aux TD et TP.
+
+    • Projet de fin d’études obligatoire.
+
+
+Débouchés Professionnels :
+Les diplômés peuvent occuper les postes suivants :
+    • Responsable du commerce international
+    • Chargé de développement international
+    • Responsable import-export
+    • Chargé d’affaires internationales
+    • Chargé d’études économiques et internationales
+    • Assistant en management international
+    • Responsable marketing international
+    • Cadre administratif dans des entreprises nationales ou multinationales
+    • Consultant en développement international
+    • Assistant en gestion de projets internationaux.
+
+Les Points Forts du Programme :
+    • Formation axée sur les métiers de demain.
+
+    • Encadrement personnalisé par des enseignants qualifiés.
+
+    • Formation pratique et adaptée aux besoins du marché.
+
+    • Réseau professionnel solide pour faciliter l’insertion.
+
+
+
+
+
+
+        ◦ FINANCE, AUDIT ET CONTRÔLE DE GESTION (FACG) BAC +5 : 
+Intitulé en français : Finance, Audit et Contrôle de Gestion
+Intitulé en arabe : المالية والتدقيق والرقابة الإدارية
+Intitulé en anglais : Finance, Audit and Management Control
 Présentation du Programme
-Le programme Bac+5 en Finance, Audit et Contrôle de Gestion de SUP MTI (École Supérieure de Management, de Télécommunication et d’Informatique) Meknès vise à former des cadres financiers et des contrôleurs de gestion hautement qualifiés, capables d’occuper des postes à responsabilités au sein d’entreprises nationales et internationales.
+Le programme Bac+5 en Finance, Audit et Contrôle de Gestion de SUPMTI (École Supérieure de Management, de Télécommunication et d’Informatique) Meknès vise à former des cadres financiers et des contrôleurs de gestion hautement qualifiés, capables d’occuper des postes à responsabilités au sein d’entreprises nationales et internationales.
 Cette spécialité répond à la demande croissante des organisations pour des profils opérationnels, maîtrisant la complexité des missions liées à la finance, à l’audit et au contrôle de gestion.
 Le programme a été conçu en collaboration avec des professionnels et universitaires expérimentés, garantissant une adéquation parfaite entre la formation académique et les réalités du monde du travail.
 Les étudiants acquièrent les compétences nécessaires à la gestion financière, à l’analyse des coûts, à la mesure de la performance, et à la maîtrise des normes juridiques et fiscales.
@@ -289,54 +544,94 @@ Compétences Requises :
 
 
 Programme de la Formation :
-1. Finance et Comptabilité :
-    • Modélisation en finance
+Semestre 1
+    • Contrôle de gestion
 
-    • Analyse économique et financière des projets d’investissement
+    • Droit des affaires
 
+    • Finance d’entreprise
+
+    • Data Science Foundations
+
+    • Analyse des données financières et Big Data
+
+    • Langues étrangères
+
+    • Soft skills
+
+Semestre 2
     • Finance internationale
 
-    • Finance de marché et gestion de portefeuille
+    • Finance du marché (gestion du portefeuille)
 
-2. Audit et Contrôle de Gestion :
+    • Normes et méthodologie de l’audit
+
     • Audit comptable et financier
+
+    • Conception et audit des systèmes d’information
+
+    • Langues étrangères
+
+    • Culture digitale
+
+Semestre 3
+    • Audit et contrôle juridique et fiscal
 
     • Audit social et contrôle de gestion social
 
-    • Audit et contrôle juridique et fiscal
+    • Fiscalité des entreprises
 
-    • Analyse des coûts et mesure de la performance
+    • Contrôle de gestion stratégique
 
-3. Normes et Méthodologie de l’Audit : 
-    • Normes professionnelles d’audit
+    • Intelligence artificielle et automatisation en audit
 
-    • Méthodologies et outils de contrôle interne
+    • Langues étrangères
 
-4. Systèmes d’Information et Audit Informatique :
-    • Systèmes d’Information Intégrés (SII)
+    • Culture and art skills
 
-    • Audit des Systèmes d’Information (ASI)
+Semestre 4
+    • Employment skills
 
-5. Marketing et Communication :
-    • Marketing international
-
-    • Techniques de communication
-
-    • Anglais professionnel
-
-6. Développement Personnel :
-    • Coaching et accompagnement pour le développement personnel
-
-    • Leadership et gestion du stress
-
-7. Projet de Fin d’Études :
-    • Réalisation d’un projet professionnel de fin de cycle, intégrant les compétences acquises.
+    • Projet de fin d’études. 
 
 
 Conditions d’Admission :
-    • Être titulaire d’un BAC+3 délivré par SUP MTI Meknès (en Management des Entreprises ou Ingénierie des Systèmes Informatiques).
-
-    • Ou être titulaire d’une Licence ou d’un diplôme équivalent en économie, gestion, management, commerce, marketing ou informatique, délivré par un établissement public ou privé accrédité.
+Conditions et modalités d’accès à la filière
+Diplômes requis
+L’admission en première année de cette filière de cycle Master est ouverte aux candidats titulaires de l’un des diplômes suivants :
+•       3 ans après le Baccalauréat (voie générale)
+•       3 ans après le Baccalauréat professionnel
+•       3 ans après le Baccalauréat fondamental
+•       Baccalauréat + 3 ans d’études supérieures
+•       Licence (toutes options)
+•       Licence des études fondamentales
+•       Licence ISCAE
+•       Licence professionnelle
+•       Tout diplôme équivalent reconnu
+ 
+Prérequis pédagogiques spécifiques
+Les candidats doivent justifier de connaissances dans les domaines suivants :
+•       Audit des entreprises
+•       Contrôle de gestion des entreprises
+•       Gestion et organisation des entreprises
+•       Finances des entreprises
+•       Finances internationales
+•       Systèmes d’information
+•       Tableaux de bord et gouvernance des entreprises
+•       Management des entreprises
+•       E-Management et E-Finance
+ 
+Procédures de sélection
+L’école SUP MTI Meknès se réserve le droit de sélectionner les dossiers de candidature pour l’admission en 1ère année sur les critères suivants :
+•       Etude du dossier de candidature — incluant l’évaluation des résultats scolaires et universitaires du candidat
+•       Entretien oral — visant à appréhender la personnalité et la motivation du candidat
+•       Etude de dossier complétée par un entretien devant jury
+•       Test écrit de sélection
+•       Concours de bourse d’excellence
+ 
+Dispositions relatives aux bourses et à l’accès
+L’école organise des concours d’entrée spécifiques destinés aux boursiers d’excellence. Des bourses d’étude allant de 30 % à 100 % sont octroyées chaque année aux étudiants présentant un dossier de qualité.
+Tout étudiant titulaire d’un diplôme BAC+3 peut être admis, selon les options des conditions d’accès, en prenant en considération la matière principale de chacun, via une étude de dossier et un test écrit.
 
 Organisation du Programme :
     • Durée : 2 années de formation.
@@ -377,50 +672,41 @@ Les Points Forts du Programme :
 
     • Réseau professionnel solide pour favoriser l’insertion et la réussite.
 
-        ◦ MANAGEMENT ET RELATION INTERNATIONALES (BAC +5) : 
+        ◦ MANAGEMENT ET RELATION INTERNATIONALES (MRI) BAC +5 : 
 
-Présentation :
-Le management des entreprises a pris un virage numérique grâce à l’exploitation des technologies disruptives telles que le Big Data, les Objets Connectés (IoT), le Cloud Computing, l’Intelligence Artificielle (IA) et la Blockchain.
-Cette transformation a généré une forte demande de spécialistes capables d’accompagner cette évolution vers un nouveau mode de management digital.
-La filière Management des Systèmes et Technologies de l’Information et de la Communication (MSTIC) vise à former des cadres supérieurs capables de manager des entreprises en s’appuyant sur les nouvelles technologies de l’information et de la communication.
+Intitulé en français : Management et Relations Internationales
+Intitulé en arabe : الإدارة والعلاقات الدولية
+Intitulé en anglais : Management and International Relations
+
+        ◦ Présentation :
+Dans un contexte marqué par la mondialisation des échanges économiques et l’évolution rapide des marchés internationaux, les entreprises doivent développer des stratégies adaptées pour renforcer leur compétitivité et leur présence à l’échelle mondiale. Cette transformation a engendré une forte demande de cadres capables de comprendre les dynamiques économiques internationales, d’analyser les marchés mondiaux et de piloter des projets à dimension internationale.
+La filière Management et Relations Internationales (MRI) Bac+5 vise à former des cadres supérieurs capables de gérer des organisations dans un environnement économique globalisé, en intégrant les enjeux géopolitiques, économiques et stratégiques liés aux relations internationales.
 L’objectif général de cette formation est de fournir aux étudiants :
-    • Une solide maîtrise des métiers du management,
-
-    • Des compétences techniques dans les technologies de rupture,
-
-    • Une expertise en conduite de projet et de changement.
+Une solide maîtrise des concepts avancés du management international,
+Des compétences analytiques dans les domaines de la finance internationale, de la géopolitique et du commerce mondial,
+Une expertise en gestion stratégique des organisations opérant dans un environnement international.
 
  Compétences développées :
-    • Maîtrise de la mise en place des systèmes d’information
-
-    • Connaissance des aspects juridiques et réglementaires liés aux SI
-
-    • Élaboration et optimisation des processus de gestion d’entreprise
-
-    • Maîtrise des méthodes de développement commercial (vente, négociation, commerce international, organisation commerciale)
-
-    • Maîtrise des principales technologies de l’information et de la communication
-
-    • Gestion des projets de transformation des systèmes d’information
-
-    • Conduite du changement organisationnel
+    • Maîtrise des stratégies de management dans un environnement international
+    • Connaissance approfondie des relations économiques et géopolitiques internationales
+    • Élaboration et analyse des stratégies d’expansion et de développement à l’international
+    • Maîtrise des techniques de commerce international, de négociation et de gestion des marchés étrangers
+    • Gestion des chaînes logistiques et des opérations internationales
+    • Analyse et gestion des risques économiques et politiques à l’échelle mondiale
+    • Maîtrise des outils d’analyse stratégique et des systèmes d’information appliqués au management international
+    • Conduite de projets internationaux et management d’équipes multiculturelles
 
  Débouchés professionnels :
 Les diplômés peuvent occuper les postes suivants :
-    • Manager d’entreprise
-
-    • Cadre bancaire
-
-    • Responsable marketing
-
-    • Responsable commercial ou des ventes
-
-    • Responsable des systèmes d’information
-
-    • Responsable des ressources humaines
-
-    • Responsable administratif et financier
-
+    • Manager d’entreprise internationale
+    • Responsable du commerce international
+    • Responsable marketing international
+    • Chargé d’affaires internationales
+    • Responsable de la supply chain internationale
+    • Consultant en stratégie internationale
+    • Responsable des relations internationales
+    • Cadre administratif ou commercial dans des entreprises multinationales
+    • Chargé de développement international.
 
  Organisation de la formation :
     • Durée : 2 années de formation
@@ -429,55 +715,55 @@ Les diplômés peuvent occuper les postes suivants :
 
 
 Programme de formation :
-Management des Systèmes d’Information :
-    • Conception et architecture des SI
-
-    • Étude et audit des systèmes d’information
-
-Management des Entreprises :
-    • Pratiques comptables
-
-    • Audit et contrôle de gestion
-
-    • Management de la qualité
-
-    • Management des équipes et gestion des conflits
-
-    • Management des risques
-
-Data Science :
-    • Fondements de la Data Science
-
-Développement Personnel :
-    • Séances de coaching pour le développement personnel
-
-Management 4.0 :
-    • E-Management
-
-Finance :
-    • Finance internationale
-
-    • Pratiques financières
-
-Marketing :
+Semestre 1
     • Marketing international
 
-    • Marketing avancé
+    • Finance internationale
 
-Communication :
-    • Techniques de communication
+    • Géopolitique et géoéconomie africaine
 
-    • Français des affaires
+    • Data Science Foundations
 
-    • Anglais des affaires
+    • Management de la supply chain internationale
 
-Projets d’application :
-    • Application au management des systèmes et technologies de l’information et de la communication
+    • Langues étrangères
 
-    • Projet métier : Intelligence artificielle et Data Science appliquées au management des systèmes
+    • Soft skills
 
-    • Projet professionnel de fin d’étude
+Semestre 2
+    • Finances internationales avancées
 
+    • Finance du marché (gestion du portefeuille)
+
+    • Économie politique et politiques publiques
+
+    • Management international
+
+    • Gestion des risques et des crises internationales
+
+    • Langues étrangères
+
+    • Culture digitale
+
+Semestre 3
+    • Management international des RH
+
+    • Management du transport international
+
+    • Géopolitique des marchés internationaux
+
+    • Commerce électronique mondial
+
+    • Éthique et responsabilité sociale des entreprises internationales
+
+    • Langues étrangères
+
+    • Culture and art skills
+
+Semestre 4
+    • Employment skills
+
+    • Projet de fin d’études. 
 
 Les points forts du programme :
     • Programme avancé et orienté vers les métiers de demain
@@ -489,15 +775,40 @@ Les points forts du programme :
     • Réseau professionnel riche et performant
 
  Conditions d’admission :
-Cette formation est ouverte à tout candidat :
-    • Titulaire d’un diplôme BAC+3 de SUP MTI Meknès (Management des entreprises ou ingénierie des systèmes informatiques)
+Conditions et modalités d’accès à la filière
+Diplômes requis
+L’admission en première année est ouverte aux candidats titulaires de l’un des diplômes suivants :
+•       3 ans après le Baccalauréat (voie générale)
+•       3 ans après le Baccalauréat professionnel
+•       3 ans après le Baccalauréat fondamental
+•       Baccalauréat + 3 ans d’études supérieures
+•       Licence (toutes spécialités)
+•       Licence des études fondamentales
+•       Tout diplôme équivalent reconnu
+ 
+Prérequis pédagogiques spécifiques
+Les candidats doivent justifier de connaissances dans les domaines de l’économie et de la gestion.
+ 
+Procédures de sélection
+L’école SUP MTI Meknès se réserve le droit de sélectionner les dossiers de candidature pour l’admission en 1ère année selon les critères suivants :
+•       Etude du dossier de candidature — incluant les résultats scolaires et universitaires
+•       Entretien oral — visant à appréhender la personnalité et la motivation du candidat
+•       Etude de dossier combinée à un entretien devant jury
+•       Test écrit de sélection définitive
+•       Concours de bourse d’excellence
+ 
+Membres du jury de sélection
+Les personnes chargées d’assurer la sélection des dossiers et les entretiens oraux sont :
+•       M. Youssef BENGHABRIT — Directeur pédagogique
+•       Mme. EL HARMOUCHI Ouarda — Coordonnatrice de la filière
+ 
+Dispositions relatives aux bourses
+L’école organise des concours d’entrée spécifiques pour les boursiers d’excellence. Des bourses d’étude allant de 30 % à 100 % sont octroyées chaque année aux étudiants présentant un bon dossier. Tout étudiant titulaire d’un diplôme BAC+3 peut être admis, selon les options des conditions d’accès, en prenant en considération la matière principale de chacun, via une étude de dossier et un test écrit.
 
-    • Ou titulaire d’une licence ou d’un diplôme équivalent (en informatique, management, économie, commerce ou gestion) délivré par un établissement public ou privé accrédité
 
+    • DÉPARTEMENT D'INGÉNIERIE  (INGÉNIERIE DES SYSTÈMES INFORMATIQUES (ISI)): 
 
-
-    • DÉPARTEMENT D'INGÉNIERIE : 
-        ◦ INGÉNIERIE INTELLIGENTE DES SYSTÈMES INFORMATIQUES (BAC +3) : 
+        ◦ INGÉNIERIE INTELLIGENTE DES SYSTÈMES INFORMATIQUES (IISI) BAC +3 : 
 Présentation :
 Aujourd’hui, la maîtrise des systèmes d’information est essentielle au développement des entreprises et organisations.
  Cette maîtrise couvre plusieurs dimensions :
@@ -507,7 +818,7 @@ Aujourd’hui, la maîtrise des systèmes d’information est essentielle au dé
 
     • L’exploitation stratégique de l’information au service de la performance.
 
-Le diplôme Bac +3 en Ingénierie des Systèmes Informatiques (ISI) de SUP MTI Meknès vise à former des techniciens spécialisés capables de concevoir, déployer et gérer des solutions informatiques performantes, adaptées aux besoins opérationnels et commerciaux des entreprises.
+Le diplôme Bac +3 en Ingénierie Intelligente des Systèmes Informatiques (IISI) de SUPMTI Meknès vise à former des techniciens spécialisés capables de concevoir, déployer et gérer des solutions informatiques performantes, adaptées aux besoins opérationnels et commerciaux des entreprises.
 Le programme met l’accent sur le déploiement de solutions informatiques, la gestion des réseaux fixes et mobiles, ainsi que l’intégration des technologies modernes au sein des organisations.
  Compétences développées :
     • Identifier les besoins des utilisateurs en systèmes et réseaux informatiques
@@ -522,7 +833,7 @@ Le programme met l’accent sur le déploiement de solutions informatiques, la g
 
 
  Débouchés professionnels :
-Les diplômés du programme ISI peuvent exercer les métiers suivants :
+Les diplômés du programme IISI peuvent exercer les métiers suivants :
     • Responsable informatique
 
     • Analyste programmeur
@@ -541,69 +852,94 @@ Organisation de la formation :
     • Projet de fin d’études : Réalisation d’un projet professionnel appliqué
 
  Programme de formation :
- Informatique :
+Semestre 1
     • Introduction à l’informatique
+
+    • Introduction au développement Web
+
+    • Algorithmique et langage C
+
+    • Mathématiques générales I
+
+    • Structure et fonctionnement de l’entreprise
+
+    • Langues étrangères (Français / Anglais)
+
+    • Méthodologie de travail universitaire.
+
+Semestre 2
+    • Architecture des ordinateurs I
 
     • Introduction aux systèmes d’exploitation
 
-    • Système d’exploitation Unix
+    • Algorithmique et langage C avancé
 
-    • Aspects avancés en informatique
+    • Statistique descriptive et probabilités élémentaires
 
- Génie Logiciel et Algorithmes :
-    • Introduction au développement web
+    • Marketing de base
 
-    • Services et applications internet
+    • Langues étrangères (Français / Anglais)
 
-    • Algorithmique et algorithmique avancée
+    • Culture digitale.
 
-    • Langage C avancé
+Semestre 3
+    • Architecture des ordinateurs II
 
-    • Langage de balisage HTML
+    • Base de données et systèmes d’information
 
-    • Génie logiciel objet (UML : analyse et conception orientée objet)
+    • Réseaux I
 
-    • Programmation objet / Java
-
- Réseaux Informatiques :
-    • Transmission de données
-
-    • Téléinformatique
-
-    • Programmation web dynamique (PHP)
-
- Systèmes d’Information :
-    • Administration des systèmes
-
-    • Architecture des ordinateurs
-
-    • Programmation système
-
-    • Base de données et système d'information
-
- Statistiques et Recherche Opérationnelle :
-    • Modélisation statistique et analyse des données
-
-    • Probabilités
-
-    • Éléments de recherche opérationnelle
-
- Marketing et Communication :
-    • Techniques de communication
-
-    • Marketing
-
-    • Anglais
-
- Management des Entreprises :
-    • Économie
-
-    • Comptabilité
+    • Matlab et langage Python
 
     • Droit de l’entreprise
 
- Projet de Fin d’Études :
-    • Réalisation d’un projet professionnel de fin d’étude
+    • Langues étrangères (Français / Anglais)
+
+    • Culture and art skills.
+
+Semestre 4
+    • Système d’exploitation Unix
+
+    • Introduction à l’intelligence artificielle
+
+    • Réseaux II
+
+    • Mathématique financière et statistique élémentaire
+
+    • Échantillonnage et techniques de prévision
+
+    • Langues étrangères (Français / Anglais)
+
+    • Développement personnel.
+
+Semestre 5
+    • Génie logiciel objet
+
+    • Développement des applications web
+
+    • Python pour Data Science
+
+    • Sécurité informatique
+
+    • Machine learning et deep learning
+
+    • Langues étrangères (Français / Anglais)
+
+    • Système de gestion de contenu (CMS).
+
+Semestre 6
+    • Industrie 4.0
+
+    • Modélisation statistique et analyse des données
+
+    • Cloud computing
+
+    • Langues étrangères (Français / Anglais)
+
+    • Droit, civisme et citoyenneté
+
+    • Projet de fin du cycle. 
+
 
  Les points forts du programme :
     • Programme avancé et orienté vers les métiers de demain
@@ -616,91 +952,119 @@ Organisation de la formation :
 
 
 Conditions d’admission :
-Le diplôme ISI Bac +3 de SUP MTI Meknès est ouvert à :
-    • Tout étudiant titulaire d’un baccalauréat scientifique (accès en 1re année)
+Conditions d’accès à la 1ère année
+Séries du diplôme de Baccalauréat acceptées
+Les candidats doivent être titulaires de l’un des baccalauréats suivants, avec les matières principales indiquées :
+•       Baccalauréat Sciences Mathématiques A
+◦       Matières principales : Langue française, Mathématiques
+•       Baccalauréat Sciences Mathématiques B
+◦       Matières principales : Langue française, Mathématiques
+•       Baccalauréat Sciences de la Vie et de la Terre
+◦       Matières principales : Langue française, Sciences de la Vie et de la Terre
+•       Baccalauréat Sciences Physiques
+◦       Matières principales : Langue française, Physique-Chimie
+ 
+Modalités d’accès
+L’école SUP MTI Meknès se réserve le droit de sélectionner les dossiers de candidature pour l’admission en 1ère année selon les critères suivants :
+•       Résultats scolaires et universitaires du candidat
+•       Entretien oral — visant à appréhender la personnalité et la motivation
+•       Réussite de l’étape d’étude du dossier et de l’entretien oral
+ 
+Conditions d’accès par passerelles
+Conditions générales
+Les conditions d’accès par passerelle sont les suivantes :
+•       Tout étudiant titulaire d’un baccalauréat scientifique peut être admis en 1ère année.
+•       Tout étudiant titulaire d’un diplôme BAC+2 dans une filière à dominante informatique peut intégrer la 2ème ou la 3ème année de la formation IISI-BAC+3, après étude du dossier. Une formation de mise à niveau pourra être prévue.
+Séries du baccalauréat acceptées par passerelle
+Peuvent être admis par passerelle les étudiants titulaires du baccalauréat scientifique et technique, dans les options suivantes :
+•       Sciences Mathématiques B
+•       Sciences Mathématiques A
+•       Sciences de la Vie et de la Terre
+•       Sciences Physiques
+Bourses d’excellence
+L’école organise des concours d’entrée pour les boursiers d’excellence. Des bourses d’étude de 30 % à 100 % sont octroyées chaque année aux étudiants présentant un dossier solide.
 
-    • Tout étudiant titulaire d’un Bac +2 à dominante informatique (accès en 2e ou 3e année, avec éventuelle mise à niveau)
 
-
-        ◦ INGÉNIERIE INTELLIGENTE DES SYSTÈMES D’INFORMATIONS ET COMMUNICATIONS (BAC +5) : 
+        ◦ INGÉNIERIE INTELLIGENTE DES SYSTÈMES D’INFORMATIONS ET COMMUNICATIONS (IISIC) : 
 
 Présentation générale: 
-La révolution digitale a donné naissance à l’Industrie 4.0, qui requiert des profils polyvalents maîtrisant les technologies de l’information et de la communication telles que la Data Science, la fabrication additive, la robotique, l’Intelligence Artificielle (IA) et l’Internet des Objets (IoT).
-Consciente de ces nouveaux défis, SUP MTI Meknès propose le programme Ingénierie Intelligente des Systèmes Réseaux et Télécommunication (IISRT). Ce cursus forme des ingénieurs spécialisés capables de concevoir, développer et superviser des solutions technologiques intelligentes dans le domaine des réseaux et des télécommunications.
-Les diplômés sont préparés à superviser le fonctionnement et la qualité des infrastructures matérielles et logicielles, tout en assurant le pilotage technique et stratégique des relations avec les prestataires technologiques.
- Ils seront ainsi aptes à accompagner les entreprises dans leur transition vers un environnement de plus en plus digitalisé et connecté.
+La révolution digitale a donné naissance à l’Industrie 4.0 qui exige des profils polyvalents maîtrisant les technologies de l’information et de la communication (Data science, fabrication additive, robotique, Intelligence artificielle et l’IoT). Pour répondre à ces besoins, la filière « Ingénierie Intelligentes des Systèmes d’Information et de communication (IISIC) » propose aux industriels, des ingénieurs opérationnels capables de concevoir et de piloter la mise en place des systèmes de l’information avec des technologies de pointe pour la digitalisation des processus industriels. Ainsi, les lauréats de SUP MTI Meknès seront idéalement placés pour s'adapter à l'évolution rapide des industries et développer une carrière percutante dans un marché de travail de plus en plus digitalisé.
 Compétences visées :
-    • Maîtriser les concepts liés aux infrastructures réseaux et télécommunications, aux théories de l’information et à la cryptologie.
-
-    • Concevoir et mettre en place des architectures technologiques de réseaux.
-
-    • Maîtriser l’architecture logicielle et les techniques de développement informatique.
-
-    • Exploiter les technologies disruptives telles que l’Intelligence Artificielle, la Data Science et l’IoT.
-
-    • Assurer le leadership organisationnel dans les projets d’adoption de nouvelles technologies.
-
-
+    • Maîtriser les concepts et les défis des
+    • systèmes de l’information
+    • Maîtriser l’architecture et le développement
+    • de systèmes d’information
+    • Développer des applications des
+    • technologies disruptives (l’intelligence
+    • artificielle, le Data Science) pour les systèmes
+    • de l’information et de communication
+    • Piloter des projets d’implémentation des
+    • Systèmes d’information
 Débouchés professionnels :
-Les diplômés du programme IISRT peuvent occuper les postes suivants :
-    • Architecte des systèmes réseaux
-
-    • Administrateur de réseaux informatiques et systèmes d’information
-
-    • Responsable des infrastructures télécoms et réseaux
-
-    • Technico-commercial en solutions réseaux et télécommunications
-
-
+Les diplômés du programme IISIC peuvent occuper les postes suivants :
+    • Architectes des systèmes d’information 
+    • Responsables de la cyber sécurité des systèmes d’information 
+    • Technico-commerciaux dans le domaine des TICs, solutions systèmes d’information
 Programme de formation :
-Data Science :
-    • Prétraitement des données
+Semestre 1
+    • Smart Systems
 
-    • Visualisation et communication des données
+    • Développement et contrôle de logiciel
 
-    • Advanced Data Analytics
+    • Data Science Foundations
 
-    • Data Science Project Management
+    • Réseaux de communication intelligents
 
-Systèmes Embarqués :
-    • Les fondamentaux des systèmes embarqués
+    • Projet d’initiation
 
-Systèmes de Télécommunications Optiques et Satellitaires :
-    • Communications optiques
+    • Langues étrangères (Français / Anglais)
 
-    • Communications par satellites
+    • Soft skills.
 
-Signal et Modélisation :
-    • Traitement du signal et applications
+Semestre 2
+    • Développement mobile
 
-    • Techniques de modulation
+    • Processus agiles pour projets informatiques
 
-Systèmes de Communication Mobile :
-    • Ingénierie radio
+    • Bases de données aspects avancés
 
-Réseaux de Communication Intelligents :
-    • Communications numériques
+    • Systèmes embarqués et Internet des objets
 
-    • Réseaux intelligents
+    • Projet appliqué aux systèmes informatiques
 
-Intelligence Artificielle et Programmation Événementielle :
-    • Programmation événementielle
+    • Langues étrangères (Français / Anglais)
 
-    • Intelligence Artificielle
+    • Culture digitale. 
 
-Techniques de Communication :
-    • Techniques de communication
+Semestre 3
+    • Smart Systems
 
-    • Français des affaires
+    • Développement et contrôle de logiciel
 
-    • Anglais des affaires
+    • Data Science Foundations
 
-Développement Personnel :
-    • Séances de coaching pour le développement personnel
+    • Réseaux de communication intelligents
 
-Projet de Fin d’Études :
-    • Réalisation d’un projet professionnel appliqué
+    • Projet d’initiation
 
+    • Langues étrangères (Français / Anglais)
+
+    • Soft skills.
+
+Semestre 4
+    • Advanced Artificial Intelligence
+
+    • Advanced Data Science
+
+    • Modélisation avancée de logiciels
+
+    • Modélisation statistique et optimisation des graphes
+
+    • Projet métier : Intelligence artificielle et Data Science appliquées aux systèmes d’information et communication
+
+    • Langues étrangères (Français / Anglais)
+
+    • Culture and art skills. 
 
 Les points forts du programme :
     • Programme avancé et orienté vers les métiers de demain
@@ -713,17 +1077,54 @@ Les points forts du programme :
 
 
 Conditions d’admission :
-Cette formation est ouverte à tout étudiant :
-    • Titulaire du diplôme BAC+3 de SUP MTI Meknès en Ingénierie des Systèmes Informatiques,
+Conditions et modalités d’accès à la filière
+Diplômes requis
+L’admission en première année est ouverte aux candidats titulaires de l’un des diplômes suivants :
+•       3 ans après le Baccalauréat (voie générale)
+•       3 ans après le Baccalauréat professionnel
+•       3 ans après le Baccalauréat fondamental
+•       Baccalauréat + 3 ans d’études supérieures
+•       Licence (toutes spécialités)
+•       Ancienne Licence en Sciences et Techniques
+•       Tout diplôme équivalent reconnu
+ 
+Prérequis pédagogiques spécifiques
+Les candidats doivent disposer de compétences dans les domaines suivants :
+•       Développement web
+•       Programmation orientée objet
+•       Développement mobile
+•       Science des données
+•       Intelligence artificielle
+•       Traitement du signal
+•       Mathématiques et algèbre
+•       Statistiques et modélisation
+•       Génie logiciel
+•       Algorithmique et langages de programmation
+•       Réseaux informatiques
+ 
+Procédures de sélection
+L’école SUP MTI Meknès se réserve le droit de sélectionner les dossiers de candidature pour l’admission en 1ère année selon les critères suivants :
+•       Etude du dossier de candidature — incluant les résultats scolaires et universitaires du candidat
+•       Entretien oral — visant à appréhender la personnalité et la motivation du candidat
+•       Etude de dossier combinée à un entretien devant jury
+•       Concours de bourse d’excellence
+ 
+Membres du jury de sélection
+Les personnes chargées d’assurer la sélection des dossiers et les entretiens oraux sont :
+•       M. Youssef BENGHABRIT — Directeur pédagogique
+•       M. KRIOUILE Yassine — Coordonnateur de la filière
+•       M. Noureddine EL HARMOUCHI — Coordonnateur des modules de Mathématiques
+ 
+Dispositions relatives aux bourses
+L’école organise des concours d’entrée spécifiques pour les boursiers d’excellence. Des bourses d’étude allant de 30 % à 100 % sont octroyées chaque année aux étudiants disposant d’un bon dossier. L’admission d’un étudiant titulaire d’un diplôme BAC+3 reste soumise à l’étude de son dossier et à un test écrit.
 
-    • Ou titulaire d’une licence (nouveau régime) ou d’un diplôme équivalent en informatique ou informatique de gestion, délivré par un établissement public ou privé accrédité.
 
 Organisation :
     • Durée de la formation : 2 années
 
     • Projet de fin d’étude : obligatoire
 
-        ◦ INGÉNIERIE INTELLIGENTE DES SYSTÈMES, RÉSEAUX ET TÉLÉCOMMUNICATIONS (BAC +5) : 
+        ◦ INGÉNIERIE INTELLIGENTE DES SYSTÈMES, RÉSEAUX ET TÉLÉCOMMUNICATIONS (IISRT) BAC +5 : 
 PRÉSENTATION :
 La révolution digitale a donné naissance à l’Industrie 4.0 qui exige des profils polyvalents maîtrisant les technologies de l’information et de la communication (Data Science, fabrication additive, robotique, Intelligence Artificielle et l’IoT).
 SUP MTI Meknès, consciente de ces changements, répond aux besoins des industriels en formant des ingénieurs spécialisés dans l’Ingénierie Intelligente des Systèmes Réseaux et Télécommunication (IISRT), qui propose un programme avancé dans le développement et la réalisation des solutions technologiques intelligentes des réseaux et de télécommunications.
@@ -748,58 +1149,109 @@ DÉBOUCHÉS PROFESSIONNELS :
     • Responsables des infrastructures télécoms et réseaux
 
     • Technico-commerciaux dans le domaine des solutions réseaux et télécom
-
 PROGRAMME DE LA FORMATION :
-Réseaux de Communication Intelligents :
-    • Communications numériques
+Semestre 1
+    • Smart Systems
 
-    • Réseaux intelligents
+    • Développement et contrôle de logiciel
 
-Intelligence Artificielle et Programmation Événementielle :
-    • Programmation événementielle
+    • Data Science Foundations
 
-    • Intelligence Artificielle
+    • Réseaux de communication intelligents
 
-Data Science :
-    • Prétraitement des données
+    • Projet d’initiation
 
-    • Visualisation et communication des données
+    • Langues étrangères (Français / Anglais)
 
-    • Advanced Data Analytics
+    • Soft skills.
 
-    • Data Science Project Management
+Semestre 2
+    • Développement mobile
 
-Systèmes Embarqués
-    • Les fondamentaux des systèmes embarqués
+    • Processus agiles pour projets informatiques
 
-Systèmes de Télécommunications Optiques et Satellitaires :
-    • Communications optiques
+    • Bases de données aspects avancés
 
-    • Communications par satellites
+    • Systèmes embarqués et Internet des objets
 
-Signal et Modélisation :
-    • Traitement du signal et applications
+    • Projet appliqué aux systèmes informatiques
 
-    • Techniques de modulation
+    • Langues étrangères (Français / Anglais)
 
-Systèmes de Communication Mobile :
-    • Ingénierie radio
+    • Culture digitale. 
+Semestre 3
+    • Smart Systems
 
-Techniques de Communication :
-    • Techniques de communication
+    • Développement et contrôle de logiciel
 
-    • Français des affaires
+    • Data Science Foundations
 
-    • Anglais des affaires
+    • Réseaux de communication intelligents
 
-Développement Personnel :
-    • Séances de coaching pour le développement personnel
+    • Projet d’initiation
+
+    • Langues étrangères (Français / Anglais)
+
+    • Soft skills.
+
+Semestre 4
+    • Théorie de l’information et codage
+
+    • Système de communication mobile
+
+    • Systèmes de télécommunications optiques et satellitaires
+
+    • Modélisation statistique et optimisation des graphes
+
+    • Projet métier : Intelligence artificielle et Data Science appliquées aux systèmes réseaux et télécommunications
+
+    • Langues étrangères (Français / Anglais)
+
+    • Culture and art skills. 
+
 
 CONDITIONS D’ADMISSION :
-Cette formation de SUP MTI Meknès est ouverte à tout étudiant :
-    • Titulaire du diplôme BAC+3 de SUP MTI Meknès en ingénierie des systèmes informatiques.
+Conditions et modalités d’accès à la filière
+Diplômes requis
+L’admission en première année est ouverte aux candidats titulaires de l’un des diplômes suivants :
+•       3 ans après le Baccalauréat (voie générale)
+•       3 ans après le Baccalauréat professionnel
+•       3 ans après le Baccalauréat fondamental
+•       Baccalauréat + 3 ans d’études supérieures
+•       Licence (toutes spécialités)
+•       Ancienne Licence en Sciences et Techniques
+•       Tout diplôme équivalent reconnu
+ 
+Prérequis pédagogiques spécifiques
+Les candidats doivent disposer de compétences dans les domaines suivants :
+•       Développement web
+•       Programmation orientée objet
+•       Développement mobile
+•       Science des données
+•       Intelligence artificielle
+•       Traitement du signal
+•       Mathématiques et algèbre
+•       Statistiques et modélisation
+•       Génie logiciel
+•       Algorithmique et langages de programmation
+•       Réseaux informatiques
+ 
+Procédures de sélection
+L’école SUP MTI Meknès se réserve le droit de sélectionner les dossiers de candidature pour l’admission en 1ère année selon les critères suivants :
+•       Etude du dossier de candidature — incluant les résultats scolaires et universitaires du candidat
+•       Entretien oral — visant à appréhender la personnalité et la motivation du candidat
+•       Etude de dossier combinée à un entretien devant jury
+•       Concours de bourse d’excellence
+ 
+Membres du jury de sélection
+Les personnes chargées d’assurer la sélection des dossiers et les entretiens oraux sont :
+•       M. Youssef BENGHABRIT — Directeur pédagogique
+•       M. KRIOUILE Yassine — Coordonnateur de la filière
+•       M. Noureddine EL HARMOUCHI — Coordonnateur des modules de Mathématiques
+ 
+Dispositions relatives aux bourses
+L’école organise des concours d’entrée spécifiques pour les boursiers d’excellence. Des bourses d’étude allant de 30 % à 100 % sont octroyées chaque année aux étudiants disposant d’un bon dossier. L’admission d’un étudiant titulaire d’un diplôme BAC+3 reste soumise à l’étude de son dossier et à un test écrit.
 
-    • Titulaire au moins d’une licence (nouveau régime) ou d’un diplôme jugé équivalent en informatique ou informatique de gestion, provenant des établissements publics ou privés accrédités.
 
 ORGANISATION :
     • 2 années de formation
@@ -819,7 +1271,6 @@ LES POINTS FORTS DU PROGRAMME :
 
 
     • MASTERS INTERNATIONAUX : 
-
 Présentation :
 Le parcours MTI (Mesures et Techniques Instrumentales), à travers son organisation et ses objectifs pédagogiques, forme des cadres BAC+5 dans le domaine de l’ingénierie.
 Cette formation repose sur deux parcours complémentaires :
@@ -961,135 +1412,15 @@ SUP MTI Meknès vous propose plusieurs parcours adaptés à votre profil :
     • Management des Entreprises
 
 
-Admission  :
-
-Admission en École d’Ingénierie :
-Les étudiants titulaires d’un baccalauréat scientifique, technique ou économique peuvent accéder à la première année de l’école d’ingénierie de SUP MTI Meknès.
-Les étudiants titulaires au moins d’une licence (nouveau régime) ou d’un diplôme équivalent peuvent accéder soit à la troisième année, soit à la quatrième année de la filière, après :
-    • étude du dossier de candidature,
-
-    • et réussite à un entretien de validation des prérequis pédagogiques.
-
-
- Conditions d’admission
-En première année
-    • Être titulaire d’un baccalauréat scientifique ou technique.
-
-    • La sélection des étudiants se fait après étude du dossier de candidature et entretien individuel.
-
- En deuxième année
-    • Être titulaire d’un baccalauréat scientifique ou technique,
-
-    • Être issu d’une filière accréditée selon les circulaires du Ministère de l’Enseignement Supérieur,
-
-    • Et justifier des prérequis pédagogiques.
-
-👉 La sélection se fait après étude du dossier et entretien.
-
- En troisième année :
-    • Être issu d’une filière accréditée, conformément aux circulaires du ministère.
-
-    • Justifier des prérequis pédagogiques requis.
-
-    • Être titulaire au moins d’une licence (nouveau régime) ou d’un diplôme équivalent.
-
-
- En quatrième année :
-    • Être titulaire du diplôme BAC+3 de SUP MTI Meknès en ingénierie des systèmes informatiques.
-
-    • Ou être issu d’une filière accréditée reconnue par le ministère et justifiant des prérequis.
-
-    • Ou encore être titulaire d’une licence (nouveau régime) ou d’un diplôme équivalent.
-
- Procédure d’admission :
- Étude de dossier :
-L’évaluation est effectuée par le comité pédagogique de SUP MTI Meknès, sur la base :
-    • des notes obtenues,
-
-    • et des prérequis techniques et académiques.
-
-
-Convocation :
-Les candidats dont le dossier est retenu sont convoqués à un entretien de validation, conformément aux exigences du ministère et aux critères de l’école.
-
- Prise de décision :
-La décision finale d’admission est rendue par le comité pédagogique de SUP MTI Meknès.
-
- Je m’inscris !
-Les inscriptions se font directement auprès du service pédagogique de SUP MTI Meknès ou sur le site officiel :
- 👉 www.supmtimeknes.ac.ma
-
-
-
-Admission en École de Management :
-Les étudiants titulaires d’un baccalauréat scientifique, technique ou économique peuvent accéder à la première année de l’école de management de SUP MTI Meknès.
-Les étudiants titulaires au moins d’une licence (nouveau régime) ou d’un diplôme équivalent peuvent accéder soit à la troisième année, soit à la quatrième année de la filière, après :
-    • étude du dossier de candidature,
-
-    • et réussite à un entretien de validation des prérequis pédagogiques.
-
-
- Conditions d’admission :
- En première année :
-    • Être titulaire d’un baccalauréat scientifique, technique ou économique.
-
-    • La sélection se fait après étude du dossier de candidature et entretien individuel.
-
-
- En deuxième année :
-    • Être titulaire d’un baccalauréat scientifique, technique ou économique,
-
-    • Être issu d’une filière accréditée selon les circulaires du Ministère de l’Enseignement Supérieur,
-
-    • Et justifier des prérequis pédagogiques.
-
-👉 La sélection s’effectue après étude du dossier et entretien.
-
- En troisième année :
-    • Être issu d’une filière accréditée, conformément aux circulaires du ministère.
-
-    • Justifier des prérequis pédagogiques requis.
-
-    • Être titulaire au moins d’une licence (nouveau régime) ou d’un diplôme équivalent.
-
-
- En quatrième année :
-    • Être titulaire du diplôme BAC+3 de SUP MTI Meknès en management, finance ou gestion.
-
-    • Ou être issu d’une filière accréditée selon les circulaires du ministère, avec les prérequis nécessaires.
-
-    • Ou encore être titulaire d’une licence (nouveau régime) ou d’un diplôme équivalent.
-
-
- Procédure d’admission :
- Étude de dossier :
-L’évaluation est réalisée par le comité pédagogique de SUP MTI Meknès, sur la base :
-    • des notes obtenues,
-
-    • et des prérequis techniques et académiques.
-
- Convocation :
-Les candidats dont le dossier est retenu sont convoqués à un entretien de validation des prérequis pédagogiques, conformément aux exigences du ministère et aux critères de sélection de l’école.
-
- Prise de décision :
-La décision finale d’admission est rendue par le comité pédagogique de SUP MTI Meknès.
-
- Je m’inscris !
-Les inscriptions se font directement auprès du service pédagogique de SUP MTI Meknès ou via le site officiel :
- 👉 www.supmtimeknes.ac.ma
-
 
 
 INTERNATIONAL :
-
 Étudiants Internationaux – SUP MTI Meknès :
 SUP MTI Meknès accueille chaque année des étudiants internationaux issus de plus de quinze nationalités différentes.
  L’école met en œuvre tous les moyens nécessaires pour faciliter leur intégration dans leur nouvel environnement académique et social.
-
  Logement et accueil :
 SUP MTI Meknès assure des solutions de logement adaptées pour ses étudiants internationaux.
  Des chambres meublées sont proposées dans des appartements confortables afin de garantir un séjour agréable et sécurisé.
-
  Accompagnement personnalisé :
 L’école accompagne les étudiants tout au long de leur recherche de logement et met à leur disposition :
     • toutes les informations utiles,
@@ -1115,7 +1446,6 @@ L’école SUP MTI Meknès est idéalement située en plein centre-ville, à pro
 
  Logement indépendant :
 Les agences immobilières partenaires de SUP MTI Meknès proposent des offres d’appartements spécialement adaptées aux besoins des étudiants souhaitant un logement indépendant.
-
  Cellule d’accompagnement dédiée :
 L’école met à la disposition des étudiants internationaux une cellule d’accompagnement spécialisée, chargée de leur fournir :
     • des renseignements pratiques,
