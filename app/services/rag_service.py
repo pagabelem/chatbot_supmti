@@ -9,6 +9,7 @@ import os
 import json
 import hashlib
 import requests
+from functools import lru_cache
 from datetime import datetime
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -43,8 +44,6 @@ _metadonnees  = None
 def demarrer_rag():
     global _index, _metadonnees
     print("[RAG] Démarrage du système RAG...")
-    # NOTE : Si Data1.txt a été modifié, supprimer data/vectorstore/documents_hash.txt
-    # pour forcer la reconstruction FAISS avec les nouvelles données.
     if base_doit_etre_reconstruite():
         print("[RAG] Construction de la base vectorielle (peut prendre 30-60s)...")
         initialiser_base_vectorielle()
@@ -52,12 +51,28 @@ def demarrer_rag():
     if _index is not None:
         print("[RAG] ✅ Système RAG prêt !")
         generer_donnees_offline()
+        # ── Préchargement des caches pour des réponses instantanées ──────────
+        # On précharge maintenant pour que la 1ère requête soit aussi rapide
+        # que toutes les suivantes (pas de latence "cold start").
+        print("[CACHE] Préchargement hardcode + prompts en mémoire...")
+        _construire_contenu_hardcode()   # charge Data1.txt en mémoire
+        for _lang in ("français", "anglais", "darija_latin", "darija_arabe"):
+            construire_prompt_systeme(_lang)   # compile les 4 prompts
+        print("[CACHE] ✅ Tous les caches prêts — 1ère requête aussi rapide que les suivantes")
     else:
         print("[RAG] ⚠️ Système RAG en mode dégradé")
 
 # ============================================================
 # ÉTAPE 2 — DÉTECTER LA LANGUE
 # ============================================================
+
+def _normaliser_arabe(texte):
+    """Supprime les harakat (voyelles) arabes pour normaliser la détection."""
+    import unicodedata
+    # Harakat : Fatha, Damma, Kasra, Sukun, Shadda, Tanwin...
+    harakat = set("َُِّْٰٕٓٔؐؑؒؓ")
+    return "".join(c for c in texte if c not in harakat)
+
 
 def detecter_langue(texte):
     """
@@ -70,12 +85,13 @@ def detecter_langue(texte):
     - Si l'utilisateur écrit en anglais → réponse en anglais
     - Sinon → français par défaut
     """
-    texte_lower = texte.lower()
+    texte_norm  = _normaliser_arabe(texte)   # sans harakat pour comparaison fiable
+    texte_lower = texte_norm.lower()
 
     # ── Détection darija arabe ──────────────────────────────
     # Si la majorité des mots sont en arabe → darija_arabe
-    caracteres_arabes = sum(1 for c in texte if '\u0600' <= c <= '\u06FF')
-    total_lettres     = sum(1 for c in texte if c.isalpha())
+    caracteres_arabes = sum(1 for c in texte_norm if '\u0600' <= c <= '\u06FF')
+    total_lettres     = sum(1 for c in texte_norm if c.isalpha())
 
     if total_lettres > 0 and (caracteres_arabes / total_lettres) > 0.5:
         return "darija_arabe"
@@ -314,8 +330,13 @@ def _construire_bloc_filieres_prompt():
     return "\n".join(lignes)
 
 
+@lru_cache(maxsize=8)
 def construire_prompt_systeme(langue="français"):
-
+    """
+    Construit le prompt système par langue.
+    @lru_cache : chaque langue est construite UNE SEULE FOIS (max 8 langues).
+    Retour instantané sur tous les appels suivants pour la même langue.
+    """
     INDEX_7_FILIERES = """
 INDEX 7 FILIERES SUPMTI :
 Management & Finance : MGE (BAC+3), MDI (BAC+3), FACG (BAC+5), MRI (BAC+5)
@@ -343,11 +364,37 @@ Ne jamais utiliser ###, ####, ═══, →, •
 
 PRIORITÉS
 1. Questions SUPMTI → contexte officiel uniquement, jamais inventer
-2. Questions académiques générales → répondre + orienter vers filière SUPMTI si pertinent
-3. HORS SUJET (sport, célébrités, religion, cuisine, politique...) :
-   → NE RÉPONDS PAS au contenu. Exemple:
-   "chkoun Messi?" → "Machi domaine dyali. Bghiti nsa3dak f orientation dyal SUPMTI?"
-   INTERDIT: donner une info sur le sujet puis rediriger — ZÉRO info sur le sujet.
+2. Questions académiques (info, réseaux, IA, management, finance, orientation...) → répondre avec expertise + orienter vers filière SUPMTI. Exemple : "l-informatique hiya... f SUPMTI kayna filière IISI li katkhdem had domain."
+3. HORS SUJET — règle par domaine (pas par formulation) :
+
+DOMAINES INTERDITS (zéro réponse sur ces sujets) :
+- Sport, sportifs, équipes
+- Célébrités, chanteurs, acteurs
+- Religion, pratiques religieuses
+- Cuisine, restaurants
+- Politique, élections, actualités
+- Films, séries, musique, jeux vidéo
+- Santé/médecine (hors contexte études)
+- Voyage, tourisme
+
+RÈGLE D'OR : si t'es pas sûr → réponds + fais le lien avec SUPMTI
+"Chno ahsan langage de programmation?" → académique → réponds (Python, lien IISI)
+"Chno hia l-informatique?" → académique → réponds + lien IISI
+"Wach kayn stage f SUPMTI?" → info SUPMTI → réponds direct
+"Ahsan filière pour manager?" → professionnel → réponds (MGE) + lien SUPMTI
+
+ACCEPTÉ même avec "ahsan/afDal/meilleur" :
+✅ "Chno ahsan langage?" → répondre + IISI
+✅ "Chno ahsan domaine fal-informatique?" → répondre + IISI/IISIC
+✅ "Wach SUPMTI mezyana wella la?" → répondre honnêtement
+✅ "Chno hia l-gestion?" → répondre + MGE
+
+REFUSÉ (domaine interdit) :
+❌ "Chkoun howa ahsan laeib kura?" → sport
+❌ "Chkoun Messi?" → célébrité
+❌ "Chno hia salat l-fajr?" → religion
+
+FORMULE DE REFUS : "Machi domaine dyali. [Alternative SUPMTI concrète]."
 
 PERSONNALITÉ
 Chaleureux, direct, comme un ami marocain sur WhatsApp.
@@ -373,12 +420,27 @@ Utilise le prénom. Tu t'appelles Sami."""
 
 الأولويات
 1. أسئلة SUPMTI ← من السياق الرسمي فقط، لا تخترع
-2. الأسئلة الأكاديمية العامة (تعليم، مسار، مهن، تكوين) ← أجب + وجّه لفليار SUPMTI
-3. خارج الموضوع (رياضة، شخصيات مشهورة، دين، طبخ، ترفيه، سياسة) ←
-   ممنوع منعًا باتًا تقديم أي معلومة عن الموضوع.
-   قل فقط: "هذا مشي من دوميني. واش بغيتي نعاونك فالتوجيه فـ SUPMTI؟"
-   مثال ممنوع: "مبابي لاعب كرة قدم فرنسي... للتوجيه..."  ← INTERDIT
-   مثال صحيح: "هذا مشي دوميني. قولّي مستواك الدراسي نوجّهك."
+2. الأسئلة الأكاديمية (تعليم، مسار، مهن، تكوين، إعلاميات، شبكات، تسيير، مالية، ذكاء اصطناعي...) ← أجب بخبرة + وجّه لفليار SUPMTI المناسب. مثال: "الإعلاميات هي... فـ SUPMTI، فليار IISI كاتغطي هاد الميدان."
+3. خارج الموضوع — قاعدة حسب الميدان (مش حسب الصياغة) :
+
+الميادين الممنوعة (لا تعطي أي معلومة عليها) :
+- الرياضة، اللاعبين، الفرق
+- المشاهير، الممثلين، المغنيين
+- الدين والعبادات (الصلاة، الصوم، التجويد...)
+- الطبخ والمطاعم
+- السياسة، الانتخابات، الأخبار
+- الترفيه: أفلام، مسلسلات، ألعاب فيديو، موسيقى
+- السياحة والسفر
+
+القاعدة الذهبية : إذا ماكنتش متأكد → جاوب + اربط بـ SUPMTI
+مقبول حتى مع صيغة أحسن/أفضل :
+✅ "Chno ahsan domaine fal-informatique?" → جاوب + IISI
+✅ "Chno ahsan filière?" → جاوب + فليار SUPMTI
+✅ "Sno kiddir wahd management?" → جاوب + MGE
+✅ "Wach kayn stage f SUPMTI?" → جاوب مباشرة (معلومة SUPMTI)
+مرفوض : "Chkoun ahsan laeib kura?" / "Chkoun Messi?" / "Chno hia salat l-fajr?"
+أيضا : السلامات مقبولة دائما (labas, salam, صباح الخير...) — رد بحرارة
+صيغة الرفض : "هذا مشي من دوميني. [بديل SUPMTI محدد]."
 
 الشخصية
 دافئ، مباشر، مثل صديق مغربي. استخدم الاسم. اسمك سامي."""
@@ -401,12 +463,47 @@ Engineering (ISI)   : IISI (BAC+3), IISIC (BAC+5), IISRT (BAC+5)
 
 PRIORITIES
 1. SUPMTI questions → official context only, never invent
-2. General academic questions → answer + mention relevant SUPMTI programme if applicable
-3. OFF-TOPIC (sport, celebrities, religion, cooking, politics, entertainment...):
-   → DO NOT answer the question content. Zero information on the topic.
-   → Say ONLY: "That's outside my area. I'm here to help with [specific SUPMTI topic]!"
-   WRONG: "Messi is an Argentine footballer... For your orientation at SUPMTI..."
-   RIGHT: "That's not my area. Tell me your level and I'll guide you at SUPMTI!"
+2. Academic, educational and professional questions → You MUST answer:
+   - Computer science, networking, cybersecurity, AI, data science, software development
+   - Management, business administration, marketing, HR
+   - Finance, accounting, audit, controlling
+   - International business, international relations
+   - Study methods, career guidance, exam prep, job market
+   - Academic definitions ("what is computer science?", "what is management?"...)
+   For these: answer with expertise + link to the relevant SUPMTI programme.
+   Example: "Computer science is the study of... At SUPMTI, the IISI programme covers this field."
+3. OFF-TOPIC — domain-based rule (not phrasing-based):
+
+STRICTLY FORBIDDEN DOMAINS (never provide any information on these):
+- Sports, athletes, teams, sports results
+- Celebrities, actors, singers, influencers
+- Religion, spirituality, religious practices
+- Cooking, recipes, restaurants
+- Politics, elections, news
+- Entertainment: movies, TV shows, video games, music artists
+- Health/medicine (unless as career context)
+- Tourism, travel, hotels
+
+GOLDEN RULE — when in doubt, ANSWER and link to SUPMTI:
+"What's the best programming language?" → academic → answer + link to IISI
+"What's the best career sector?" → professional → answer + link to SUPMTI programs
+"Are there internships at SUPMTI?" → SUPMTI info → answer (P1)
+"What is computer science / management / finance?" → academic → answer + link to program
+
+QUESTIONS ACCEPTED even with "best/worst" phrasing:
+✅ "Best language to learn programming?" → answer (Python) + link IISI
+✅ "Best field in IT right now?" → answer (AI/cybersecurity) + link IISI/IISIC
+✅ "Best program to become a manager?" → answer (MGE) + link SUPMTI
+✅ "Easy or hard to study at SUPMTI?" → answer honestly
+✅ "What is computer science?" → answer + link IISI
+
+QUESTIONS REFUSED (forbidden domain):
+❌ "Who is the best footballer?" → sport = refuse
+❌ "Who is Messi?" → celebrity = refuse
+❌ "What is tajweed?" → religion = refuse
+❌ "Best restaurant in Meknes?" → tourism = refuse
+
+REFUSAL FORMULA: "That's outside my area. [Specific SUPMTI alternative]."
 
 CHARACTER
 Warm, direct, professional. Use the person's first name. Your name is Sami."""
@@ -424,32 +521,49 @@ Réponds UNIQUEMENT à partir du contexte officiel fourni dans "CONTEXTE OFFICIE
 Tu n'inventes JAMAIS ni n'extrapoles.
 Si l'info est absente du contexte : "Je n'ai pas cette information précise. Contacte SUPMTI : +212 5 35 51 10 11 | contact@supmtimeknes.ac.ma"
 
-PRIORITÉ 2 — Questions académiques générales
-Orientation de carrière, méthodes de travail, préparation aux concours, soft skills,
-certifications, marché de l'emploi, conseils études → utilise ton expertise pour apporter une vraie valeur.
+PRIORITÉ 2 — Questions académiques, éducatives et professionnelles
+Tu es un assistant académique expert. Tu DOIS répondre aux questions dans ces domaines :
+- Informatique, développement logiciel, réseaux, cybersécurité, IA, data science, cloud
+- Management, gestion d'entreprise, marketing, ressources humaines
+- Finance, comptabilité, audit, contrôle de gestion
+- Commerce international, relations internationales, export
+- Orientation scolaire, méthodes de travail, préparation aux concours
+- Débouchés professionnels, marché de l'emploi, compétences
+- Définitions académiques dans ces domaines (ex: "c'est quoi l'informatique ?", "qu'est-ce que le management ?")
+Pour ces questions : réponds avec expertise + fais le lien avec la filière SUPMTI la plus pertinente.
+Exemple : "L'informatique, c'est... À SUPMTI, la filière IISI couvre exactement ce domaine."
 
-PRIORITÉ 3 — HORS PÉRIMÈTRE ACADÉMIQUE (RÈGLE ABSOLUE)
-Catégories interdites : sport, sportifs, célébrités, religion, cuisine, politique,
-divertissement, films, musique, actualités, voyages, santé, technologie grand public...
-→ Tu NE RÉPONDS PAS au contenu de la question.
-→ Tu dis UNIQUEMENT : "Ce n'est pas mon domaine. Je suis là pour [alternative académique SUPMTI concrète]."
-→ JAMAIS de réponse factuelle sur le sujet hors-périmètre, même en 1 mot.
-→ JAMAIS "le meilleur X est Y". JAMAIS "les noms les plus cités sont...".
+PRIORITÉ 3 — HORS PÉRIMÈTRE (règle de domaine, pas de formulation)
 
-EXEMPLES CORRECTS :
-Question : "Qui est le meilleur footballeur ?"
-Réponse : "Ce n'est pas mon domaine. Je peux t'aider à choisir ta filière à SUPMTI !"
+DOMAINES STRICTEMENT INTERDITS (tu ne réponds sur AUCUN de ces sujets) :
+- Sport, sportifs, équipes, résultats sportifs
+- Célébrités, acteurs, chanteurs, influenceurs, personnalités publiques non académiques
+- Religion, spiritualité, pratiques religieuses
+- Cuisine, recettes, restaurants
+- Politique, partis, élections, actualités
+- Divertissement : films, séries, jeux vidéo, musique
+- Santé, médecine, symptômes (sauf études de santé comme contexte)
+- Voyages, tourisme, hôtels
 
-Question : "C'est quoi le tajweed ?"
-Réponse : "Ce n'est pas mon domaine. Tu veux que je te présente les filières SUPMTI ?"
+RÈGLE D'OR — si tu as un doute, RÉPONDS et fais le lien avec SUPMTI :
+Ex : "Quel est le meilleur langage de programmation ?" → c'est académique → réponds + lien IISI
+Ex : "Quel est le meilleur secteur pour trouver un emploi ?" → c'est professionnel → réponds + filières
 
-Question : "Qui est Messi ?"
-Réponse : "Ce n'est pas mon domaine. Pour l'orientation à SUPMTI, dis-moi ton niveau !"
+QUESTIONS ACCEPTÉES MALGRÉ LA FORME "meilleur/best/أحسن" :
+✅ "Quel est le meilleur langage pour débuter ?" → répondre (Python, lien IISI)
+✅ "Quel est le meilleur domaine en informatique ?" → répondre (IA/cybersécurité, lien IISI/IISIC)
+✅ "Quel est le meilleur cursus pour devenir manager ?" → répondre (MGE, lien SUPMTI)
+✅ "Est-ce que le stage est obligatoire à SUPMTI ?" → répondre (info SUPMTI = P1)
+✅ "C'est quoi l'informatique / le management / la finance ?" → répondre + lien filière
 
-EXEMPLES INCORRECTS (INTERDITS) :
-❌ "Messi est un footballeur argentin... Pour ton orientation..."
-❌ "Les noms les plus cités sont Messi et Ronaldo... Dis-moi ta filière"
-❌ Toute réponse qui contient une information sur le sujet hors-périmètre
+QUESTIONS REFUSÉES (domaine interdit) :
+❌ "Qui est le meilleur footballeur ?" → sport = refus
+❌ "Qui est Messi ?" → célébrité = refus
+❌ "C'est quoi le tajweed ?" → religion = refus
+❌ "Meilleur restaurant à Meknès ?" → cuisine/tourisme = refus
+
+FORMULE DE REFUS (courte, directe) :
+"Ce n'est pas mon domaine. [Proposition alternative concrète liée à SUPMTI]."
 
 ════════════════════════════════════════
 INDEX SUPMTI — 7 FILIÈRES
@@ -564,10 +678,21 @@ def _top_k_pour_question(question):
         "presentation", "présentation", "supmti", "ecole", "école",
         "programme", "formation", "parcours", "semestre",
         "debouche", "débouché", "admission", "condition",
-        "qui sommes", "vision", "mission", "valeur",
+        "qui sommes", "vision", "mission", "valeur", "valeurs",
         "equipe", "enseignant", "partenariat", "certification",
         "bourse", "frais", "scolarite", "scolarité", "contact",
-        "bac+3", "bac+5", "niveau", "departement", "département"
+        "bac+3", "bac+5", "niveau", "departement", "département",
+        # Infos institutionnelles
+        "fondateur", "fondé", "fondation", "créé", "créateur",
+        "année", "date", "historique", "histoire", "origine",
+        "slogan", "devise", "accréditation", "agrément",
+        # Domaines académiques (pour lier à une filière)
+        "informatique", "réseaux", "télécommunication", "telecom",
+        "management", "finance", "audit", "international",
+        "intelligence artificielle", "data", "cloud", "cybersécurité",
+        "gestion", "comptabilité", "marketing", "commerce",
+        "definition", "définition", "c'est quoi", "qu'est-ce",
+        "expliquer", "expliquez", "expliquer moi"
     ]
     if any(m in q for m in mots_larges):
         return 10   # Réduit : Data1.txt complet est déjà dans le contexte garanti
@@ -967,18 +1092,28 @@ def _extraire_texte_page(soup, url):
     return texte_propre
 
 
+_HARDCODE_CACHE = None   # Cache mémoire — chargé une seule fois au démarrage
+
 def _construire_contenu_hardcode():
     """
     Génère un bloc de texte avec les informations critiques de SUPMTI
+    OPTIMISATION : résultat mis en cache mémoire après le premier appel.
+    Aucune lecture disque ni reconstruction de string sur les appels suivants.
     tirées de academic_config.py.
     Ce bloc est TOUJOURS ajouté au contenu scrapé pour garantir que
     les frais, le téléphone et les filières sont dans la base RAG,
     même si le site web ne les affiche pas directement.
     """
+    global _HARDCODE_CACHE
+    if _HARDCODE_CACHE is not None:
+        return _HARDCODE_CACHE   # ← retour immédiat (0ms) après le 1er appel
+
     lignes = [
         "=== SOURCE: academic_config_supmti ===",
         f"École : {SCHOOL_INFO['nom']} — {SCHOOL_INFO['nom_complet']}",
         f"Slogan : {SCHOOL_INFO['slogan']}",
+        f"Fondée en : {SCHOOL_INFO.get('fondation', 2014)} (année de création : 2014)",
+        "Fondateurs : M. KRIOUILE Mohamed et M. KRIOUILE Abdelaziz",
         f"Adresse : {SCHOOL_INFO['adresse']}",
         f"Téléphone : {SCHOOL_INFO['telephone']}",
         f"Email : {SCHOOL_INFO['email']}",
@@ -1045,7 +1180,9 @@ def _construire_contenu_hardcode():
     except Exception as e:
         print(f"[HARDCODE] Impossible de charger Data1.txt: {e}")
 
-    return "\n".join(lignes)
+    _HARDCODE_CACHE = "\n".join(lignes)
+    print(f"[CACHE] Hardcode chargé en mémoire ({len(_HARDCODE_CACHE):,} chars) — lectures disque futures = 0ms")
+    return _HARDCODE_CACHE
 
 
 def scraper_site_supmti():
@@ -1186,7 +1323,12 @@ def synchroniser_base_rag():
         print(f"[SYNC] ⚠️ Erreur sauvegarde hash : {e}")
 
     generer_donnees_offline()
-    print("[SYNC] ✅ Synchronisation terminée avec succès !")
+    # Invalider le cache hardcode pour forcer rechargement avec le nouveau contenu
+    global _HARDCODE_CACHE
+    _HARDCODE_CACHE = None
+    _construire_contenu_hardcode()   # recharger immédiatement en mémoire
+    construire_prompt_systeme.cache_clear()  # invalider cache prompts (langue peut changer)
+    print("[SYNC] ✅ Synchronisation terminée + caches invalidés !")
 
 
 def demarrer_scheduler():
