@@ -4,651 +4,483 @@
     <title>Chat Adaptatif SUP MTI</title>
     <meta charset="UTF-8">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        h2 { color: #003366; text-align: center; }
+        #chat { height: 420px; overflow-y: auto; border: 2px solid #003366; border-radius: 10px; padding: 15px; margin-bottom: 10px; background: white; }
+        .message { margin: 10px 0; padding: 10px; border-radius: 10px; max-width: 80%; word-wrap: break-word; }
+        .user  { background: #007bff; color: white; margin-left: auto; text-align: right; }
+        .bot   { background: #f1f1f1; color: black; }
+        .voice-message      { background: #e3f2fd; color: black; border-left: 4px solid #2196f3; }
+        .transcript-message { background: #fff3cd; color: #856404; border-left: 4px solid #ffc107; }
+        .error-message      { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .controls { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        #input { flex: 1; padding: 10px; border: 2px solid #003366; border-radius: 5px; min-width: 200px; }
+        #sendBtn, #recordBtn, #langSelect, #statusBtn, #settingsBtn {
+            padding: 10px; border: none; border-radius: 5px; cursor: pointer;
         }
-        h2 {
-            color: #003366;
-            text-align: center;
-        }
-        #chat {
-            height: 400px;
-            overflow-y: auto;
-            border: 2px solid #003366;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: white;
-        }
-        .message {
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-        .user {
-            background: #007bff;
-            color: white;
-            margin-left: auto;
-            text-align: right;
-        }
-        .bot {
-            background: #f1f1f1;
-            color: black;
-        }
-        .voice-message {
-            background: #e3f2fd;
-            color: black;
-            border-left: 4px solid #2196f3;
-        }
-        .transcript-message {
-            background: #fff3cd;
-            color: #856404;
-            border-left: 4px solid #ffc107;
-        }
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-        #input {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #003366;
-            border-radius: 5px;
-            min-width: 200px;
-        }
-        #sendBtn, #recordBtn, #langSelect, #statusBtn {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #sendBtn {
-            background: #003366;
-            color: white;
-        }
-        #sendBtn:hover {
-            background: #0044aa;
-        }
-        #recordBtn {
-            background: #dc3545;
-            color: white;
-        }
-        #recordBtn:hover {
-            background: #c82333;
-        }
-        #recordBtn.recording {
-            background: #ff0000;
-            animation: pulse 1s infinite;
-        }
-        #langSelect {
-            background: white;
-            border: 1px solid #003366;
-        }
-        #statusBtn {
-            background: #28a745;
-            color: white;
-        }
-        #prefDisplay {
-            margin: 10px 0;
-            padding: 10px;
-            background: #e8f4ff;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .play-btn {
-            margin-left: 10px;
-            padding: 2px 8px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .play-btn:hover {
-            background: #218838;
-        }
-        .transcript {
-            font-style: italic;
-            color: #666;
-            margin-top: 5px;
-            font-size: 0.9em;
-            border-top: 1px dashed #ccc;
-            padding-top: 5px;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        .debug-info {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 10px;
-            font-family: monospace;
-            font-size: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-        }
-        #toggleDebug {
-            margin-top: 10px;
-            padding: 5px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .timestamp {
-            font-size: 0.7em;
-            color: #999;
-            margin-top: 2px;
-        }
-        .message-header {
-            font-weight: bold;
-            margin-bottom: 3px;
-        }
-        .recording-indicator {
-            color: #dc3545;
-            font-weight: bold;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0.5; }
-        }
+        #sendBtn     { background: #003366; color: white; }
+        #sendBtn:hover { background: #0044aa; }
+        #recordBtn   { background: #dc3545; color: white; }
+        #recordBtn:hover { background: #c82333; }
+        #recordBtn.recording { background: #ff0000; animation: pulse 1s infinite; }
+        #langSelect  { background: white; border: 1px solid #003366; }
+        #statusBtn   { background: #28a745; color: white; }
+        #settingsBtn { background: #6c757d; color: white; }
+        #prefDisplay { margin: 10px 0; padding: 10px; background: #e8f4ff; border-radius: 5px; font-weight: bold; }
+        .play-btn { margin-left: 10px; padding: 2px 8px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px; }
+        .play-btn:hover { background: #218838; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+        .debug-info { background:#f8f9fa; border:1px solid #dee2e6; border-radius:5px; padding:10px; margin-top:10px; font-family:monospace; font-size:12px; max-height:200px; overflow-y:auto; display:none; }
+        #toggleDebug { margin-top:10px; padding:5px; background:#6c757d; color:white; border:none; border-radius:3px; cursor:pointer; }
+        .timestamp { font-size:.7em; color:#999; margin-top:2px; }
+        .message-header { font-weight:bold; margin-bottom:3px; }
+        .recording-indicator { color:#dc3545; font-weight:bold; animation:blink 1s infinite; }
+        @keyframes blink { 50%{opacity:.5} }
+        .darija-text { font-family:'Arial',sans-serif; direction:rtl; text-align:right; }
+        .settings-panel { background:white; border:2px solid #003366; border-radius:10px; padding:15px; margin-bottom:10px; display:none; }
+        .settings-panel.show { display:block; }
+        .setting-item { margin:10px 0; }
+        .setting-item label { display:inline-block; width:160px; font-weight:bold; }
+        .setting-item select, .setting-item input[type=number] { padding:5px; border:1px solid #003366; border-radius:3px; }
+        .lang-badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:bold; margin-left:8px; background:#e8f4ff; color:#003366; border:1px solid #b3d4f5; vertical-align:middle; }
     </style>
 </head>
 <body>
-    <h2 id="title">🤖 Chat Adaptatif SUP MTI</h2>
-    
-    <div id="prefDisplay">Chargement des préférences...</div>
-    
-    <div id="chat"></div>
-    
-    <div class="controls">
-        <select id="langSelect">
-            <option value="fr" selected>🇫🇷 Français</option>
-            <option value="en">🇬🇧 English</option>
-            <option value="ar">🇲🇦 العربية</option>
-        </select>
-        <input type="text" id="input" placeholder="Tapez votre message ou parlez...">
-        <button id="sendBtn">Envoyer</button>
-        <button id="recordBtn">🎤 Parler</button>
-        <button id="statusBtn">🔍 Test STT</button>
-    </div>
-    
-    <button id="toggleDebug">🐛 Afficher/Masquer debug</button>
-    <div id="debugInfo" class="debug-info"></div>
+<h2 id="title">🤖 Chat Adaptatif SUP MTI</h2>
+<div id="prefDisplay">Chargement...</div>
 
-    <script>
-        // Configuration
-        const studentId = "test-user-123";
-        const API_BASE = 'http://127.0.0.1:8000';
-        
-        // Éléments DOM
-        const title = document.getElementById('title');
-        const chat = document.getElementById('chat');
-        const input = document.getElementById('input');
-        const sendBtn = document.getElementById('sendBtn');
-        const recordBtn = document.getElementById('recordBtn');
-        const statusBtn = document.getElementById('statusBtn');
-        const langSelect = document.getElementById('langSelect');
-        const prefDisplay = document.getElementById('prefDisplay');
-        const debugDiv = document.getElementById('debugInfo');
-        const toggleDebug = document.getElementById('toggleDebug');
-        
-        // Variables d'état
-        let mediaRecorder;
-        let audioChunks = [];
-        let isRecording = false;
-        let recordingStartTime;
-        
-        // Dictionnaire de traductions
-        const translations = {
-            fr: {
-                title: "🤖 Chat Adaptatif SUP MTI",
-                prefLoading: "Chargement des préférences...",
-                prefDefault: "Mode préféré: Texte (par défaut)",
-                prefVoice: "🎤 Vocal",
-                prefText: "✍️ Texte",
-                inputPlaceholder: "Tapez votre message ou parlez...",
-                sendBtn: "Envoyer",
-                recordBtn: "🎤 Parler",
-                recordBtnStop: "⏹ Arrêter",
-                statusBtn: "🔍 Test STT",
-                debugShow: "🐛 Afficher debug",
-                debugHide: "🐛 Masquer debug",
-                transcript: "🗣 Transcription",
-                voiceUser: "🎤 Votre message vocal",
-                voiceBot: "🔊 Réponse audio",
-                you: "👤 Vous",
-                assistant: "🤖 Assistant",
-                recording: "🎤 Enregistrement...",
-                speakNow: "🎤 Parlez maintenant...",
-                play: "🔊 Réécouter",
-                seconds: "s"
-            },
-            en: {
-                title: "🤖 Adaptive Chat SUP MTI",
-                prefLoading: "Loading preferences...",
-                prefDefault: "Preferred mode: Text (default)",
-                prefVoice: "🎤 Voice",
-                prefText: "✍️ Text",
-                inputPlaceholder: "Type your message or speak...",
-                sendBtn: "Send",
-                recordBtn: "🎤 Speak",
-                recordBtnStop: "⏹ Stop",
-                statusBtn: "🔍 Test STT",
-                debugShow: "🐛 Show debug",
-                debugHide: "🐛 Hide debug",
-                transcript: "🗣 Transcription",
-                voiceUser: "🎤 Your voice message",
-                voiceBot: "🔊 Audio response",
-                you: "👤 You",
-                assistant: "🤖 Assistant",
-                recording: "🎤 Recording...",
-                speakNow: "🎤 Speak now...",
-                play: "🔊 Play",
-                seconds: "s"
-            },
-            ar: {
-                title: "🤖 دردشة تكيفية SUP MTI",
-                prefLoading: "جاري تحميل التفضيلات...",
-                prefDefault: "الوضع المفضل: نص (افتراضي)",
-                prefVoice: "🎤 صوتي",
-                prefText: "✍️ نص",
-                inputPlaceholder: "اكتب رسالتك أو تحدث...",
-                sendBtn: "إرسال",
-                recordBtn: "🎤 تحدث",
-                recordBtnStop: "⏹ توقف",
-                statusBtn: "🔍 اختبار STT",
-                debugShow: "🐛 إظهار التصحيح",
-                debugHide: "🐛 إخفاء التصحيح",
-                transcript: "🗣 نسخ",
-                voiceUser: "🎤 رسالتك الصوتية",
-                voiceBot: "🔊 رد صوتي",
-                you: "👤 أنت",
-                assistant: "🤖 مساعد",
-                recording: "🎤 جاري التسجيل...",
-                speakNow: "🎤 تحدث الآن...",
-                play: "🔊 استمع",
-                seconds: "ث"
-            }
-        };
-        
-        // Fonction de debug
-        function addDebug(message, data) {
-            const timestamp = new Date().toLocaleTimeString();
-            let log = '[' + timestamp + '] ' + message;
-            if (data) {
-                log += '\n' + JSON.stringify(data, null, 2);
-            }
-            debugDiv.innerHTML += '<div>' + log.replace(/\n/g, '<br>') + '</div>';
-            debugDiv.scrollTop = debugDiv.scrollHeight;
-            console.log(log);
+<div id="settingsPanel" class="settings-panel">
+    <h3>⚙️ Configuration</h3>
+    <div class="setting-item">
+        <label>Mode réponse :</label>
+        <select id="responseModeSelect">
+            <option value="auto" selected>Auto</option>
+            <option value="text">Texte uniquement</option>
+            <option value="audio">Audio uniquement</option>
+            <option value="both">Texte + Audio</option>
+        </select>
+    </div>
+    <div class="setting-item">
+        <label>Timeout (s) :</label>
+        <input type="number" id="timeoutInput" value="60" min="10" max="120">
+    </div>
+    <div class="setting-item">
+        <label>Debug :</label>
+        <input type="checkbox" id="advancedDebugCheckbox" checked>
+    </div>
+    <div class="setting-item">
+        <label>Forcer JSON :</label>
+        <input type="checkbox" id="forceJsonCheckbox" checked>
+    </div>
+    <button id="saveSettingsBtn" style="padding:8px 16px;background:#003366;color:white;border:none;border-radius:5px;cursor:pointer;">
+        Sauvegarder
+    </button>
+</div>
+
+<div id="chat"></div>
+
+<div class="controls">
+    <select id="langSelect">
+        <option value="auto" selected>🌐 Auto-détection</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="ar">🇲🇦 Darija</option>
+    </select>
+    <input type="text" id="input" placeholder="Tapez votre message ou parlez...">
+    <button id="sendBtn">Envoyer</button>
+    <button id="recordBtn">🎤 Parler</button>
+    <button id="statusBtn">🔍 Test STT</button>
+    <button id="settingsBtn">⚙️ Config</button>
+</div>
+
+<button id="toggleDebug">🐛 Afficher/Masquer debug</button>
+<div id="debugInfo" class="debug-info"></div>
+
+<script>
+const studentId = "test-user-123";
+const API_BASE  = 'http://127.0.0.1:8000';
+
+// DOM
+const chat                  = document.getElementById('chat');
+const input                 = document.getElementById('input');
+const sendBtn               = document.getElementById('sendBtn');
+const recordBtn             = document.getElementById('recordBtn');
+const statusBtn             = document.getElementById('statusBtn');
+const settingsBtn           = document.getElementById('settingsBtn');
+const langSelect            = document.getElementById('langSelect');
+const prefDisplay           = document.getElementById('prefDisplay');
+const debugDiv              = document.getElementById('debugInfo');
+const toggleDebugBtn        = document.getElementById('toggleDebug');
+const settingsPanel         = document.getElementById('settingsPanel');
+const responseModeSelect    = document.getElementById('responseModeSelect');
+const timeoutInput          = document.getElementById('timeoutInput');
+const advancedDebugCheckbox = document.getElementById('advancedDebugCheckbox');
+const forceJsonCheckbox     = document.getElementById('forceJsonCheckbox');
+const saveSettingsBtn       = document.getElementById('saveSettingsBtn');
+
+// État
+let mediaRecorder, audioChunks = [], isRecording = false, recordingStartTime;
+let abortController = null;
+
+// ============================================================
+// TRADUCTIONS
+// ============================================================
+const T = {
+    fr: {
+        title:'🤖 Chat Adaptatif SUP MTI', inputPlaceholder:'Tapez votre message ou parlez...',
+        sendBtn:'Envoyer', recordBtn:'🎤 Parler', recordBtnStop:'⏹ Arrêter',
+        statusBtn:'🔍 Test STT',
+        debugShow:'🐛 Afficher debug', debugHide:'🐛 Masquer debug',
+        transcript:'🗣 Transcription', voiceUser:'🎤 Votre message vocal', voiceBot:'🔊 Réponse audio',
+        you:'👤 Vous', assistant:'🤖 Assistant',
+        recording:'🎤 Enregistrement...', speakNow:'🎤 Parlez maintenant...',
+        play:'🔊 Réécouter', seconds:'s',
+        sttSuccess:'✅ STT OK', sttError:'❌ STT Error', connectionError:'❌ Serveur inaccessible',
+        processing:'⏳ Traitement...', timeout:'⏱️ Délai dépassé', error:'❌ Erreur',
+        prefDefault:'Mode préféré : Texte (par défaut)',
+    },
+    en: {
+        title:'🤖 Adaptive Chat SUP MTI', inputPlaceholder:'Type your message or speak...',
+        sendBtn:'Send', recordBtn:'🎤 Speak', recordBtnStop:'⏹ Stop',
+        statusBtn:'🔍 Test STT',
+        debugShow:'🐛 Show debug', debugHide:'🐛 Hide debug',
+        transcript:'🗣 Transcription', voiceUser:'🎤 Your voice message', voiceBot:'🔊 Audio response',
+        you:'👤 You', assistant:'🤖 Assistant',
+        recording:'🎤 Recording...', speakNow:'🎤 Speak now...',
+        play:'🔊 Play', seconds:'s',
+        sttSuccess:'✅ STT OK', sttError:'❌ STT Error', connectionError:'❌ Server unreachable',
+        processing:'⏳ Processing...', timeout:'⏱️ Timeout', error:'❌ Error',
+        prefDefault:'Preferred mode: Text (default)',
+    },
+    ar: {
+        title:'🤖 شات تكيفي SUP MTI', inputPlaceholder:'اكتب رسالتك أو تكلم...',
+        sendBtn:'إرسال', recordBtn:'🎤 تكلم', recordBtnStop:'⏹ توقف',
+        statusBtn:'🔍 اختبار STT',
+        debugShow:'🐛 إظهار التصحيح', debugHide:'🐛 إخفاء التصحيح',
+        transcript:'🗣 تفريغ', voiceUser:'🎤 رسالتك الصوتية', voiceBot:'🔊 رد صوتي',
+        you:'👤 أنت', assistant:'🤖 مساعد',
+        recording:'🎤 جاري التسجيل...', speakNow:'🎤 تكلم الآن...',
+        play:'🔊 استمع', seconds:'ث',
+        sttSuccess:'✅ STT جيد', sttError:'❌ خطأ STT', connectionError:'❌ الخادم غير متاح',
+        processing:'⏳ جاري المعالجة...', timeout:'⏱️ انتهاء الوقت', error:'❌ خطأ',
+        prefDefault:'الوضع المفضل: نص',
+    },
+};
+// FIX PRINCIPAL : 'auto' pointe vers fr au lieu de null
+// Sans ça, t() retournait null et settingsBtn.textContent = undefined écrasait le bouton
+T.auto = T.fr;
+
+function t() { return T[langSelect.value] || T.fr; }
+
+function getEffectiveLang() {
+    if (langSelect.value === 'auto') return null;
+    return langSelect.value;
+}
+
+// ============================================================
+// DEBUG
+// ============================================================
+function addDebug(msg, data) {
+    if (!advancedDebugCheckbox.checked) return;
+    const ts = new Date().toLocaleTimeString();
+    let log  = `[${ts}] ${msg}`;
+    if (data) { try { log += '\n' + JSON.stringify(data, null, 2); } catch {} }
+    debugDiv.innerHTML += '<div>' + log.replace(/\n/g,'<br>').replace(/ /g,'&nbsp;') + '</div>';
+    debugDiv.scrollTop  = debugDiv.scrollHeight;
+}
+function clearDebug() { debugDiv.innerHTML = ''; }
+
+toggleDebugBtn.onclick = () => {
+    const show = debugDiv.style.display === 'none';
+    debugDiv.style.display     = show ? 'block' : 'none';
+    toggleDebugBtn.textContent = show ? t().debugHide : t().debugShow;
+};
+
+// ============================================================
+// SETTINGS
+// FIX : settingsBtn.onclick défini ici une seule fois
+//       et NON écrasé dans setUILanguage
+// ============================================================
+settingsBtn.onclick = () => settingsPanel.classList.toggle('show');
+
+saveSettingsBtn.onclick = () => {
+    localStorage.setItem('chatSettings', JSON.stringify({
+        responseMode:  responseModeSelect.value,
+        timeout:       timeoutInput.value,
+        advancedDebug: advancedDebugCheckbox.checked,
+        forceJson:     forceJsonCheckbox.checked,
+    }));
+    settingsPanel.classList.remove('show');
+    addDebug('⚙️ Paramètres sauvegardés');
+};
+
+function loadSettings() {
+    const s = JSON.parse(localStorage.getItem('chatSettings') || '{}');
+    if (s.responseMode  !== undefined) responseModeSelect.value      = s.responseMode;
+    if (s.timeout       !== undefined) timeoutInput.value            = s.timeout;
+    if (s.advancedDebug !== undefined) advancedDebugCheckbox.checked = s.advancedDebug;
+    if (s.forceJson     !== undefined) forceJsonCheckbox.checked     = s.forceJson;
+}
+
+// ============================================================
+// UI LANGUE
+// FIX : on ne touche PAS à settingsBtn ici
+//       son texte "⚙️ Config" reste fixe dans toutes les langues
+// ============================================================
+function setUILanguage(lang) {
+    const tr = T[lang] || T.fr;
+    document.getElementById('title').textContent = tr.title;
+    input.placeholder     = tr.inputPlaceholder;
+    sendBtn.textContent   = tr.sendBtn;
+    recordBtn.textContent = isRecording ? tr.recordBtnStop : tr.recordBtn;
+    statusBtn.textContent = tr.statusBtn;
+    // settingsBtn NON modifié intentionnellement
+    updatePrefDisplay(lang);
+    if (lang !== 'auto') localStorage.setItem('preferredLanguage', lang);
+}
+
+async function updatePrefDisplay(lang) {
+    const tr = T[lang] || T.fr;
+    try {
+        const res = await fetch(`${API_BASE}/chat-adaptive/preferences/${studentId}`);
+        if (res.ok) {
+            const d    = await res.json();
+            const mode = d.preferred_mode === 'voice' ? '🎤 Vocal' : '✍️ Texte';
+            prefDisplay.innerHTML = `<strong>Mode préféré :</strong> ${mode}`;
+        } else {
+            prefDisplay.textContent = tr.prefDefault;
         }
-        
-        // Toggle debug
-        toggleDebug.onclick = function() {
-            const t = translations[langSelect.value] || translations.fr;
-            if (debugDiv.style.display === 'none') {
-                debugDiv.style.display = 'block';
-                toggleDebug.textContent = t.debugHide;
-            } else {
-                debugDiv.style.display = 'none';
-                toggleDebug.textContent = t.debugShow;
-            }
-        };
-        
-        // Fonction pour changer la langue de l'interface
-        function setUILanguage(lang) {
-            const t = translations[lang] || translations.fr;
-            
-            // Titre
-            title.textContent = t.title;
-            
-            // Placeholder
-            input.placeholder = t.inputPlaceholder;
-            
-            // Boutons
-            sendBtn.textContent = t.sendBtn;
-            
-            if (isRecording) {
-                recordBtn.textContent = t.recordBtnStop;
-            } else {
-                recordBtn.textContent = t.recordBtn;
-            }
-            
-            statusBtn.textContent = t.statusBtn;
-            
-            // Debug button
-            if (debugDiv.style.display === 'none') {
-                toggleDebug.textContent = t.debugShow;
-            } else {
-                toggleDebug.textContent = t.debugHide;
-            }
-            
-            // Mettre à jour l'affichage des préférences
-            updatePrefDisplayWithLang(lang);
-            
-            // Sauvegarder la langue préférée
-            localStorage.setItem('preferredLanguage', lang);
+    } catch {
+        prefDisplay.textContent = tr.prefDefault;
+    }
+}
+
+// ============================================================
+// TEST STT
+// ============================================================
+statusBtn.onclick = async () => {
+    try {
+        const res = await fetch(`${API_BASE}/chat-adaptive/stt-status`);
+        const d   = await res.json();
+        alert(d.success ? t().sttSuccess : `${t().sttError}: ${d.error || '?'}`);
+    } catch {
+        alert(t().connectionError);
+    }
+};
+
+// ============================================================
+// MESSAGES
+// ============================================================
+function addMessage(text, isUser, opts = {}) {
+    const tr  = t();
+    const div = document.createElement('div');
+    div.className = 'message ' + (isUser ? 'user' : 'bot');
+    if (opts.isTranscript) div.classList.add('transcript-message');
+    else if (opts.isAudio) div.classList.add('voice-message');
+    else if (opts.isError) div.classList.add('error-message');
+    if (langSelect.value === 'ar' && typeof text === 'string') div.classList.add('darija-text');
+
+    const ts = document.createElement('div');
+    ts.className = 'timestamp'; ts.textContent = new Date().toLocaleTimeString();
+    div.appendChild(ts);
+
+    const hdr = document.createElement('div');
+    hdr.className = 'message-header';
+    if      (opts.isProcessing)       hdr.innerHTML   = `⏳ <span>${tr.processing}</span>`;
+    else if (opts.isRecording)        hdr.innerHTML   = `🎤 <span class="recording-indicator">${tr.recording}</span>`;
+    else if (opts.isTranscript)       hdr.textContent = tr.transcript;
+    else if (opts.isAudio && !isUser) hdr.textContent = tr.voiceBot;
+    else if (opts.isAudio && isUser)  hdr.textContent = tr.voiceUser;
+    else if (opts.isError)            hdr.textContent = tr.error;
+    else if (isUser)                  hdr.textContent = tr.you;
+    else                              hdr.textContent = tr.assistant;
+    div.appendChild(hdr);
+
+    const body = document.createElement('div');
+    if (opts.isProcessing) {
+        body.innerHTML = `<span>${tr.processing}</span>`;
+    } else if (opts.isRecording) {
+        body.innerHTML = `<span class="recording-indicator">${tr.speakNow}</span>`;
+    } else if (opts.isAudio && !isUser) {
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = URL.createObjectURL(new Blob([text], {type:'audio/mpeg'}));
+        body.appendChild(audio);
+    } else if (opts.isAudio && isUser) {
+        body.textContent = tr.voiceUser;
+        if (opts.audioData) {
+            const btn = document.createElement('button');
+            btn.className = 'play-btn'; btn.textContent = tr.play;
+            btn.onclick = () => new Audio(URL.createObjectURL(new Blob([opts.audioData],{type:'audio/webm'}))).play();
+            body.appendChild(btn);
         }
-        
-        // Mettre à jour l'affichage des préférences avec la langue
-        async function updatePrefDisplayWithLang(lang) {
-            const t = translations[lang] || translations.fr;
-            
-            try {
-                const res = await fetch(API_BASE + '/chat-adaptive/preferences/' + studentId);
-                if (res.ok) {
-                    const data = await res.json();
-                    const modeText = data.preferred_mode === 'voice' ? t.prefVoice : t.prefText;
-                    prefDisplay.innerHTML = '<strong>Mode préféré:</strong> ' + modeText;
-                } else {
-                    prefDisplay.innerHTML = t.prefDefault;
-                }
-            } catch (e) {
-                prefDisplay.innerHTML = t.prefDefault;
-            }
+        if (opts.duration) {
+            const sp = document.createElement('span');
+            sp.style.marginLeft = '10px';
+            sp.textContent = `(${opts.duration}${tr.seconds})`;
+            body.appendChild(sp);
         }
-        
-        // Version modifiée de loadPreferences
-        async function loadPreferences() {
-            await updatePrefDisplayWithLang(langSelect.value);
+    } else {
+        body.textContent = text;
+        if (!isUser && opts.detectedLang && opts.detectedLang !== 'auto') {
+            const langNames = {fr:'🇫🇷 Français', en:'🇬🇧 English', ar:'🇲🇦 Darija', arabic:'🇲🇦 Arabic'};
+            const badge = document.createElement('span');
+            badge.className = 'lang-badge';
+            badge.textContent = langNames[opts.detectedLang] || opts.detectedLang;
+            body.appendChild(badge);
         }
-        
-        // Test STT
-        statusBtn.onclick = async function() {
-            try {
-                const res = await fetch(API_BASE + '/chat-adaptive/stt-status');
-                const data = await res.json();
-                if (data.success) {
-                    alert('✅ STT OK - ' + data.models_count + ' modèles');
-                } else {
-                    alert('❌ STT Error: ' + (data.error || 'Inconnu'));
-                }
-            } catch (e) {
-                alert('❌ Serveur inaccessible');
-            }
-        };
-        
-        // Ajouter un message (version modifiée pour utiliser les traductions)
-        function addMessage(text, isUser, options) {
-            options = options || {};
-            const t = translations[langSelect.value] || translations.fr;
-            
-            const div = document.createElement('div');
-            div.className = 'message ' + (isUser ? 'user' : 'bot');
-            
-            if (options.isTranscript) {
-                div.classList.add('transcript-message');
-            } else if (options.isAudio) {
-                div.classList.add('voice-message');
-            }
-            
-            // Horodatage
-            const timeDiv = document.createElement('div');
-            timeDiv.className = 'timestamp';
-            timeDiv.textContent = new Date().toLocaleTimeString();
-            div.appendChild(timeDiv);
-            
-            // En-tête
-            const headerDiv = document.createElement('div');
-            headerDiv.className = 'message-header';
-            
-            if (options.isRecording) {
-                headerDiv.innerHTML = '🎤 <span class="recording-indicator">' + t.recording + '</span>';
-            } else if (options.isTranscript) {
-                headerDiv.textContent = t.transcript;
-            } else if (options.isAudio && !isUser) {
-                headerDiv.textContent = t.voiceBot;
-            } else if (options.isAudio && isUser) {
-                headerDiv.textContent = t.voiceUser;
-            } else if (isUser) {
-                headerDiv.textContent = t.you;
-            } else {
-                headerDiv.textContent = t.assistant;
-            }
-            div.appendChild(headerDiv);
-            
-            // Contenu
-            const contentDiv = document.createElement('div');
-            
-            if (options.isRecording) {
-                contentDiv.innerHTML = '<span class="recording-indicator">' + t.speakNow + '</span>';
-            } else if (options.isAudio && !isUser) {
-                const audio = document.createElement('audio');
-                audio.controls = true;
-                audio.src = URL.createObjectURL(new Blob([text], {type: 'audio/mpeg'}));
-                contentDiv.appendChild(audio);
-            } else if (options.isAudio && isUser) {
-                contentDiv.textContent = t.voiceUser;
-                const playBtn = document.createElement('button');
-                playBtn.className = 'play-btn';
-                playBtn.textContent = t.play;
-                playBtn.onclick = function() {
-                    const audio = new Audio(URL.createObjectURL(new Blob([options.audioData], {type: 'audio/webm'})));
-                    audio.play();
-                };
-                contentDiv.appendChild(playBtn);
-                if (options.duration) {
-                    const span = document.createElement('span');
-                    span.style.marginLeft = '10px';
-                    span.textContent = '(' + options.duration + t.seconds + ')';
-                    contentDiv.appendChild(span);
-                }
-            } else {
-                contentDiv.textContent = text;
-            }
-            
-            div.appendChild(contentDiv);
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
+    }
+    div.appendChild(body);
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    return div;
+}
+
+function removeProcessingMsg() {
+    const hdrs = document.querySelectorAll('.message.bot .message-header');
+    for (const h of hdrs) {
+        if (h.querySelector('span')?.textContent?.includes(t().processing) ||
+            h.textContent.includes(t().processing)) {
+            h.closest('.message').remove(); break;
         }
-        
-        // Envoyer message texte
-        sendBtn.onclick = async function() {
-            const message = input.value.trim();
-            if (message === '') return;
-            
-            addMessage(message, true);
-            input.value = '';
-            
-            try {
-                const res = await fetch(API_BASE + '/chat-adaptive/text', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: message,
-                        student_id: studentId,
-                        preferred_lang: langSelect.value
-                    })
-                });
-                
-                const data = await res.json();
-                if (data.data && data.data.response) {
-                    addMessage(data.data.response, false);
-                }
-            } catch (e) {
-                addMessage('❌ Erreur de connexion', false);
-            }
-        };
-        
-        // Gestion de l'enregistrement
-        recordBtn.onclick = async function() {
-            const t = translations[langSelect.value] || translations.fr;
-            
-            if (!isRecording) {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    mediaRecorder = new MediaRecorder(stream);
-                    audioChunks = [];
-                    recordingStartTime = Date.now();
-                    
-                    mediaRecorder.ondataavailable = function(e) {
-                        audioChunks.push(e.data);
-                    };
-                    
-                    mediaRecorder.onstop = sendAudio;
-                    
-                    mediaRecorder.start();
-                    isRecording = true;
-                    recordBtn.classList.add('recording');
-                    recordBtn.textContent = t.recordBtnStop;
-                    
-                    addMessage('', true, { isRecording: true });
-                    
-                } catch (e) {
-                    alert('Microphone inaccessible');
-                }
-            } else {
-                mediaRecorder.stop();
-                mediaRecorder.stream.getTracks().forEach(function(t) { t.stop(); });
-                isRecording = false;
-                recordBtn.classList.remove('recording');
-                recordBtn.textContent = t.recordBtn;
-            }
-        };
-        
-        // Envoyer l'audio et transcrire
-        async function sendAudio() {
-            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-            const duration = ((Date.now() - recordingStartTime) / 1000).toFixed(1);
-            
-            const audioData = await audioBlob.arrayBuffer();
-            addMessage('', true, { isAudio: true, audioData: audioData, duration: duration });
-            
-            const formData = new FormData();
-            formData.append('file', audioBlob, 'voice.webm');
-            
-            try {
-                addDebug('📤 Envoi audio...', { size: audioBlob.size });
-                
-                const res = await fetch(API_BASE + '/chat-adaptive/voice?student_id=' + studentId + '&preferred_lang=' + langSelect.value, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                addDebug('📥 Réponse reçue', { 
-                    status: res.status,
-                    contentType: res.headers.get('content-type')
-                });
-                
-                // Afficher TOUS les headers pour debug
-                const allHeaders = {};
-                for (const [key, value] of res.headers.entries()) {
-                    allHeaders[key] = value;
-                }
-                addDebug('📋 Tous les headers', allHeaders);
-                
-                // Chercher la transcription dans TOUS les noms possibles
-                const possibleHeaderNames = [
-                    'x-transcribed', 
-                    'transcribed', 
-                    'X-Transcribed', 
-                    'Transcribed',
-                    'x-text',
-                    'text'
-                ];
-                
-                let transcribed = null;
-                for (const name of possibleHeaderNames) {
-                    const value = res.headers.get(name);
-                    if (value) {
-                        transcribed = value;
-                        addDebug(`✅ Transcription trouvée dans header: ${name} = ${value.substring(0, 50)}...`);
-                        break;
-                    }
-                }
-                
-                // Si transcription trouvée, l'afficher
-                if (transcribed) {
-                    addMessage('🗣 "' + transcribed + '"', false, { 
-                        isTranscript: true 
-                    });
-                    input.value = transcribed;
-                    input.focus();
-                } else {
-                    addDebug('⚠️ Aucune transcription trouvée dans les headers');
-                }
-                
-                const contentType = res.headers.get('content-type');
-                
-                if (contentType && contentType.includes('audio')) {
-                    // Réponse audio
-                    addDebug('🔊 Réponse audio reçue');
-                    const audioBlob = await res.blob();
-                    addMessage(audioBlob, false, { isAudio: true });
-                    
-                } else {
-                    // Réponse JSON
-                    try {
-                        const data = await res.json();
-                        addDebug('📊 Données JSON', data);
-                        
-                        // Chercher la transcription dans le JSON
-                        const jsonTranscribed = data.transcribed || data.text || data.message;
-                        if (jsonTranscribed && !transcribed) {
-                            addMessage('🗣 "' + jsonTranscribed + '"', false, { 
-                                isTranscript: true 
-                            });
-                            input.value = jsonTranscribed;
-                            input.focus();
-                        }
-                        
-                        // Afficher la réponse du bot
-                        const botResponse = data.data?.response || data.response || data.message;
-                        if (botResponse) {
-                            addMessage(botResponse, false);
-                        }
-                    } catch (e) {
-                        addDebug('❌ Erreur parsing JSON', e);
-                        const text = await res.text();
-                        addDebug('📄 Réponse texte', text);
-                    }
-                }
-                
-            } catch (e) {
-                addDebug('❌ Erreur', e);
-                addMessage('❌ Erreur transcription', false);
-            }
-            
-            loadPreferences();
-        }
-        
-        // Entrée pour envoyer
-        input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendBtn.click();
-            }
+    }
+}
+
+// ============================================================
+// ENVOI TEXTE
+// ============================================================
+sendBtn.onclick = async () => {
+    const msg = input.value.trim();
+    if (!msg) return;
+    addMessage(msg, true);
+    input.value = '';
+    try {
+        const res = await fetch(`${API_BASE}/chat-adaptive/text`, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({message: msg, student_id: studentId, preferred_lang: getEffectiveLang()}),
         });
-        
-        // Écouteur pour le changement de langue
-        langSelect.addEventListener('change', function() {
-            setUILanguage(this.value);
+        const d     = await res.json();
+        const reply = d.data?.response || d.response || null;
+        if (reply) addMessage(reply, false);
+        else       addMessage('❌ Réponse vide', false, {isError:true});
+    } catch {
+        addMessage(t().connectionError, false, {isError:true});
+    }
+};
+
+// ============================================================
+// ENREGISTREMENT
+// ============================================================
+recordBtn.onclick = async () => {
+    const tr = t();
+    if (!isRecording) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = []; recordingStartTime = Date.now();
+            mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+            mediaRecorder.onstop = sendAudio;
+            mediaRecorder.start();
+            isRecording = true;
+            recordBtn.classList.add('recording');
+            recordBtn.textContent = tr.recordBtnStop;
+            addMessage('', true, {isRecording:true});
+        } catch { alert('Microphone inaccessible'); }
+    } else {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        isRecording = false;
+        recordBtn.classList.remove('recording');
+        recordBtn.textContent = t().recordBtn;
+    }
+};
+
+// ============================================================
+// ENVOI AUDIO
+// ============================================================
+async function sendAudio() {
+    const tr        = t();
+    const audioBlob = new Blob(audioChunks, {type:'audio/webm'});
+    const duration  = ((Date.now() - recordingStartTime) / 1000).toFixed(1);
+    const audioData = await audioBlob.arrayBuffer();
+
+    addMessage('', true,  {isAudio:true, audioData, duration});
+    addMessage('', false, {isProcessing:true});
+
+    const formData = new FormData();
+    formData.append('file', audioBlob, 'voice.webm');
+
+    if (abortController) abortController.abort();
+    abortController = new AbortController();
+    const timer = setTimeout(() => abortController.abort(), parseInt(timeoutInput.value) * 1000);
+
+    const effectiveLang = getEffectiveLang();
+    let url = `${API_BASE}/chat-adaptive/voice?student_id=${studentId}`;
+    if (effectiveLang)                       url += `&preferred_lang=${effectiveLang}`;
+    if (responseModeSelect.value !== 'auto') url += `&response_mode=${responseModeSelect.value}`;
+    if (forceJsonCheckbox.checked)           url += `&response_format=json`;
+
+    addDebug('📤 Envoi', {taille: audioBlob.size, lang: effectiveLang, url});
+
+    try {
+        const res = await fetch(url, {
+            method:'POST', body:formData,
+            signal:abortController.signal,
+            headers: forceJsonCheckbox.checked ? {Accept:'application/json'} : {},
         });
-        
-        // Charger la langue sauvegardée au démarrage
-        const savedLang = localStorage.getItem('preferredLanguage');
-        if (savedLang && ['fr', 'en', 'ar'].includes(savedLang)) {
-            langSelect.value = savedLang;
+        clearTimeout(timer);
+        removeProcessingMsg();
+
+        const ct = res.headers.get('content-type') || '';
+
+        if (ct.includes('application/json')) {
+            const d = await res.json();
+            addDebug('📊 JSON', d);
+            const tx    = d.transcribed || d.text || d.data?.transcribed || null;
+            const reply = d.data?.response || d.response || d.answer || null;
+            if (tx)    { addMessage(`🗣 "${tx}"`, false, {isTranscript:true}); input.value = tx; }
+            if (reply)   addMessage(reply, false, {detectedLang: d.detected_language || null});
+            else if (!tx) addMessage('❌ Réponse vide', false, {isError:true});
+
+        } else if (ct.includes('audio')) {
+            let tx = null;
+            for (const n of ['x-transcribed','transcribed','x-text','text']) {
+                const v = res.headers.get(n);
+                if (v) { try { tx = decodeURIComponent(v); } catch {} break; }
+            }
+            if (tx) { addMessage(`🗣 "${tx}"`, false, {isTranscript:true}); input.value = tx; }
+            addMessage(await res.blob(), false, {isAudio:true});
+            if (!tx) addMessage('⚠️ Mode audio sans transcription', false, {isError:true});
+
+        } else {
+            const txt = await res.text();
+            addMessage('Réponse inattendue: ' + txt.substring(0,80), false, {isError:true});
         }
-        
-        // Initialisation
-        setUILanguage(langSelect.value);
-        loadPreferences();
-    </script>
+
+    } catch (e) {
+        clearTimeout(timer);
+        removeProcessingMsg();
+        addDebug('❌ Erreur', {message: e.message});
+        addMessage(e.name === 'AbortError' ? tr.timeout : tr.connectionError, false, {isError:true});
+    }
+
+    updatePrefDisplay(langSelect.value);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+input.addEventListener('keypress', e => { if (e.key === 'Enter') sendBtn.click(); });
+langSelect.addEventListener('change', () => setUILanguage(langSelect.value));
+
+(function init() {
+    const saved = localStorage.getItem('preferredLanguage');
+    if (saved && ['fr','en','ar','auto'].includes(saved)) langSelect.value = saved;
+    loadSettings();
+    setUILanguage(langSelect.value);
+    clearDebug();
+})();
+</script>
 </body>
 </html>

@@ -14,6 +14,7 @@ from app.database.connection import engine, Base
 from app.core.config import settings
 from app.core.logging import logger
 from app.api.routes import test_stt
+from app.api.routes import language
 
 # === Création des tables ===
 logger.info("🗄️ Création des tables dans la base de données...")
@@ -54,6 +55,8 @@ app.include_router(ocr.router)
 app.include_router(telegram.router) 
 app.include_router(chat_adaptive.router) 
 app.include_router(test_stt.router)
+app.include_router(language.router)
+
 
 # === Routes de base ===
 @app.get("/", tags=["root"])

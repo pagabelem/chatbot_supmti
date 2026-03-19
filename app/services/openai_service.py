@@ -1,625 +1,612 @@
 """
-Service d'intégration avec OpenAI pour le chatbot.
-Version hybride : API payante + réponses naturelles multilingues
+Service OpenAI — Version corrigée
+Corrections :
+  - _detect_language() reconnaît le darija (arabe marocain)
+  - System prompts darija améliorés (réponses naturelles en darija)
+  - Suppression des répétitions "SUP MTI" dans les réponses
+  - Détection langue appliquée aussi au texte transcrit depuis l'audio
 """
 from typing import Optional, Dict, Any, List
 from sqlalchemy.orm import Session
 import uuid
 import openai
 import os
-import json
 import re
 from pathlib import Path
 
 from app.database.models import Student, Program, Conversation, Message
 from app.core.logging import logger
+from app.services.multilingual_service import MultilingualService
 from dotenv import load_dotenv
 
-
 load_dotenv()
-# Lire la clé API directement depuis l'environnement
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
+
 class OpenAIService:
-    """Service pour l'interaction avec l'API OpenAI - Mode Hybride"""
-    
+    """Service OpenAI — Mode Hybride — FR / EN / Darija"""
+
     def __init__(self, db: Session):
         self.db = db
         self.client = None
         self.use_demo = True
-        
-        # Charger les données de l'école pour le mode démo
         self.school_data = self._load_school_data()
-        
+        # Utiliser MultilingualService pour la détection de langue
+        self.multilingual = MultilingualService()
+
         if OPENAI_API_KEY:
             try:
                 self.client = openai.OpenAI(
                     api_key=OPENAI_API_KEY,
                     timeout=30.0,
-                    max_retries=2
+                    max_retries=2,
                 )
-                # Test rapide de connexion
                 self.client.models.list()
                 self.use_demo = False
-                logger.info("✅ Service OpenAI initialisé avec clé API")
+                logger.info("✅ Service OpenAI initialisé")
             except Exception as e:
-                logger.error(f"❌ Erreur initialisation OpenAI: {e}")
-                logger.warning("⚠️ Basculement vers mode démo naturel")
+                logger.error(f"❌ Erreur init OpenAI: {e}")
+                logger.warning("⚠️ Basculement vers mode démo")
         else:
-            logger.warning("⚠️ Service OpenAI en mode démo naturel (pas de clé API)")
-    
+            logger.warning("⚠️ Mode démo (pas de clé API)")
+
+    # ------------------------------------------------------------------ #
+    # CHARGEMENT DONNÉES ÉCOLE                                            #
+    # ------------------------------------------------------------------ #
     def _load_school_data(self) -> Dict[str, Any]:
-        """Charge les données de l'école depuis Data1.txt"""
+        """
+        Charge les données depuis Data1.txt.
+        Les données ci-dessous sont la source de vérité — ne pas inventer d'infos.
+        """
+        # ---------------------------------------------------------------- #
+        # DONNÉES EXACTES issues de Data1.txt                             #
+        # ---------------------------------------------------------------- #
         data = {
-            "programs": [],
-            "faculty": [],
-            "contacts": {},
-            "stats": {},
-            "international": []
+            "contacts": {
+                "phone":   "+212 5 35 51 10 11",
+                "email":   "contact@supmtimeknes.ac.ma",
+                "website": "www.supmtimeknes.ac.ma",
+                "address": "Centre-ville, Meknès",
+                "hours":   "Lun–Ven 08:30–18:00 | Sam 08:30–12:00",
+                "social": {
+                    "facebook":  "https://www.facebook.com/ecolesupmtimeknes",
+                    "instagram": "https://www.linkedin.com/company/ecolesupmti/",
+                    "youtube":   "https://www.youtube.com/channel/UCzZnrI4YdZnRJgosOd71RDQ",
+                },
+            },
+            "frais": {
+                "scolarite_annuelle": 35000,
+                "mensualites":        10,
+                "mensualite_montant": 3500,
+                "inscription":        3500,
+                "total_annuel":       38500,
+                "bourse_min_pct":     30,
+                "bourse_max_pct":     100,
+                "note": "La bourse s'applique uniquement sur les 35.000 DH de scolarité.",
+            },
+            "stats": {
+                "laureats":       "+450",
+                "nationalites":   "+10",
+                "filieres":       6,
+            },
+            # 6 filières EXACTES — ne pas en inventer d'autres
+            "programs": [
+                {
+                    "name":       "Management des Entreprises",
+                    "level":      "BAC+3",
+                    "dept":       "Management & Finance",
+                    "admission":  "BAC (1ère année) ou BAC+2 gestion/économie",
+                    "debouches":  ["Cadre bancaire", "Responsable commercial", "Analyste financier", "Assistant RH"],
+                },
+                {
+                    "name":       "Finance, Audit et Contrôle de Gestion",
+                    "level":      "BAC+5",
+                    "dept":       "Management & Finance",
+                    "admission":  "BAC+3 SUP MTI ou Licence équivalente (économie/gestion)",
+                    "debouches":  ["Auditeur", "Contrôleur de gestion", "Expert-comptable", "Directeur financier"],
+                },
+                {
+                    "name":       "Management et Relations Internationales (MSTIC)",
+                    "level":      "BAC+5",
+                    "dept":       "Management & Finance",
+                    "admission":  "BAC+3 SUP MTI ou Licence équivalente",
+                    "debouches":  ["Manager d'entreprise", "Responsable SI", "Responsable RH", "Responsable marketing"],
+                },
+                {
+                    "name":       "Ingénierie Intelligente des Systèmes Informatiques (ISI)",
+                    "level":      "BAC+3",
+                    "dept":       "Ingénierie",
+                    "admission":  "BAC scientifique (1ère année) ou BAC+2 informatique",
+                    "debouches":  ["Développeur web", "Administrateur réseaux", "Analyste programmeur", "Webmaster"],
+                },
+                {
+                    "name":       "Ingénierie Intelligente des Systèmes d'Information et Communications (IISIC)",
+                    "level":      "BAC+5",
+                    "dept":       "Ingénierie",
+                    "admission":  "BAC+3 SUP MTI ISI ou Licence informatique",
+                    "debouches":  ["Architecte réseaux", "Administrateur réseaux", "Responsable télécoms"],
+                },
+                {
+                    "name":       "Ingénierie Intelligente des Systèmes, Réseaux et Télécommunications (IISRT)",
+                    "level":      "BAC+5",
+                    "dept":       "Ingénierie",
+                    "admission":  "BAC+3 SUP MTI ISI ou Licence informatique",
+                    "debouches":  ["Architecte systèmes réseaux", "Responsable infrastructures télécoms"],
+                },
+            ],
+            "international": {
+                "partenaires": [
+                    "EFREI Paris (cycle préparatoire → ingénieur)",
+                    "Université de Lorraine — Master MTI (double diplôme français)",
+                    "ENSIIE Paris (poursuite d'études)",
+                    "Télécom Sud Paris (poursuite d'études)",
+                    "Groupe IGS Paris/Lyon/Toulouse — Bachelor & Master (double diplôme)",
+                    "ISTEC Paris — Bachelor & Master Commerce (double diplôme)",
+                    "Université d'Algarve — Portugal (poursuite d'études)",
+                    "Université Moulay Ismaïl (UMI) Meknès (partenariat local)",
+                ],
+            },
+            "certifications": ["Cisco (CCNA, CCNP)", "Microsoft Certified", "Oracle Certified"],
+            "clubs": ["BDE", "Club Programmation", "Club Sportif", "Club Artistique",
+                      "Club Gaming", "Club Solidarité", "Club Échanges Culturels"],
         }
-        
+
+        # Tenter aussi de lire Data1.txt si disponible (pour mises à jour futures)
         try:
             file_path = Path("Data1.txt")
-            if not file_path.exists():
-                logger.warning("⚠️ Fichier Data1.txt non trouvé")
-                return data
-            
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
-            # Extraire les programmes
-            program_pattern = r'◦\s*([A-Z][^•\n]+?)\s*\(BAC \+?(\d+)\)'
-            programs = re.findall(program_pattern, content)
-            data["programs"] = [{"name": p[0], "duration": p[1]} for p in programs]
-            
-            # Extraire les contacts
-            phone = re.search(r'Contact\s*:\s*([+\d\s]+)', content)
-            if phone:
-                data["contacts"]["phone"] = phone.group(1).strip()
-            
-            email = re.search(r'Email\s*:\s*([^\s]+)', content)
-            if email:
-                data["contacts"]["email"] = email.group(1).strip()
-            
-            # Extraire les statistiques
-            stats = re.findall(r'\+?(\d+)\s*([^\n]+)', content)
-            data["stats"] = {stat[1].strip(): stat[0] for stat in stats if len(stat) > 1}
-            
-            logger.info(f"✅ Données chargées: {len(data['programs'])} programmes")
-            
+            if file_path.exists():
+                logger.info("✅ Data1.txt trouvé — données statiques utilisées (parsing désactivé)")
+            else:
+                logger.warning("⚠️ Data1.txt non trouvé — utilisation des données embarquées")
         except Exception as e:
-            logger.error(f"❌ Erreur chargement données: {e}")
-        
+            logger.warning(f"⚠️ Lecture Data1.txt: {e}")
+
+        logger.info(f"✅ Données chargées: {len(data['programs'])} filières")
         return data
-    
-    def generate_chat_response(self, message: str, student_id: Optional[str] = None) -> Dict[str, Any]:
+
+    # ------------------------------------------------------------------ #
+    # POINT D'ENTRÉE PRINCIPAL                                            #
+    # ------------------------------------------------------------------ #
+    def generate_chat_response(
+        self,
+        message: str,
+        student_id: Optional[str] = None,
+        detected_language: Optional[str] = None,   # ← NOUVEAU paramètre
+    ) -> Dict[str, Any]:
         """
-        Génère une réponse contextuelle basée sur le profil.
-        Mode hybride: utilise OpenAI si disponible, sinon réponses naturelles.
+        Génère une réponse.
+
+        Args:
+            message           : texte de l'utilisateur (peut venir de Whisper)
+            student_id        : ID étudiant optionnel
+            detected_language : langue déjà détectée par Whisper ('fr'|'en'|'ar'|None)
         """
-        logger.info(f"💭 Génération réponse pour: {message[:50]}...")
-        
-        # 1. Récupérer l'étudiant
+        logger.info(f"💭 Message: {message[:60]!r} | lang_hint={detected_language!r}")
+
         student = self._get_student(student_id)
-        
-        # 2. Sauvegarder le message utilisateur
         conversation = self._save_user_message(message, student)
-        
-        # 3. Essayer d'utiliser OpenAI si disponible
+
         if self.client and not self.use_demo:
-            logger.info("🤖 Utilisation de l'API OpenAI")
-            answer = self._try_openai(message, student)
+            answer = self._try_openai(message, student, detected_language)
         else:
-            logger.info("💬 Utilisation du mode démo naturel")
-            answer = self._generate_natural_response(message, student)
-        
-        # 4. Sauvegarder la réponse
+            answer = self._generate_natural_response(message, student, detected_language)
+
         if conversation:
             self._save_bot_message(answer, conversation)
-        
-        logger.info("✅ Réponse générée avec succès")
-        
-        return {
-            "response": answer,
-            "student_id": student_id
-        }
-    
-    def _get_student(self, student_id: Optional[str]) -> Optional[Student]:
-        """Récupère l'étudiant par son ID"""
-        if not student_id:
-            return None
-        
+
+        return {"response": answer, "student_id": student_id}
+
+    # ------------------------------------------------------------------ #
+    # OPENAI                                                              #
+    # ------------------------------------------------------------------ #
+    def _try_openai(
+        self,
+        message: str,
+        student: Optional[Student],
+        lang_hint: Optional[str] = None,
+    ) -> str:
         try:
-            from uuid import UUID
-            student_uuid = UUID(student_id)
-            student = self.db.query(Student).filter(Student.id == student_uuid).first()
-            if student:
-                logger.debug(f"👤 Étudiant trouvé: {student.id}")
-            return student
-        except Exception as e:
-            logger.warning(f"⚠️ ID étudiant invalide: {student_id}")
-            return None
-    
-    def _save_user_message(self, message: str, student: Optional[Student]) -> Optional[Conversation]:
-        """Sauvegarde le message de l'utilisateur"""
-        if not student:
-            return None
-        
-        # Récupérer ou créer une conversation
-        conversation = self.db.query(Conversation).filter(
-            Conversation.student_id == student.id
-        ).order_by(Conversation.started_at.desc()).first()
-        
-        if not conversation:
-            conversation = Conversation(
-                id=uuid.uuid4(),
-                student_id=student.id
-            )
-            self.db.add(conversation)
-            self.db.flush()
-            logger.debug(f"💬 Nouvelle conversation: {conversation.id}")
-        
-        # Sauvegarder le message
-        user_message = Message(
-            id=uuid.uuid4(),
-            conversation_id=conversation.id,
-            content=message,
-            sender="user"
-        )
-        self.db.add(user_message)
-        self.db.commit()
-        logger.debug("📝 Message utilisateur sauvegardé")
-        
-        return conversation
-    
-    def _save_bot_message(self, response: str, conversation: Conversation):
-        """Sauvegarde la réponse du bot"""
-        bot_message = Message(
-            id=uuid.uuid4(),
-            conversation_id=conversation.id,
-            content=response,
-            sender="ai"
-        )
-        self.db.add(bot_message)
-        self.db.commit()
-        logger.debug("🤖 Réponse bot sauvegardée")
-    
-    def _try_openai(self, message: str, student: Optional[Student]) -> str:
-        """Utilise OpenAI avec des prompts naturels"""
-        try:
-            # Détecter la langue
-            lang = self._detect_language(message)
+            # CORRECTION #2 : utiliser lang_hint si fourni (vient de Whisper)
+            lang = lang_hint or self._detect_language(message)
             context = self._build_context(student)
-            
-            # Prompts système adaptés à chaque langue
+
+            # ---------------------------------------------------------- #
+            # CORRECTION #3 : system prompts sans répétition "SUP MTI"   #
+            # On mentionne l'école UNE seule fois, brièvement.           #
+            # ---------------------------------------------------------- #
+            # ---------------------------------------------------------- #
+            # DONNÉES OFFICIELLES À INJECTER DANS CHAQUE PROMPT         #
+            # Source : Data1.txt — NE PAS inventer d'autres filières     #
+            # ---------------------------------------------------------- #
+            school_facts = (
+                "FILIÈRES EXACTES (6 au total) : "
+                "1) Management des Entreprises (BAC+3) — débouchés: cadre bancaire, commercial, RH. "
+                "2) Finance Audit et Contrôle de Gestion (BAC+3) — débouchés: auditeur, expert-comptable. "
+                "3) Management et Relations Internationales MSTIC (BAC+5) — débouchés: manager, responsable SI. "
+                "4) Ingénierie Intelligente des Systèmes Informatiques ISI (BAC+3) — débouchés: dev web, admin réseaux. "
+                "5) Ingénierie Intelligente des Systèmes d'Information et Communications IISIC (BAC+5). "
+                "6) Ingénierie Intelligente des Systèmes Réseaux et Télécommunications IISRT (BAC+5). "
+                "FRAIS : 35.000 DH/an (10 mensualités de 3.500) + 3.500 inscription = 38.500 DH total. "
+                "BOURSES : 30% à 100% sur les frais de scolarité uniquement. "
+                "CERTIFICATIONS : Cisco (CCNA/CCNP), Microsoft, Oracle. "
+                "PARTENAIRES INTERNATIONAUX : EFREI Paris, Université de Lorraine (Master MTI double diplôme), "
+                "ENSIIE Paris, Télécom Sud Paris, Groupe IGS, ISTEC Paris, Université d'Algarve. "
+                "CONTACT : +212 5 35 51 10 11 | contact@supmtimeknes.ac.ma | www.supmtimeknes.ac.ma. "
+                "RÈGLE ABSOLUE : Ne JAMAIS mentionner une filière 'Cybersécurité' ou 'IA' standalone — "
+                "ces filières n'existent pas. L'IA est intégrée dans IISIC/IISRT/MSTIC."
+            )
+
             system_prompts = {
-                'en': """You are a friendly academic advisor at SUP MTI Meknès, a higher education institution in Morocco.
-                
-                Guidelines:
-                - Respond in natural, conversational English (like you're chatting with a student)
-                - Be warm, enthusiastic, and encouraging
-                - Use casual language, sometimes with "hey", "cool", "awesome" etc.
-                - Keep it professional but friendly
-                - If the student doesn't have a profile, gently ask them to create one
-                - Give personalized advice based on their interests
-                - Use official school information in your responses
-                
-                Goal: Help students choose their academic orientation at SUP MTI.""",
-                
-                'ar': """أنت مستشار أكاديمي ودي في SUP MTI مكناس، مؤسسة تعليم عالي في المغرب.
-                
-                الإرشادات:
-                - جاوب بالدارجة المغربية الطبيعية (زي ما كتهدر مع صديق)
-                - كون دافئ ومتحمس ومشجع
-                - استخدم كلمات وعبارات دارجة مثل "واش"، "شنو"، "كيفاش"، "بزاف"
-                - حافظ على الاحترافية ولكن كن وديًا
-                - إذا ما عندش الطالب بروفيل، اطلب منه بلطف يخلق واحد
-                - أعط نصائح مخصصة على حسب اهتماماتهم
-                - استخدم المعلومات الرسمية للمدرسة في ردودك
-                
-                الهدف: ساعد الطلاب على اختيار توجيههم الأكاديمي في SUP MTI.""",
-                
-                'fr': """Tu es un conseiller académique amical à SUP MTI Meknès, une école supérieure au Maroc.
-                
-                Consignes:
-                - Réponds en français naturel et conversationnel
-                - Sois chaleureux, enthousiaste et encourageant
-                - Utilise un langage naturel, parfois familier mais toujours respectueux
-                - Reste professionnel tout en étant accessible
-                - Si l'étudiant n'a pas de profil, invite-le gentiment à en créer un
-                - Donne des conseils personnalisés basés sur ses centres d'intérêt
-                - Utilise les informations officielles de l'école dans tes réponses
-                
-                Objectif: Aider les étudiants à choisir leur orientation académique à SUP MTI."""
+                'fr': (
+                    "Tu es un conseiller académique à SUP MTI Meknès. "
+                    "Réponds UNIQUEMENT avec les informations officielles ci-dessous. "
+                    "Sois chaleureux et conversationnel en français. "
+                    f"{school_facts}"
+                ),
+                'en': (
+                    "You are an academic advisor at SUP MTI Meknès. "
+                    "Reply ONLY with the official information below. "
+                    "Be warm and conversational in English. "
+                    f"{school_facts}"
+                ),
+                'ar': (
+                    "You are an academic advisor at SUP MTI Meknès. "
+                    "ALWAYS reply in Moroccan Darija written with LATIN letters only, never Arabic script. "
+                    "Use: wach, kifach, bzzaf, mzyan, chno, dyal, safi, kayn, bghit, n3awnak, bach, hna. "
+                    "Example: 'Wach bghiti t3ref 3la les filières? Kayn 6 filières f SUP MTI...' "
+                    "Reply ONLY with official info below. "
+                    f"{school_facts}"
+                ),
             }
-            
+
             system_prompt = system_prompts.get(lang, system_prompts['fr'])
-            
-            # Construire le message utilisateur
             user_prompt = message
             if context:
-                user_prompt = f"Student context: {context}\n\nQuestion: {message}"
-            
-            # Appeler OpenAI
+                user_prompt = f"Contexte étudiant: {context}\n\nMessage: {message}"
+
             response = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
+                    {"role": "user",   "content": user_prompt},
                 ],
-                temperature=0.8,  # Plus créatif pour des réponses naturelles
+                temperature=0.7,
                 max_tokens=500,
-                timeout=15
+                timeout=15,
             )
-            
+
             answer = response.choices[0].message.content
-            # S'assurer que la réponse est bien en UTF-8
-            answer = answer.encode('utf-8', errors='ignore').decode('utf-8')
-            return answer
-            
+            return answer.encode('utf-8', errors='ignore').decode('utf-8')
+
         except openai.RateLimitError as e:
-            logger.error(f"❌ Quota OpenAI dépassé: {e}")
-            return self._generate_natural_response(message, student)
-            
+            logger.error(f"❌ Quota OpenAI: {e}")
+            return self._generate_natural_response(message, student, lang_hint)
         except openai.APIConnectionError as e:
-            logger.error(f"❌ Erreur de connexion OpenAI: {e}")
-            return self._generate_natural_response(message, student)
-            
+            logger.error(f"❌ Connexion OpenAI: {e}")
+            return self._generate_natural_response(message, student, lang_hint)
         except Exception as e:
-            logger.error(f"❌ Erreur OpenAI: {str(e)}")
-            logger.info("🔄 Fallback vers mode démo naturel")
-            return self._generate_natural_response(message, student)
-    
-    def _generate_natural_response(self, message: str, student: Optional[Student]) -> str:
-        """
-        Génère des réponses naturelles pré-enregistrées (fallback)
-        """
+            logger.error(f"❌ Erreur OpenAI: {e}")
+            return self._generate_natural_response(message, student, lang_hint)
+
+    # ------------------------------------------------------------------ #
+    # MODE DÉMO (FALLBACK)                                                #
+    # ------------------------------------------------------------------ #
+    def _generate_natural_response(
+        self,
+        message: str,
+        student: Optional[Student],
+        lang_hint: Optional[str] = None,
+    ) -> str:
         message_lower = message.lower()
-        
-        # Détecter la langue
-        lang = self._detect_language(message)
-        logger.info(f"🌍 Mode démo naturel - Langue: {lang}")
-        
-        # Récupérer les programmes de la base
+        # CORRECTION #2 : utiliser lang_hint si fourni
+        lang = lang_hint or self._detect_language(message)
+        logger.info(f"💬 Mode démo — langue: {lang}")
+
         programs = self.db.query(Program).limit(10).all()
         program_names = [p.name for p in programs]
-        
-        # Catégorisation des questions
-        if any(word in message_lower for word in ["histoire", "création", "fondation", "history", "created", "founded"]):
+
+        # --- HISTOIRE ---
+        if any(w in message_lower for w in ["histoire", "création", "fondation", "history", "created", "founded",
+                                             "tassas", "fin", "wqtach", "imta"]):
             if lang == 'en':
-                return """Hey! SUP MTI Meknès was founded back in 2014 by M. KRIOUILE Mohamed (he used to be CEO of Lafarge Plaster Morocco) and M. KRIOUILE Abdelaziz (who teaches at ENSIAS Rabat and heads the SUP MTI Morocco Group).
-
-The school was created because the industrial sector really needed managers and specialists in information systems and telecommunications. Pretty cool, right? 😊
-
-Is there anything specific you'd like to know about our programs?"""
+                return (
+                    "SUP MTI was founded in 2014 to meet the industrial sector's need "
+                    "for specialists in information systems and telecoms. "
+                    "Want to know more about our programs? 😊"
+                )
             elif lang == 'ar':
-                return """مرحبا! تأسست SUP MTI مكناس في 2014 على يد السيد كريويل محمد (كان الرئيس التنفيذي لشركة لافارج بلاط المغرب) والسيد كريويل عبد العزيز (أستاذ في ENSIAS الرباط ورئيس مجموعة SUP MTI المغرب).
-
-المدرسة تأسسات باش تلبي حاجيات القطاع الصناعي من المديرين والمتخصصين في نظم المعلومات والاتصالات. واش عندك سؤال محدد على البرامج؟"""
+                return (
+                    "L'école tassasat f 2014 bach tjaweb l'7ajat dyal qta3 l'sina3i "
+                    "f les spécialistes dyal les systèmes d'information. "
+                    "Wach bghiti t3ref aktar 3la les programmes? 😊"
+                )
             else:
-                return """SUP MTI Meknès a été fondée en 2014 par M. KRIOUILE Mohamed (Ex PDG Lafarge plâtre Maroc) et M. KRIOUILE Abdelaziz (Enseignant à l'ENSIAS de Rabat et Président du Groupe SUP MTI Maroc).
+                return (
+                    "L'école a été fondée en 2014 pour répondre aux besoins du secteur "
+                    "industriel en managers et spécialistes en systèmes d'information. "
+                    "Tu veux en savoir plus sur un programme ? 😊"
+                )
 
-L'école a été créée pour répondre aux besoins du secteur industriel en managers et spécialistes en systèmes d'informations et télécommunications. Tu veux en savoir plus sur un programme en particulier ?"""
-
-        elif any(word in message_lower for word in ["contact", "téléphone", "phone", "adresse", "address", "email"]):
+        # --- CONTACT ---
+        elif any(w in message_lower for w in ["contact", "téléphone", "phone", "adresse", "address", "email",
+                                               "telfon", "3nwan", "joini"]):
             if lang == 'en':
-                return """📞 Wanna get in touch with SUP MTI Meknès? Here you go:
-
-Phone: +212 5 35 51 10 11 (give 'em a call!)
-Email: contact@supmtimeknes.ac.ma (drop a message)
-Address: Right in the city center of Meknes
-
-Hours we're open:
-Monday - Friday: 08:30 to 18:00
-Saturday: 08:30 to 12:00
-
-Also find us on:
-Facebook: /ecolesupmtimeknes
-LinkedIn: /company/ecolesupmti
-YouTube: /channel/UCzZnrI4YdZnRJgosOd71RDQ
-
-Anything else you'd like to know? 😊"""
+                return (
+                    "📞 **Contact:**\n"
+                    "Phone: +212 5 35 51 10 11\n"
+                    "Email: contact@supmtimeknes.ac.ma\n"
+                    "Hours: Mon–Fri 08:30–18:00 | Sat 08:30–12:00\n\n"
+                    "Anything else? 😊"
+                )
             elif lang == 'ar':
-                return """📞 بغيتي تتواصل مع SUP MTI مكناس؟ هاد المعلومات:
-
-الهاتف: +212 5 35 51 10 11
-الإيميل: contact@supmtimeknes.ac.ma
-العنوان: وسط المدينة، مكناس
-
-ساعات العمل:
-الإثنين - الجمعة: 08:30 حتّى 18:00
-السبت: 08:30 حتّى 12:00
-
-وتلقانا على:
-Facebook: /ecolesupmtimeknes
-LinkedIn: /company/ecolesupmti
-YouTube: /channel/UCzZnrI4YdZnRJgosOd71RDQ
-
-واش بغيتي حاجة أخرى؟"""
+                return (
+                    "📞 **Bach tjawbna:**\n"
+                    "Telfon: +212 5 35 51 10 11\n"
+                    "Email: contact@supmtimeknes.ac.ma\n"
+                    "Mwa3id l'khedma: Ltnin–Jm3a 08:30–18:00 | Sbt 08:30–12:00\n\n"
+                    "Wach kayn chi 7aja khra? 😊"
+                )
             else:
-                return """📞 Contact SUP MTI Meknès :
+                return (
+                    "📞 **Contact :**\n"
+                    "Tél : +212 5 35 51 10 11\n"
+                    "Email : contact@supmtimeknes.ac.ma\n"
+                    "Horaires : Lun–Ven 08:30–18:00 | Sam 08:30–12:00\n\n"
+                    "Autre chose ? 😊"
+                )
 
-Téléphone : +212 5 35 51 10 11
-Email : contact@supmtimeknes.ac.ma
-Adresse : Centre-ville, Meknès
-
-Horaires :
-Lundi - Vendredi : 08:30 à 18:00
-Samedi : 08:30 à 12:00
-
-Réseaux sociaux :
-Facebook : /ecolesupmtimeknes
-LinkedIn : /company/ecolesupmti
-YouTube : /channel/UCzZnrI4YdZnRJgosOd71RDQ
-
-Autre chose que tu veux savoir ?"""
-
-        elif any(word in message_lower for word in ["programme", "formation", "filière", "program", "course"]):
-            if program_names:
-                if lang == 'en':
-                    response = "📚 **Programs we offer at SUP MTI:**\n\n"
-                    for i, name in enumerate(program_names, 1):
-                        response += f"{i}. **{name}**\n"
-                    response += "\nWhich one sounds interesting to you? I can tell you more about it! 😊"
-                elif lang == 'ar':
-                    response = "📚 **البرامج لي كاينة ف SUP MTI:**\n\n"
-                    for i, name in enumerate(program_names, 1):
-                        response += f"{i}. **{name}**\n"
-                    response += "\nشنو اللي يحمسك من بينهم؟ نقدر نعطيك تفاصيل أكثر! 😊"
-                else:
-                    response = "📚 **Programmes disponibles à SUP MTI :**\n\n"
-                    for i, name in enumerate(program_names, 1):
-                        response += f"{i}. **{name}**\n"
-                    response += "\nLequel t'intéresse ? Je peux te donner plus de détails ! 😊"
-                return response
-
-        elif any(word in message_lower for word in ["ia", "intelligence artificielle", "ai", "artificial intelligence"]):
+        # --- PROGRAMMES ---
+        elif any(w in message_lower for w in ["programme", "formation", "filière", "filiere", "program", "course",
+                                               "chno kayn", "filiyat", "takwin", "filières"]):
+            # Les 6 filières EXACTES — source Data1.txt
+            filieres = [
+                ("Management des Entreprises", "BAC+3"),
+                ("Finance, Audit et Contrôle de Gestion", "BAC+5"),
+                ("Management et Relations Internationales (MSTIC)", "BAC+5"),
+                ("Ingénierie Intelligente des Systèmes Informatiques (ISI)", "BAC+3"),
+                ("Ingénierie Intelligente des Systèmes d'Information et Communications (IISIC)", "BAC+5"),
+                ("Ingénierie Intelligente des Systèmes, Réseaux et Télécommunications (IISRT)", "BAC+5"),
+            ]
             if lang == 'en':
-                return """🤖 **AI & Data Science Program** - this one's really cool!
-
-It's an advanced program covering AI, Machine Learning, Deep Learning, and Big Data.
-
-**Duration:** 3 years (Bachelor)
-**What you need:** Scientific Baccalaureate with good math skills
-**Certifications:** TensorFlow, AWS AI, Microsoft Azure AI
-
-**Career opportunities:** Data Scientist, AI Engineer, ML Engineer, Data Analyst
-
-Sounds like something you'd be into? Want more details? 😊"""
+                r = "📚 **6 programs at SUP MTI Meknès:**\n\n"
+                for i, (n, lvl) in enumerate(filieres, 1):
+                    r += f"{i}. {n} ({lvl})\n"
+                r += "\nWhich one interests you? 😊"
             elif lang == 'ar':
-                return """🤖 **برنامج الذكاء الاصطناعي وعلوم البيانات** - هاد واحد بزاف!
-
-تكوين متقدم ف الذكاء الاصطناعي و Machine Learning و Deep Learning و Big Data.
-
-**المدة:** 3 سنوات (بكالوريوس)
-**شروط القبول:** باك علمي بمستوى جيد ف الرياضيات
-**الشهادات:** TensorFlow, AWS AI, Microsoft Azure AI
-
-**فرص العمل:** عالم بيانات، مهندس ذكاء اصطناعي، مهندس تعلم آلي، محلل بيانات
-
-كيجذبك هاد المجال؟ تحب تفاصيل أكثر؟ 😊"""
+                r = "📚 **Les 6 filières li kaynin f SUP MTI:**\n\n"
+                for i, (n, lvl) in enumerate(filieres, 1):
+                    r += f"{i}. {n} ({lvl})\n"
+                r += "\nChno li kay7amssek? 😊"
             else:
-                return """🤖 **Programme Intelligence Artificielle et Data Science** - celui-ci est vraiment cool !
+                r = "📚 **Les 6 filières de SUP MTI Meknès :**\n\n"
+                for i, (n, lvl) in enumerate(filieres, 1):
+                    r += f"{i}. {n} ({lvl})\n"
+                r += "\nLaquelle t'intéresse ? 😊"
+            return r
 
-Formation avancée en IA, Machine Learning, Deep Learning et Big Data.
-
-**Durée:** 3 ans (Bachelor)
-**Prérequis:** BAC Scientifique avec bon niveau en maths
-**Certifications:** TensorFlow, AWS AI, Microsoft Azure AI
-
-**Débouchés:** Data Scientist, Ingénieur IA, ML Engineer, Analyste Data
-
-Ça te tente ? Tu veux plus de détails ? 😊"""
-
-        elif any(word in message_lower for word in ["cyber", "sécurité", "security"]):
+        # --- IA / DATA / RÉSEAUX / TÉLÉCOMS ---
+        elif any(w in message_lower for w in ["ia", "intelligence artificielle", "ai", "artificial",
+                                               "machine learning", "data", "reseau", "réseau", "telecom",
+                                               "zaka2", "informatique", "iisrt", "iisic", "isi"]):
             if lang == 'en':
-                return """🛡️ **Cybersecurity & Digital Trust Program** - perfect if you're into ethical hacking!
-
-Comprehensive training in systems security, ethical hacking, cryptography, and governance.
-
-**Duration:** 3 years (Bachelor)
-**What you need:** Scientific or Technical Baccalaureate
-**Certifications:** CEH, Cisco CCNA Security, CompTIA Security+
-
-**Career opportunities:** Cyber Analyst, Pentester, CISO, Security Consultant
-
-Interested in becoming a cybersecurity expert? 😊"""
+                return (
+                    "🤖 **Engineering programs** at SUP MTI cover AI, Data Science, Networks and Telecoms:\n\n"
+                    "• **ISI (BAC+3)** — Software engineering, networks, web dev\n"
+                    "• **IISIC (BAC+5)** — Smart info systems & communications, AI, IoT\n"
+                    "• **IISRT (BAC+5)** — Smart networks & telecoms, AI, Data Science\n\n"
+                    "Certifications included: Cisco (CCNA/CCNP), Microsoft, Oracle.\n"
+                    "Want details on one of these? 😊"
+                )
             elif lang == 'ar':
-                return """🛡️ **برنامج الأمن السيبراني والثقة الرقمية** - هاد الشي مزيان بزاف إلا كنت مهتم بالاختراق الأخلاقي!
-
-تكوين شامل ف أمن الأنظمة والاختراق الأخلاقي والتشفير والحوكمة.
-
-**المدة:** 3 سنوات (بكالوريوس)
-**شروط القبول:** باك علمي أو تقني
-**الشهادات:** CEH, Cisco CCNA Security, CompTIA Security+
-
-**فرص العمل:** محلل سيبراني، مختبر اختراق، مسؤول أمن المعلومات، مستشار أمني
-
-واش كتهتم بالأمن السيبراني؟ 😊"""
+                return (
+                    "🤖 **Les filières d'ingénierie** li kaynin f SUP MTI:\n\n"
+                    "• **ISI (BAC+3)** — Dev web, réseaux, systèmes\n"
+                    "• **IISIC (BAC+5)** — Systèmes d'information, IA, IoT\n"
+                    "• **IISRT (BAC+5)** — Réseaux, télécoms, Data Science\n\n"
+                    "Certifications: Cisco, Microsoft, Oracle.\n"
+                    "Wach bghiti tعرف aktar 3la wa7da menhom? 😊"
+                )
             else:
-                return """🛡️ **Programme Cybersécurité et Confiance Numérique** - parfait si tu aimes le hacking éthique !
+                return (
+                    "🤖 **Filières ingénierie** de SUP MTI couvrant IA, Data et Réseaux :\n\n"
+                    "• **ISI (BAC+3)** — Génie logiciel, réseaux, développement web\n"
+                    "• **IISIC (BAC+5)** — Systèmes d'information intelligents, IA, IoT\n"
+                    "• **IISRT (BAC+5)** — Réseaux & télécoms intelligents, Data Science\n\n"
+                    "Certifications intégrées : Cisco (CCNA/CCNP), Microsoft, Oracle.\n"
+                    "Tu veux plus de détails sur l'une d'elles ? 😊"
+                )
 
-Formation complète en sécurité des systèmes, ethical hacking, cryptographie et gouvernance.
+        # --- MANAGEMENT / FINANCE ---
+        elif any(w in message_lower for w in ["management", "finance", "audit", "gestion", "facg", "mstic",
+                                               "comptabilité", "commercial", "marketing"]):
+            if lang == 'en':
+                return (
+                    "💼 **Management programs** at SUP MTI:\n\n"
+                    "• **Management des Entreprises (BAC+3)** — Business management, digital marketing, IT\n"
+                    "• **Finance, Audit et Contrôle de Gestion (BAC+5)** — Auditing, financial control\n"
+                    "• **MSTIC (BAC+5)** — Digital management, international relations, IS management\n\n"
+                    "Want details on one? 😊"
+                )
+            elif lang == 'ar':
+                return (
+                    "💼 **Filières management** f SUP MTI:\n\n"
+                    "• **Management des Entreprises (BAC+3)** — Gestion, marketing digital\n"
+                    "• **Finance, Audit et Contrôle de Gestion (BAC+5)** — Audit, finance\n"
+                    "• **MSTIC (BAC+5)** — Management digital, relations internationales\n\n"
+                    "Wach bghiti t3ref aktar? 😊"
+                )
+            else:
+                return (
+                    "💼 **Filières Management** de SUP MTI :\n\n"
+                    "• **Management des Entreprises (BAC+3)** — Gestion, marketing digital, informatique\n"
+                    "• **Finance, Audit et Contrôle de Gestion (BAC+5)** — Audit, contrôle de gestion\n"
+                    "• **MSTIC (BAC+5)** — Management digital, relations internationales\n\n"
+                    "Tu veux plus de détails ? 😊"
+                )
 
-**Durée:** 3 ans (Bachelor)
-**Prérequis:** BAC Scientifique ou Technique
-**Certifications:** CEH, Cisco CCNA Security, CompTIA Security+
-
-**Débouchés:** Analyste Cyber, Pentester, RSSI, Consultant en sécurité
-
-Intéressé par la cybersécurité ? 😊"""
-
-        # === SALUTATIONS ===
-        elif any(word in message_lower for word in ["bonjour", "salut", "hello", "hi", "مرحبا"]):
+        # --- SALUTATIONS ---
+        elif any(w in message_lower for w in ["bonjour", "salut", "hello", "hi", "hey",
+                                               "salam", "labas", "wach labas", "ach khbar", "ahlan"]):
             if student and student.user:
                 name = student.user.full_name.split()[0]
                 if lang == 'en':
-                    return f"Hey {name}! 👋 Good to see you again. What can I help you with today?"
+                    return f"Hey {name}! 👋 Good to see you. What can I help you with?"
                 elif lang == 'ar':
-                    return f"مرحبا {name}! 👋 تشرفت بيك مرة أخرى. كيفاش نقدر نعاونك النهاردة؟"
+                    return f"Salam {name}! 👋 Labas 3lik? Kifach nqdar n3awnak lyoum?"
                 else:
-                    return f"Salut {name} ! 👋 Ravi de te revoir. Comment je peux t'aider aujourd'hui ?"
+                    return f"Salut {name} ! 👋 Comment je peux t'aider ?"
             else:
                 if lang == 'en':
-                    return "Hey there! 👋 I'm your virtual academic advisor at SUP MTI. What would you like to know about our programs?"
+                    return "Hey! 👋 I'm your academic advisor. What would you like to know?"
                 elif lang == 'ar':
-                    return "مرحبا! 👋 أنا المستشار الأكاديمي ديال SUP MTI. شنو بغيتي تعرف على البرامج ديالنا؟"
+                    return "Salam! 👋 Ana l'conseiller académique dyalk. Chno bghiti t3ref?"
                 else:
-                    return "Salut ! 👋 Je suis ton conseiller académique virtuel à SUP MTI. Qu'est-ce que tu veux savoir sur nos programmes ?"
+                    return "Salut ! 👋 Je suis ton conseiller académique. Qu'est-ce que tu veux savoir ?"
 
-        # === RÉPONSE PAR DÉFAUT ===
+        # --- DÉFAUT ---
         else:
             if lang == 'en':
-                return """I can help you with:
-
-📚 **Our programs** - AI, Cybersecurity, Software Engineering, Management, Finance, Networks
-🎓 **Admission stuff** - BAC requirements, License, Masters degrees
-💰 **Fees & scholarships** - 35,000 MAD/year, scholarships up to 100% (pretty sweet deal!)
-🌍 **International** - Cool partnerships with EFREI Paris and University of Lorraine
-📞 **Contact** - +212 5 35 51 10 11
-
-What would you like to know more about? 😊"""
+                return (
+                    "I can help you with:\n\n"
+                    "📚 **6 Programs** — ISI (BAC+3), IISIC (BAC+5), IISRT (BAC+5), "
+                    "Management des Entreprises (BAC+3), Finance Audit (BAC+5), MSTIC (BAC+5)\n"
+                    "🎓 **Admission** — BAC scientifique/technique/économique or BAC+2/BAC+3 equivalent\n"
+                    "💰 **Fees** — 35,000 MAD/year + 3,500 registration = 38,500 MAD total\n"
+                    "🏆 **Scholarships** — 30% to 100% based on admission exam results\n"
+                    "🌍 **International** — EFREI Paris, University of Lorraine, ENSIIE, IGS, ISTEC, Algarve\n"
+                    "📜 **Certifications** — Cisco CCNA/CCNP, Microsoft, Oracle\n"
+                    "📞 **Contact** — +212 5 35 51 10 11 | contact@supmtimeknes.ac.ma\n\n"
+                    "What would you like to know? 😊"
+                )
             elif lang == 'ar':
-                return """نقدر نعاونك ف:
-
-📚 **البرامج ديالنا** - الذكاء الاصطناعي، الأمن السيبراني، هندسة البرمجيات، الإدارة، المالية، الشبكات
-🎓 **شروط التسجيل** - البكالوريا، الإجازة، الماستر
-💰 **المصاريف و المنح** - 35,000 درهم/سنة، منح حتى 100%
-🌍 **الدولي** - شراكات مع EFREI Paris و جامعة لورين
-📞 **الاتصال** - +212 5 35 51 10 11
-
-شنو بغيتي تعرف بالضبط؟ 😊"""
+                return (
+                    "Nqdar n3awnak f:\n\n"
+                    "📚 **6 Filières** — ISI (BAC+3), IISIC (BAC+5), IISRT (BAC+5), "
+                    "Management (BAC+3), Finance Audit (BAC+5), MSTIC (BAC+5)\n"
+                    "🎓 **Admission** — BAC ou diplôme équivalent\n"
+                    "💰 **Frais** — 35.000 DH/an + 3.500 inscription = 38.500 DH total\n"
+                    "🏆 **Bourses** — 30% à 100% 3la résultats concours\n"
+                    "🌍 **International** — EFREI Paris, Université de Lorraine, ENSIIE, IGS, ISTEC\n"
+                    "📜 **Certifications** — Cisco, Microsoft, Oracle\n"
+                    "📞 **Contact** — +212 5 35 51 10 11\n\n"
+                    "Chno bghiti t3ref bzzaf? 😊"
+                )
             else:
-                return """Je peux t'aider avec :
+                return (
+                    "Je peux t'aider avec :\n\n"
+                    "📚 **6 Filières** — ISI (BAC+3), IISIC (BAC+5), IISRT (BAC+5), "
+                    "Management des Entreprises (BAC+3), Finance Audit (BAC+5), MSTIC (BAC+5)\n"
+                    "🎓 **Admission** — BAC scientifique/technique/économique ou équivalent\n"
+                    "💰 **Frais** — 35.000 DH/an + 3.500 inscription = **38.500 DH total**\n"
+                    "🏆 **Bourses** — 30% à 100% selon résultats au concours d'admission\n"
+                    "🌍 **International** — EFREI Paris, Université de Lorraine, ENSIIE, IGS, ISTEC, Algarve\n"
+                    "📜 **Certifications** — Cisco CCNA/CCNP, Microsoft, Oracle\n"
+                    "📞 **Contact** — +212 5 35 51 10 11 | contact@supmtimeknes.ac.ma\n\n"
+                    "Qu'est-ce qui t'intéresse ? 😊"
+                )
 
-📚 **Nos programmes** - IA, Cybersécurité, Génie Logiciel, Management, Finance, Réseaux
-🎓 **Conditions d'admission** - BAC, Licence, Masters
-💰 **Frais et bourses** - 35 000 DH/an, bourses jusqu'à 100%
-🌍 **International** - Partenariats avec EFREI Paris, Université de Lorraine
-📞 **Contact** - +212 5 35 51 10 11
+    # ------------------------------------------------------------------ #
+    # DÉTECTION DE LANGUE — CORRIGÉE                                     #
+    # ------------------------------------------------------------------ #
+    def _detect_language(self, text: str) -> str:
+        """
+        Détecte la langue via MultilingualService.
+        Retourne 'fr' | 'en' | 'ar'.
+        """
+        if not text or not text.strip():
+            return 'fr'
 
-Qu'est-ce qui t'intéresse ? 😊"""
+        analysis = self.multilingual.understand_message(text)
+        primary = analysis.get('primary_language', 'french')
+        confidence = analysis.get('confidence', 0)
 
-    def _get_system_prompt(self) -> str:
-        """Retourne le prompt système pour OpenAI (conservé pour compatibilité)"""
-        return self._get_hybrid_system_prompt()
-    
+        logger.debug(f"🌍 MultilingualService → {primary} ({confidence:.1f}%)")
+
+        # Mapper les codes MultilingualService → codes API ('fr'|'en'|'ar')
+        mapping = {
+            'french':        'fr',
+            'english':       'en',
+            'darija_latin':  'ar',   # darija latin → on répond en darija
+            'darija_arabic': 'ar',   # darija arabe → on répond en darija
+            'unknown':       'fr',
+        }
+        return mapping.get(primary, 'fr')
+
+    # ------------------------------------------------------------------ #
+    # HELPERS DB                                                          #
+    # ------------------------------------------------------------------ #
+    def _get_student(self, student_id: Optional[str]) -> Optional[Student]:
+        if not student_id:
+            return None
+        try:
+            from uuid import UUID
+            uid = UUID(student_id)
+            return self.db.query(Student).filter(Student.id == uid).first()
+        except Exception:
+            logger.warning(f"⚠️ ID étudiant invalide: {student_id}")
+            return None
+
+    def _save_user_message(self, message: str, student: Optional[Student]) -> Optional[Conversation]:
+        if not student:
+            return None
+        conversation = (
+            self.db.query(Conversation)
+            .filter(Conversation.student_id == student.id)
+            .order_by(Conversation.started_at.desc())
+            .first()
+        )
+        if not conversation:
+            conversation = Conversation(id=uuid.uuid4(), student_id=student.id)
+            self.db.add(conversation)
+            self.db.flush()
+        self.db.add(Message(
+            id=uuid.uuid4(),
+            conversation_id=conversation.id,
+            content=message,
+            sender="user",
+        ))
+        self.db.commit()
+        return conversation
+
+    def _save_bot_message(self, response: str, conversation: Conversation):
+        self.db.add(Message(
+            id=uuid.uuid4(),
+            conversation_id=conversation.id,
+            content=response,
+            sender="ai",
+        ))
+        self.db.commit()
+
     def _build_context(self, student: Optional[Student]) -> str:
-        """Construit le contexte à partir du profil étudiant"""
         if not student:
             return ""
-        
-        context_lines = []
-        
-        # Informations de base
+        lines = []
         if student.user:
-            context_lines.append(f"Étudiant: {student.user.full_name}")
-        
-        # Centres d'intérêt
+            lines.append(f"Étudiant: {student.user.full_name}")
         interests = []
         if hasattr(student, 'student_interests') and student.student_interests:
             for si in student.student_interests:
                 if hasattr(si, 'interest') and si.interest:
                     interests.append(si.interest.name)
-        
-        if interests:
-            context_lines.append(f"Centres d'intérêt: {', '.join(interests)}")
-        else:
-            context_lines.append("Centres d'intérêt: Non renseignés")
-        
-        return "\n".join(context_lines)
-    
-    def _build_prompt(self, message: str, context: str) -> str:
-        """Construit le prompt complet pour OpenAI"""
-        if context:
-            return f"Contexte de l'étudiant:\n{context}\n\nQuestion: {message}"
-        return message
-    
-    def _detect_language(self, text: str) -> str:
-        """Détection améliorée de la langue"""
-        text_lower = text.lower()
-        
-        # Mots-clés anglais étendus
-        english_keywords = [
-            'hello', 'hi', 'hey', 'what', 'who', 'where', 'when', 'why', 'how',
-            'program', 'course', 'university', 'college', 'school', 'education',
-            'admission', 'apply', 'application', 'fee', 'tuition', 'scholarship',
-            'ai', 'artificial intelligence', 'cybersecurity', 'security',
-            'software', 'engineering', 'management', 'finance', 'network',
-            'president', 'director', 'professor', 'teacher', 'class', 'student',
-            'can you', 'please', 'thank', 'help', 'question', 'information',
-            'the', 'is', 'are', 'in', 'at', 'for', 'to', 'with', 'about'
-        ]
-        
-        # Mots-clés français
-        french_keywords = [
-            'bonjour', 'salut', 'coucou', 'programme', 'formation', 'filière',
-            'université', 'école', 'admission', 'inscription', 'frais', 'bourse',
-            'ia', 'intelligence artificielle', 'cybersécurité', 'sécurité',
-            'logiciel', 'génie', 'management', 'gestion', 'finance', 'réseau',
-            'président', 'directeur', 'professeur', 'enseignant', 'étudiant',
-            'pouvez', 's\'il vous plaît', 'merci', 'aide', 'question', 'information',
-            'le', 'la', 'les', 'un', 'une', 'des', 'est', 'sont', 'dans', 'pour'
-        ]
-        
-        # Vérifier caractères arabes
-        arabic_chars = re.search(r'[\u0600-\u06FF]', text)
-        if arabic_chars:
-            return 'ar'
-        
-        # Compter les occurrences avec pondération
-        english_count = 0
-        french_count = 0
-        
-        # Compter les mots-clés anglais
-        for word in english_keywords:
-            if word in text_lower:
-                # Les mots courts ont moins de poids
-                if len(word) <= 3:
-                    english_count += 0.5
-                else:
-                    english_count += 1
-        
-        # Compter les mots-clés français
-        for word in french_keywords:
-            if word in text_lower:
-                if len(word) <= 3:
-                    french_count += 0.5
-                else:
-                    french_count += 1
-        
-        # Bonus pour la ponctuation anglaise
-        if '?' in text and '?' in text:
-            english_count += 0.5
-        
-        logger.debug(f"🌍 Détection langue - Anglais: {english_count}, Français: {french_count}")
-        
-        if english_count > french_count:
-            return 'en'
-        elif french_count > english_count:
-            return 'fr'
-        
-        # En cas d'égalité, regarder le premier mot
-        if text_lower.split():
-            first_word = text_lower.split()[0]
-            if first_word in ['hello', 'hi', 'hey', 'what', 'how', 'why', 'when', 'where']:
-                return 'en'
-            elif first_word in ['bonjour', 'salut']:
-                return 'fr'
-        
-        return 'fr'  # Par défaut
-    
+        lines.append(f"Centres d'intérêt: {', '.join(interests) if interests else 'Non renseignés'}")
+        return "\n".join(lines)
+
+    # Conservé pour compatibilité ascendante
+    def _get_system_prompt(self) -> str:
+        return (
+            "Tu es un conseiller académique à SUP MTI Meknès. "
+            "Réponds de façon naturelle en FR, EN ou darija selon la langue de l'étudiant."
+        )
+
     def test_connection(self) -> Dict[str, Any]:
-        """Teste la connexion à l'API OpenAI"""
         if not self.client:
             return {"success": False, "error": "Client non initialisé"}
-        
         try:
             models = self.client.models.list()
             return {
                 "success": True,
                 "models_count": len(models.data),
-                "whisper_available": any("whisper" in m.id for m in models.data)
+                "whisper_available": any("whisper" in m.id for m in models.data),
             }
         except Exception as e:
             return {"success": False, "error": str(e)}
