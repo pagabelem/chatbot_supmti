@@ -1029,3 +1029,307 @@ SUP MTI هي مدرسة محترمة بزاف في مكناس. فيها تكوي
 2026-03-16 20:45:50 - chatbot - INFO - main.py:21 - ✅ Tables créées avec succès
 2026-03-16 20:45:50 - chatbot - INFO - main.py:77 - 🚀 Application démarrée - Version 0.2.0
 2026-03-16 20:45:50 - chatbot - INFO - main.py:83 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-16 20:46:05 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-16 20:46:22 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-16 20:46:29 - chatbot - INFO - stt_service.py:58 - 🔑 Clé API OpenAI: sk-proj-...ca4A
+2026-03-16 20:46:31 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'get', 'url': '/models', 'post_parser': <function SyncAPIClient._request_api_list.<locals>._parser at 0x0000019A75AE77F0>, 'json_data': None}
+2026-03-16 20:46:31 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: GET https://api.openai.com/v1/models
+2026-03-16 20:46:31 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=120.0 socket_options=None
+2026-03-16 20:46:31 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A7601F0E0>
+2026-03-16 20:46:31 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000019A746DAC30> server_hostname='api.openai.com' timeout=120.0
+2026-03-16 20:46:32 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A75F1AD50>
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'GET']>
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'GET']>
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'GET']>
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:49:32 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'openai-version', b'2020-10-01'), (b'x-request-id', b'875cb034-3b41-4093-92b4-d893935a2297'), (b'openai-processing-ms', b'299'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'set-cookie', b'__cf_bm=ezboTu8Em_6918mStFrba8qjjG5s.GZA2uGJ1NAT5y4-1773690571.6770065-1.0.1.1-hxKWXjc1WMoNoHyigM0lccFTvWP6.L8aKpNmQGmc7t4smpJm5_8xPOQ7hxAu.EPPvsToGw33LZjxn5XY5PP3XlL47_sz_OxgKvf7RsiZBYrXmd6R47yvFc1mB1ws4nG7; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:19:32 GMT'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'gzip'), (b'CF-RAY', b'9dd64818fc2c0284-MAD'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:46:32 - httpx - INFO - _client.py:1025 - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'GET']>
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:46:32 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:46:32 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: GET https://api.openai.com/v1/models "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:49:32 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'server': 'cloudflare', 'openai-version': '2020-10-01', 'x-request-id': '875cb034-3b41-4093-92b4-d893935a2297', 'openai-processing-ms': '299', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=ezboTu8Em_6918mStFrba8qjjG5s.GZA2uGJ1NAT5y4-1773690571.6770065-1.0.1.1-hxKWXjc1WMoNoHyigM0lccFTvWP6.L8aKpNmQGmc7t4smpJm5_8xPOQ7hxAu.EPPvsToGw33LZjxn5XY5PP3XlL47_sz_OxgKvf7RsiZBYrXmd6R47yvFc1mB1ws4nG7; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:19:32 GMT', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'content-encoding': 'gzip', 'cf-ray': '9dd64818fc2c0284-MAD', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:46:32 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: 875cb034-3b41-4093-92b4-d893935a2297
+2026-03-16 20:46:32 - chatbot - INFO - stt_service.py:63 - ✅ Client OpenAI initialisé
+2026-03-16 20:46:34 - telegram.ext.ExtBot - DEBUG - _bot.py:333 - Set Bot API URL: https://api.telegram.org/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-16 20:46:34 - telegram.ext.ExtBot - DEBUG - _bot.py:334 - Set Bot API File URL: https://api.telegram.org/file/bot1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+2026-03-16 20:46:34 - chatbot - INFO - telegram_service.py:30 - ✅ Handlers Telegram configurés
+2026-03-16 20:46:34 - chatbot - INFO - telegram_service.py:19 - ✅ Service Telegram initialisé
+2026-03-16 20:46:34 - chatbot - INFO - telegram.py:34 - ✅ Service Telegram initialisé avec succès
+2026-03-16 20:46:34 - chatbot - INFO - main.py:19 - 🗄️ Création des tables dans la base de données...
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select pg_catalog.version()
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - select current_schema()
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - show standard_conforming_strings
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:1846 - [raw sql] {}
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:2710 - BEGIN (implicit)
+2026-03-16 20:46:34 - sqlalchemy.engine.Engine - INFO - base.py:2716 - COMMIT
+2026-03-16 20:46:34 - chatbot - INFO - main.py:21 - ✅ Tables créées avec succès
+2026-03-16 20:46:34 - chatbot - INFO - main.py:77 - 🚀 Application démarrée - Version 0.2.0
+2026-03-16 20:46:34 - chatbot - INFO - main.py:83 - 📁 Dossier static monté: C:\Users\LENOVO\Desktop\ME\Biblo-TIK\power\ISI_4\IA_projet\Projet_Competi\chatbot_supmti\app\..\static
+2026-03-16 20:47:03 - chatbot - ERROR - user_preferences.py:77 - ❌ Erreur récupération préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:03 - chatbot - INFO - chat_adaptive.py:249 - 📊 Préférences pour test-user-123: text
+2026-03-16 20:47:06 - chatbot - ERROR - user_preferences.py:77 - ❌ Erreur récupération préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:06 - chatbot - INFO - chat_adaptive.py:249 - 📊 Préférences pour test-user-123: text
+2026-03-16 20:47:08 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'get', 'url': '/models', 'post_parser': <function SyncAPIClient._request_api_list.<locals>._parser at 0x0000019A76D93060>, 'json_data': None}
+2026-03-16 20:47:08 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: GET https://api.openai.com/v1/models
+2026-03-16 20:47:08 - httpcore.connection - DEBUG - _trace.py:47 - close.started
+2026-03-16 20:47:08 - httpcore.connection - DEBUG - _trace.py:47 - close.complete
+2026-03-16 20:47:08 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=120.0 socket_options=None
+2026-03-16 20:47:08 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D98410>
+2026-03-16 20:47:08 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000019A746DAC30> server_hostname='api.openai.com' timeout=120.0
+2026-03-16 20:47:08 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76CFA8B0>
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'GET']>
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'GET']>
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'GET']>
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:50:08 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'openai-version', b'2020-10-01'), (b'x-request-id', b'def8822f-c816-4cca-a77b-f5df8a1f8417'), (b'openai-processing-ms', b'200'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'set-cookie', b'__cf_bm=_xco748T__6J10j43TrYkNdWOZ5jAy_BEfN4A4hiMK8-1773690608.1793926-1.0.1.1-m9nkBz.YnPH.U7Eu0EmdF_5ojt3ggv5cS.IoK8d9O_.niXlvCLM2w2H_I7930yCtjX8omemnPYVhDi4bi5GKswvBnUniY_dBPhMLb2wiAsJtz0EBLgPj77Gic53nVzJ4; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:20:08 GMT'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'gzip'), (b'CF-RAY', b'9dd648fd1c5c7b07-MAD'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:47:08 - httpx - INFO - _client.py:1025 - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'GET']>
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:47:08 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:47:08 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: GET https://api.openai.com/v1/models "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:50:08 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'server': 'cloudflare', 'openai-version': '2020-10-01', 'x-request-id': 'def8822f-c816-4cca-a77b-f5df8a1f8417', 'openai-processing-ms': '200', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=_xco748T__6J10j43TrYkNdWOZ5jAy_BEfN4A4hiMK8-1773690608.1793926-1.0.1.1-m9nkBz.YnPH.U7Eu0EmdF_5ojt3ggv5cS.IoK8d9O_.niXlvCLM2w2H_I7930yCtjX8omemnPYVhDi4bi5GKswvBnUniY_dBPhMLb2wiAsJtz0EBLgPj77Gic53nVzJ4; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:20:08 GMT', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'content-encoding': 'gzip', 'cf-ray': '9dd648fd1c5c7b07-MAD', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:47:08 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: def8822f-c816-4cca-a77b-f5df8a1f8417
+2026-03-16 20:47:08 - chatbot - INFO - chat_adaptive.py:274 - 📊 Statut STT: {'success': True, 'supported_languages': {'fr': 'français', 'en': 'english', 'ar': 'darija (arabe)', 'auto': 'auto-détection Whisper'}, 'whisper_supported': True, 'darija_available': False, 'openai_available': True, 'openai_response_time': 0.54}
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:108]
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[110:122]
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[124:134]
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[138:60326]
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-16 20:47:19 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:109 - ============================================================
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:110 - 🎤 [voice_1773690439] NOUVEAU MESSAGE VOCAL REÇU
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:111 - 📁 [voice_1773690439] Fichier: voice.webm
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:112 - 📄 [voice_1773690439] Content-Type: audio/webm
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:113 - 👤 [voice_1773690439] Student: test-user-123
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:114 - 🌍 [voice_1773690439] Langue préférée: ar
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:115 - ============================================================
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:129 - 📦 [voice_1773690439] Taille audio reçue: 60188 bytes
+2026-03-16 20:47:19 - chatbot - INFO - chat_adaptive.py:141 - 🔄 [voice_1773690439] Début transcription Whisper...
+2026-03-16 20:47:19 - chatbot - INFO - stt_service.py:151 - 🔍 [stt_auto_1773690439] Auto-détection langue
+2026-03-16 20:47:19 - chatbot - INFO - stt_service.py:94 - 🎤 [stt_1773690439] Transcription — 60188 bytes, langue=None
+2026-03-16 20:47:19 - chatbot - INFO - stt_service.py:117 - 🌐 [stt_1773690439] whisper_lang=None | prompt_style='Hello.'
+2026-03-16 20:47:19 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'post', 'url': '/audio/transcriptions', 'headers': {'Content-Type': 'multipart/form-data'}, 'files': [('file', SerializationIterator(index=0, iterator=SerializationIterator(index=0, iterator=<_io.BufferedReader name='C:\\Users\\LENOVO\\AppData\\Local\\Temp\\tmpva5qmf8x.webm'>)))], 'idempotency_key': 'stainless-python-retry-19892bc6-31a7-4a1b-93c2-378a213d8c4b', 'content': None, 'json_data': {'model': 'whisper-1', 'prompt': 'Hello.', 'response_format': 'text', 'temperature': 0.0}}
+2026-03-16 20:47:19 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: POST https://api.openai.com/v1/audio/transcriptions
+2026-03-16 20:47:19 - httpcore.connection - DEBUG - _trace.py:47 - close.started
+2026-03-16 20:47:19 - httpcore.connection - DEBUG - _trace.py:47 - close.complete
+2026-03-16 20:47:19 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=120.0 socket_options=None
+2026-03-16 20:47:19 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76CFB360>
+2026-03-16 20:47:19 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000019A746DAC30> server_hostname='api.openai.com' timeout=120.0
+2026-03-16 20:47:19 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D443B0>
+2026-03-16 20:47:19 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:19 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:47:19 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2026-03-16 20:47:19 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:47:19 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:20 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:50:20 GMT'), (b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'29'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'kouassi-qj2x4p'), (b'openai-processing-ms', b'550'), (b'openai-project', b'proj_BU0IeSP9eB7gZ4o7WIaufMKd'), (b'openai-version', b'2020-10-01'), (b'Server', b'cloudflare'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'via', b'envoy-router-5c469bb7c5-4724h'), (b'x-ratelimit-limit-requests', b'500'), (b'x-ratelimit-remaining-requests', b'499'), (b'x-ratelimit-reset-requests', b'120ms'), (b'x-request-id', b'req_a06701985e1d451fb24ed80a7f6bc08e'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'CF-RAY', b'9dd649436c2e5874-MAD'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:47:20 - httpx - INFO - _client.py:1025 - HTTP Request: POST https://api.openai.com/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-03-16 20:47:20 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2026-03-16 20:47:20 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:47:20 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:47:20 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:47:20 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: POST https://api.openai.com/v1/audio/transcriptions "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:50:20 GMT', 'content-type': 'text/plain; charset=utf-8', 'content-length': '29', 'connection': 'keep-alive', 'access-control-expose-headers': 'X-Request-ID', 'openai-organization': 'kouassi-qj2x4p', 'openai-processing-ms': '550', 'openai-project': 'proj_BU0IeSP9eB7gZ4o7WIaufMKd', 'openai-version': '2020-10-01', 'server': 'cloudflare', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'via': 'envoy-router-5c469bb7c5-4724h', 'x-ratelimit-limit-requests': '500', 'x-ratelimit-remaining-requests': '499', 'x-ratelimit-reset-requests': '120ms', 'x-request-id': 'req_a06701985e1d451fb24ed80a7f6bc08e', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'cf-ray': '9dd649436c2e5874-MAD', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:47:20 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: req_a06701985e1d451fb24ed80a7f6bc08e
+2026-03-16 20:47:20 - chatbot - INFO - stt_service.py:134 - ✅ [stt_1773690439] OK en 1.20s — résultat: 'لبس ميزان ميزان'
+2026-03-16 20:47:20 - chatbot - INFO - chat_adaptive.py:145 - 📝 [voice_1773690439] Transcription (1.21s): لبس ميزان ميزان...
+2026-03-16 20:47:20 - chatbot - ERROR - user_preferences.py:62 - ❌ Erreur mise à jour préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:20 - chatbot - INFO - chat_adaptive.py:163 - ✅ [voice_1773690439] Préférences mises à jour
+2026-03-16 20:47:20 - chatbot - INFO - chat_adaptive.py:168 - 🔄 [voice_1773690439] Génération réponse OpenAI...
+2026-03-16 20:47:20 - chatbot - WARNING - openai_service.py:59 - ⚠️ Data1.txt non trouvé
+2026-03-16 20:47:21 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'get', 'url': '/models', 'post_parser': <function SyncAPIClient._request_api_list.<locals>._parser at 0x0000019A76D93B60>, 'json_data': None}
+2026-03-16 20:47:21 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: GET https://api.openai.com/v1/models
+2026-03-16 20:47:21 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=30.0 socket_options=None
+2026-03-16 20:47:21 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D64490>
+2026-03-16 20:47:21 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000019A76B5EBD0> server_hostname='api.openai.com' timeout=30.0
+2026-03-16 20:47:21 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D645A0>
+2026-03-16 20:47:21 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'GET']>
+2026-03-16 20:47:21 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:47:21 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'GET']>
+2026-03-16 20:47:21 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:47:21 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'GET']>
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:50:21 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'openai-version', b'2020-10-01'), (b'x-request-id', b'c4992778-226a-4359-9d24-a67a16cb1bff'), (b'openai-processing-ms', b'189'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'set-cookie', b'__cf_bm=2cxY044IiT59xKZdHRLbggLXNzSTCVkh_06MWNsAl.4-1773690621.3626535-1.0.1.1-rYd139CgDcc0Q69qbRZTZjrNgNnddFvsvLQ2Ih4_GsJQYfbsSAaaJzm3ayHEM7FkFrDJDvQC5oas_FBY9U9QWPqyz_I5akzmDYQXm4UVpWnYZ9XFTAbWjnKnnf.fngu2; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:20:21 GMT'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'gzip'), (b'CF-RAY', b'9dd6494f8bddae85-MAD'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:47:22 - httpx - INFO - _client.py:1025 - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'GET']>
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:47:22 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: GET https://api.openai.com/v1/models "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:50:21 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'server': 'cloudflare', 'openai-version': '2020-10-01', 'x-request-id': 'c4992778-226a-4359-9d24-a67a16cb1bff', 'openai-processing-ms': '189', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=2cxY044IiT59xKZdHRLbggLXNzSTCVkh_06MWNsAl.4-1773690621.3626535-1.0.1.1-rYd139CgDcc0Q69qbRZTZjrNgNnddFvsvLQ2Ih4_GsJQYfbsSAaaJzm3ayHEM7FkFrDJDvQC5oas_FBY9U9QWPqyz_I5akzmDYQXm4UVpWnYZ9XFTAbWjnKnnf.fngu2; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:20:21 GMT', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'content-encoding': 'gzip', 'cf-ray': '9dd6494f8bddae85-MAD', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:47:22 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: c4992778-226a-4359-9d24-a67a16cb1bff
+2026-03-16 20:47:22 - chatbot - INFO - openai_service.py:44 - ✅ Service OpenAI initialisé
+2026-03-16 20:47:22 - chatbot - INFO - openai_service.py:94 - 💭 Message: 'لبس ميزان ميزان' | lang_hint=None
+2026-03-16 20:47:22 - chatbot - WARNING - openai_service.py:447 - ⚠️ ID étudiant invalide: test-user-123
+2026-03-16 20:47:22 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'post', 'url': '/chat/completions', 'timeout': 15, 'files': None, 'idempotency_key': 'stainless-python-retry-5f18f3ff-185b-4d94-a4b7-e96af40c278b', 'content': None, 'json_data': {'messages': [{'role': 'system', 'content': 'أنت مستشار أكاديمي في المدرسة. جاوب دائماً بالدارجة المغربية (مش الفصحى). استخدم عبارات مثل: واش، شنو، بزاف، كيفاش، مزيان. كن ودودًا ومشجعًا. ما تكررش اسم المدرسة في كل جملة. إلا ما عندوش الطالب بروفيل، طلب منو بلطف يدير واحد.'}, {'role': 'user', 'content': 'لبس ميزان ميزان'}], 'model': 'gpt-3.5-turbo', 'max_tokens': 500, 'temperature': 0.7}}
+2026-03-16 20:47:22 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:47:22 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:23 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:50:23 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'9dd64953fc17ae85-MAD'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'kouassi-qj2x4p'), (b'openai-processing-ms', b'687'), (b'openai-project', b'proj_BU0IeSP9eB7gZ4o7WIaufMKd'), (b'openai-version', b'2020-10-01'), (b'x-openai-proxy-wasm', b'v0.1'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199888'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'33ms'), (b'x-request-id', b'req_67360c7703d0495c9edadc5e00e0d17e'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:47:23 - httpx - INFO - _client.py:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-16 20:47:23 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2026-03-16 20:47:23 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:47:23 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:47:23 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:47:23 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:50:23 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '9dd64953fc17ae85-MAD', 'cf-cache-status': 'DYNAMIC', 'server': 'cloudflare', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'access-control-expose-headers': 'X-Request-ID', 'openai-organization': 'kouassi-qj2x4p', 'openai-processing-ms': '687', 'openai-project': 'proj_BU0IeSP9eB7gZ4o7WIaufMKd', 'openai-version': '2020-10-01', 'x-openai-proxy-wasm': 'v0.1', 'x-ratelimit-limit-requests': '10000', 'x-ratelimit-limit-tokens': '200000', 'x-ratelimit-remaining-requests': '9999', 'x-ratelimit-remaining-tokens': '199888', 'x-ratelimit-reset-requests': '8.64s', 'x-ratelimit-reset-tokens': '33ms', 'x-request-id': 'req_67360c7703d0495c9edadc5e00e0d17e', 'content-encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:47:23 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: req_67360c7703d0495c9edadc5e00e0d17e
+2026-03-16 20:47:24 - chatbot - INFO - chat_adaptive.py:177 - ✅ [voice_1773690439] Réponse OpenAI (4.44s): واش كاين مشكل؟ شنو اللي كاين؟ كيفاش ممكن نساعدك؟...
+2026-03-16 20:47:24 - chatbot - ERROR - user_preferences.py:77 - ❌ Erreur récupération préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:24 - chatbot - INFO - chat_adaptive.py:185 - 🔄 [voice_1773690439] Génération réponse vocale...
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - text: واش كاين مشكل؟ شنو اللي كاين؟ كيفاش ممكن نساعدك؟
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - tld: com
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - lang: ar
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - slow: False
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - lang_check: True
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - pre_processor_funcs: [<function tone_marks at 0x0000019A75A53E20>, <function end_of_line at 0x0000019A75A53ED0>, <function abbreviations at 0x0000019A75A5C9E0>, <function word_sub at 0x0000019A75A5CA90>]
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - tokenizer_func: <bound method Tokenizer.run of re.compile('(?<=\\?).|(?<=!).|(?<=？).|(?<=！).|(?<!\\.[a-z])\\. |(?<!\\.[a-z]), |(?<!\\d):|،|。|\\\n|;|\\)|—|\\(|：|、|，|‥|…|\\[|¡|¿|\\]', re.IGNORECASE) from: [<function tone_marks at 0x0000019A75A5CCA0>, <function period_comma at 0x0000019A75A5CD50>, <function colon at 0x0000019A75A5CE00>, <function other_punctuation at 0x0000019A75A5CEB0>]>
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:130 - timeout: None
+2026-03-16 20:47:24 - gtts.lang - DEBUG - lang.py:33 - langs: {'af': 'Afrikaans', 'am': 'Amharic', 'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'bs': 'Bosnian', 'ca': 'Catalan', 'cs': 'Czech', 'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'et': 'Estonian', 'eu': 'Basque', 'fi': 'Finnish', 'fr': 'French', 'fr-CA': 'French (Canada)', 'gl': 'Galician', 'gu': 'Gujarati', 'ha': 'Hausa', 'hi': 'Hindi', 'hr': 'Croatian', 'hu': 'Hungarian', 'id': 'Indonesian', 'is': 'Icelandic', 'it': 'Italian', 'iw': 'Hebrew', 'ja': 'Japanese', 'jw': 'Javanese', 'km': 'Khmer', 'kn': 'Kannada', 'ko': 'Korean', 'la': 'Latin', 'lt': 'Lithuanian', 'lv': 'Latvian', 'ml': 'Malayalam', 'mr': 'Marathi', 'ms': 'Malay', 'my': 'Myanmar (Burmese)', 'ne': 'Nepali', 'nl': 'Dutch', 'no': 'Norwegian', 'pa': 'Punjabi (Gurmukhi)', 'pl': 'Polish', 'pt': 'Portuguese (Brazil)', 'pt-PT': 'Portuguese (Portugal)', 'ro': 'Romanian', 'ru': 'Russian', 'si': 'Sinhala', 'sk': 'Slovak', 'sq': 'Albanian', 'sr': 'Serbian', 'su': 'Sundanese', 'sv': 'Swedish', 'sw': 'Swahili', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tl': 'Filipino', 'tr': 'Turkish', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'yue': 'Cantonese', 'zh-CN': 'Chinese (Simplified)', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'}
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function tone_marks at 0x0000019A75A53E20>
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function end_of_line at 0x0000019A75A53ED0>
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function abbreviations at 0x0000019A75A5C9E0>
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function word_sub at 0x0000019A75A5CA90>
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:208 - text_parts: ['واش كاين مشكل؟ شنو اللي كاين؟ كيفاش ممكن نساعدك؟']
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:209 - text_parts: 1
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:216 - data-0: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22%5C%5Cu0648%5C%5Cu0627%5C%5Cu0634%20%5C%5Cu0643%5C%5Cu0627%5C%5Cu064a%5C%5Cu0646%20%5C%5Cu0645%5C%5Cu0634%5C%5Cu0643%5C%5Cu0644%5C%5Cu061f%20%5C%5Cu0634%5C%5Cu0646%5C%5Cu0648%20%5C%5Cu0627%5C%5Cu0644%5C%5Cu0644%5C%5Cu064a%20%5C%5Cu0643%5C%5Cu0627%5C%5Cu064a%5C%5Cu0646%5C%5Cu061f%20%5C%5Cu0643%5C%5Cu064a%5C%5Cu0641%5C%5Cu0627%5C%5Cu0634%20%5C%5Cu0645%5C%5Cu0645%5C%5Cu0643%5C%5Cu0646%20%5C%5Cu0646%5C%5Cu0633%5C%5Cu0627%5C%5Cu0639%5C%5Cu062f%5C%5Cu0643%5C%5Cu061f%5C%22%2C%5C%22ar%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&
+2026-03-16 20:47:24 - urllib3.connectionpool - DEBUG - connectionpool.py:1049 - Starting new HTTPS connection (1): translate.google.com:443
+2026-03-16 20:47:24 - urllib3.connectionpool - DEBUG - connectionpool.py:544 - https://translate.google.com:443 "POST /_/TranslateWebserverUi/data/batchexecute HTTP/1.1" 200 None
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:275 - headers-0: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '594'}
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:276 - url-0: https://translate.google.com/_/TranslateWebserverUi/data/batchexecute
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:277 - status-0: 200
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:318 - part-0 written to <_io.BytesIO object at 0x0000019A76D753F0>
+2026-03-16 20:47:24 - gtts.tts - DEBUG - tts.py:301 - part-0 created
+2026-03-16 20:47:24 - chatbot - INFO - chat_adaptive.py:192 - 🔊 [voice_1773690439] Réponse vocale générée en 4.98s (49728 bytes)
+2026-03-16 20:47:24 - chatbot - INFO - chat_adaptive.py:195 - ✅ [voice_1773690439] TRAITEMENT COMPLET en 4.98s
+2026-03-16 20:47:24 - chatbot - INFO - chat_adaptive.py:196 - ============================================================
+2026-03-16 20:47:24 - chatbot - ERROR - user_preferences.py:77 - ❌ Erreur récupération préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:24 - chatbot - INFO - chat_adaptive.py:249 - 📊 Préférences pour test-user-123: text
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_begin with no data
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[42:61]
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[63:108]
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_field with data[110:122]
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_header_value with data[124:134]
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_header_end with no data
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_headers_finished with no data
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:626 - Calling on_part_data with data[138:58394]
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_part_end with no data
+2026-03-16 20:47:48 - python_multipart.multipart - DEBUG - multipart.py:629 - Calling on_end with no data
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:109 - ============================================================
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:110 - 🎤 [voice_1773690468] NOUVEAU MESSAGE VOCAL REÇU
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:111 - 📁 [voice_1773690468] Fichier: voice.webm
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:112 - 📄 [voice_1773690468] Content-Type: audio/webm
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:113 - 👤 [voice_1773690468] Student: test-user-123
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:114 - 🌍 [voice_1773690468] Langue préférée: ar
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:115 - ============================================================
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:129 - 📦 [voice_1773690468] Taille audio reçue: 58256 bytes
+2026-03-16 20:47:48 - chatbot - INFO - chat_adaptive.py:141 - 🔄 [voice_1773690468] Début transcription Whisper...
+2026-03-16 20:47:48 - chatbot - INFO - stt_service.py:151 - 🔍 [stt_auto_1773690468] Auto-détection langue
+2026-03-16 20:47:48 - chatbot - INFO - stt_service.py:94 - 🎤 [stt_1773690468] Transcription — 58256 bytes, langue=None
+2026-03-16 20:47:48 - chatbot - INFO - stt_service.py:117 - 🌐 [stt_1773690468] whisper_lang=None | prompt_style='Hello.'
+2026-03-16 20:47:48 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'post', 'url': '/audio/transcriptions', 'headers': {'Content-Type': 'multipart/form-data'}, 'files': [('file', SerializationIterator(index=0, iterator=SerializationIterator(index=0, iterator=<_io.BufferedReader name='C:\\Users\\LENOVO\\AppData\\Local\\Temp\\tmpqb86ig4_.webm'>)))], 'idempotency_key': 'stainless-python-retry-479ab263-d1a5-40d1-968e-e1b21cd42e8d', 'content': None, 'json_data': {'model': 'whisper-1', 'prompt': 'Hello.', 'response_format': 'text', 'temperature': 0.0}}
+2026-03-16 20:47:48 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: POST https://api.openai.com/v1/audio/transcriptions
+2026-03-16 20:47:48 - httpcore.connection - DEBUG - _trace.py:47 - close.started
+2026-03-16 20:47:48 - httpcore.connection - DEBUG - _trace.py:47 - close.complete
+2026-03-16 20:47:48 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=120.0 socket_options=None
+2026-03-16 20:47:48 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D38A50>
+2026-03-16 20:47:48 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000019A746DAC30> server_hostname='api.openai.com' timeout=120.0
+2026-03-16 20:47:48 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D3AC50>
+2026-03-16 20:47:48 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:48 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:47:48 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2026-03-16 20:47:48 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:47:48 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:49 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:50:48 GMT'), (b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'40'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'kouassi-qj2x4p'), (b'openai-processing-ms', b'446'), (b'openai-project', b'proj_BU0IeSP9eB7gZ4o7WIaufMKd'), (b'openai-version', b'2020-10-01'), (b'Server', b'cloudflare'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'via', b'envoy-router-5c469bb7c5-v86fn'), (b'x-ratelimit-limit-requests', b'500'), (b'x-ratelimit-remaining-requests', b'499'), (b'x-ratelimit-reset-requests', b'120ms'), (b'x-request-id', b'req_07cd86ed414b428fa38f326b2fd8bf39'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'CF-RAY', b'9dd649f60bfd4c95-MAD'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:47:49 - httpx - INFO - _client.py:1025 - HTTP Request: POST https://api.openai.com/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-03-16 20:47:49 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2026-03-16 20:47:49 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:47:49 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:47:49 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:47:49 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: POST https://api.openai.com/v1/audio/transcriptions "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:50:48 GMT', 'content-type': 'text/plain; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'access-control-expose-headers': 'X-Request-ID', 'openai-organization': 'kouassi-qj2x4p', 'openai-processing-ms': '446', 'openai-project': 'proj_BU0IeSP9eB7gZ4o7WIaufMKd', 'openai-version': '2020-10-01', 'server': 'cloudflare', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'via': 'envoy-router-5c469bb7c5-v86fn', 'x-ratelimit-limit-requests': '500', 'x-ratelimit-remaining-requests': '499', 'x-ratelimit-reset-requests': '120ms', 'x-request-id': 'req_07cd86ed414b428fa38f326b2fd8bf39', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'cf-ray': '9dd649f60bfd4c95-MAD', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:47:49 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: req_07cd86ed414b428fa38f326b2fd8bf39
+2026-03-16 20:47:49 - chatbot - INFO - stt_service.py:134 - ✅ [stt_1773690468] OK en 0.81s — résultat: 'ڈیال سپ ام ڈئی میک نیس'
+2026-03-16 20:47:49 - chatbot - INFO - chat_adaptive.py:145 - 📝 [voice_1773690468] Transcription (0.81s): ڈیال سپ ام ڈئی میک نیس...
+2026-03-16 20:47:49 - chatbot - ERROR - user_preferences.py:62 - ❌ Erreur mise à jour préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:49 - chatbot - INFO - chat_adaptive.py:163 - ✅ [voice_1773690468] Préférences mises à jour
+2026-03-16 20:47:49 - chatbot - INFO - chat_adaptive.py:168 - 🔄 [voice_1773690468] Génération réponse OpenAI...
+2026-03-16 20:47:49 - chatbot - WARNING - openai_service.py:59 - ⚠️ Data1.txt non trouvé
+2026-03-16 20:47:49 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'get', 'url': '/models', 'post_parser': <function SyncAPIClient._request_api_list.<locals>._parser at 0x0000019A454EEA30>, 'json_data': None}
+2026-03-16 20:47:49 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: GET https://api.openai.com/v1/models
+2026-03-16 20:47:49 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=30.0 socket_options=None
+2026-03-16 20:47:50 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D72990>
+2026-03-16 20:47:50 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000019A76B2AE50> server_hostname='api.openai.com' timeout=30.0
+2026-03-16 20:47:50 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000019A76D72C60>
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'GET']>
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'GET']>
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'GET']>
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:50:50 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'openai-version', b'2020-10-01'), (b'x-request-id', b'376f2d04-60f0-4f83-b0b0-b6812ec08024'), (b'openai-processing-ms', b'209'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'set-cookie', b'__cf_bm=Xmxb6TruwsGB6lPL5Uum9ODkCdU3Xp7Xf8TdFRhoLis-1773690649.6993248-1.0.1.1-9Fe3Yk7u5CYn0lXZfxbrYBgGoM2bhpdgr8W1nm.rsf4UxF4VZGLOWBVMLSwZrOVA0b0Z_YVL0zkhxipS3vhjnbehSnU88GnPqdaoZiXxxD497w49wlhWoAOj510_i.xw; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:20:50 GMT'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'gzip'), (b'CF-RAY', b'9dd64a009961f40c-MAD'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:47:50 - httpx - INFO - _client.py:1025 - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'GET']>
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:47:50 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: GET https://api.openai.com/v1/models "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:50:50 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'server': 'cloudflare', 'openai-version': '2020-10-01', 'x-request-id': '376f2d04-60f0-4f83-b0b0-b6812ec08024', 'openai-processing-ms': '209', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=Xmxb6TruwsGB6lPL5Uum9ODkCdU3Xp7Xf8TdFRhoLis-1773690649.6993248-1.0.1.1-9Fe3Yk7u5CYn0lXZfxbrYBgGoM2bhpdgr8W1nm.rsf4UxF4VZGLOWBVMLSwZrOVA0b0Z_YVL0zkhxipS3vhjnbehSnU88GnPqdaoZiXxxD497w49wlhWoAOj510_i.xw; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Mon, 16 Mar 2026 20:20:50 GMT', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'content-encoding': 'gzip', 'cf-ray': '9dd64a009961f40c-MAD', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:47:50 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: 376f2d04-60f0-4f83-b0b0-b6812ec08024
+2026-03-16 20:47:50 - httpcore.connection - DEBUG - _trace.py:47 - close.started
+2026-03-16 20:47:50 - httpcore.connection - DEBUG - _trace.py:47 - close.complete
+2026-03-16 20:47:50 - chatbot - INFO - openai_service.py:44 - ✅ Service OpenAI initialisé
+2026-03-16 20:47:50 - chatbot - INFO - openai_service.py:94 - 💭 Message: 'ڈیال سپ ام ڈئی میک نیس' | lang_hint=None
+2026-03-16 20:47:50 - chatbot - WARNING - openai_service.py:447 - ⚠️ ID étudiant invalide: test-user-123
+2026-03-16 20:47:50 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'post', 'url': '/chat/completions', 'timeout': 15, 'files': None, 'idempotency_key': 'stainless-python-retry-97ba52e0-132f-488a-a183-7acc2916497c', 'content': None, 'json_data': {'messages': [{'role': 'system', 'content': 'أنت مستشار أكاديمي في المدرسة. جاوب دائماً بالدارجة المغربية (مش الفصحى). استخدم عبارات مثل: واش، شنو، بزاف، كيفاش، مزيان. كن ودودًا ومشجعًا. ما تكررش اسم المدرسة في كل جملة. إلا ما عندوش الطالب بروفيل، طلب منو بلطف يدير واحد.'}, {'role': 'user', 'content': 'ڈیال سپ ام ڈئی میک نیس'}], 'model': 'gpt-3.5-turbo', 'max_tokens': 500, 'temperature': 0.7}}
+2026-03-16 20:47:50 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-16 20:47:50 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2026-03-16 20:47:51 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 16 Mar 2026 19:50:51 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'9dd64a037a1df40c-MAD'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'kouassi-qj2x4p'), (b'openai-processing-ms', b'642'), (b'openai-project', b'proj_BU0IeSP9eB7gZ4o7WIaufMKd'), (b'openai-version', b'2020-10-01'), (b'x-openai-proxy-wasm', b'v0.1'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199886'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'34ms'), (b'x-request-id', b'req_7b4e3874d9f645ae966accda33a37b43'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-16 20:47:51 - httpx - INFO - _client.py:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-16 20:47:51 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2026-03-16 20:47:51 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-16 20:47:51 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-16 20:47:51 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-16 20:47:51 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers({'date': 'Mon, 16 Mar 2026 19:50:51 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '9dd64a037a1df40c-MAD', 'cf-cache-status': 'DYNAMIC', 'server': 'cloudflare', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'access-control-expose-headers': 'X-Request-ID', 'openai-organization': 'kouassi-qj2x4p', 'openai-processing-ms': '642', 'openai-project': 'proj_BU0IeSP9eB7gZ4o7WIaufMKd', 'openai-version': '2020-10-01', 'x-openai-proxy-wasm': 'v0.1', 'x-ratelimit-limit-requests': '10000', 'x-ratelimit-limit-tokens': '200000', 'x-ratelimit-remaining-requests': '9999', 'x-ratelimit-remaining-tokens': '199886', 'x-ratelimit-reset-requests': '8.64s', 'x-ratelimit-reset-tokens': '34ms', 'x-request-id': 'req_7b4e3874d9f645ae966accda33a37b43', 'content-encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-16 20:47:51 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: req_7b4e3874d9f645ae966accda33a37b43
+2026-03-16 20:47:51 - chatbot - INFO - chat_adaptive.py:177 - ✅ [voice_1773690468] Réponse OpenAI (3.40s): واش كتقول؟ واش كتحتاج مساعدة فحاجة معينة؟...
+2026-03-16 20:47:51 - chatbot - ERROR - user_preferences.py:77 - ❌ Erreur récupération préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:51 - chatbot - INFO - chat_adaptive.py:185 - 🔄 [voice_1773690468] Génération réponse vocale...
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - text: واش كتقول؟ واش كتحتاج مساعدة فحاجة معينة؟
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - tld: com
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - lang: ar
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - slow: False
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - lang_check: True
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - pre_processor_funcs: [<function tone_marks at 0x0000019A75A53E20>, <function end_of_line at 0x0000019A75A53ED0>, <function abbreviations at 0x0000019A75A5C9E0>, <function word_sub at 0x0000019A75A5CA90>]
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - tokenizer_func: <bound method Tokenizer.run of re.compile('(?<=\\?).|(?<=!).|(?<=？).|(?<=！).|(?<!\\.[a-z])\\. |(?<!\\.[a-z]), |(?<!\\d):|،|。|\\\n|;|\\)|—|\\(|：|、|，|‥|…|\\[|¡|¿|\\]', re.IGNORECASE) from: [<function tone_marks at 0x0000019A75A5CCA0>, <function period_comma at 0x0000019A75A5CD50>, <function colon at 0x0000019A75A5CE00>, <function other_punctuation at 0x0000019A75A5CEB0>]>
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:130 - timeout: None
+2026-03-16 20:47:51 - gtts.lang - DEBUG - lang.py:33 - langs: {'af': 'Afrikaans', 'am': 'Amharic', 'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'bs': 'Bosnian', 'ca': 'Catalan', 'cs': 'Czech', 'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'et': 'Estonian', 'eu': 'Basque', 'fi': 'Finnish', 'fr': 'French', 'fr-CA': 'French (Canada)', 'gl': 'Galician', 'gu': 'Gujarati', 'ha': 'Hausa', 'hi': 'Hindi', 'hr': 'Croatian', 'hu': 'Hungarian', 'id': 'Indonesian', 'is': 'Icelandic', 'it': 'Italian', 'iw': 'Hebrew', 'ja': 'Japanese', 'jw': 'Javanese', 'km': 'Khmer', 'kn': 'Kannada', 'ko': 'Korean', 'la': 'Latin', 'lt': 'Lithuanian', 'lv': 'Latvian', 'ml': 'Malayalam', 'mr': 'Marathi', 'ms': 'Malay', 'my': 'Myanmar (Burmese)', 'ne': 'Nepali', 'nl': 'Dutch', 'no': 'Norwegian', 'pa': 'Punjabi (Gurmukhi)', 'pl': 'Polish', 'pt': 'Portuguese (Brazil)', 'pt-PT': 'Portuguese (Portugal)', 'ro': 'Romanian', 'ru': 'Russian', 'si': 'Sinhala', 'sk': 'Slovak', 'sq': 'Albanian', 'sr': 'Serbian', 'su': 'Sundanese', 'sv': 'Swedish', 'sw': 'Swahili', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tl': 'Filipino', 'tr': 'Turkish', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'yue': 'Cantonese', 'zh-CN': 'Chinese (Simplified)', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'}
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function tone_marks at 0x0000019A75A53E20>
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function end_of_line at 0x0000019A75A53ED0>
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function abbreviations at 0x0000019A75A5C9E0>
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:173 - pre-processing: <function word_sub at 0x0000019A75A5CA90>
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:208 - text_parts: ['واش كتقول؟ واش كتحتاج مساعدة فحاجة معينة؟']
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:209 - text_parts: 1
+2026-03-16 20:47:51 - gtts.tts - DEBUG - tts.py:216 - data-0: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22%5C%5Cu0648%5C%5Cu0627%5C%5Cu0634%20%5C%5Cu0643%5C%5Cu062a%5C%5Cu0642%5C%5Cu0648%5C%5Cu0644%5C%5Cu061f%20%5C%5Cu0648%5C%5Cu0627%5C%5Cu0634%20%5C%5Cu0643%5C%5Cu062a%5C%5Cu062d%5C%5Cu062a%5C%5Cu0627%5C%5Cu062c%20%5C%5Cu0645%5C%5Cu0633%5C%5Cu0627%5C%5Cu0639%5C%5Cu062f%5C%5Cu0629%20%5C%5Cu0641%5C%5Cu062d%5C%5Cu0627%5C%5Cu062c%5C%5Cu0629%20%5C%5Cu0645%5C%5Cu0639%5C%5Cu064a%5C%5Cu0646%5C%5Cu0629%5C%5Cu061f%5C%22%2C%5C%22ar%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&
+2026-03-16 20:47:51 - urllib3.connectionpool - DEBUG - connectionpool.py:1049 - Starting new HTTPS connection (1): translate.google.com:443
+2026-03-16 20:47:52 - urllib3.connectionpool - DEBUG - connectionpool.py:544 - https://translate.google.com:443 "POST /_/TranslateWebserverUi/data/batchexecute HTTP/1.1" 200 None
+2026-03-16 20:47:52 - gtts.tts - DEBUG - tts.py:275 - headers-0: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '533'}
+2026-03-16 20:47:52 - gtts.tts - DEBUG - tts.py:276 - url-0: https://translate.google.com/_/TranslateWebserverUi/data/batchexecute
+2026-03-16 20:47:52 - gtts.tts - DEBUG - tts.py:277 - status-0: 200
+2026-03-16 20:47:52 - gtts.tts - DEBUG - tts.py:318 - part-0 written to <_io.BytesIO object at 0x0000019A76D75210>
+2026-03-16 20:47:52 - gtts.tts - DEBUG - tts.py:301 - part-0 created
+2026-03-16 20:47:52 - chatbot - INFO - chat_adaptive.py:192 - 🔊 [voice_1773690468] Réponse vocale générée en 3.87s (48960 bytes)
+2026-03-16 20:47:52 - chatbot - INFO - chat_adaptive.py:195 - ✅ [voice_1773690468] TRAITEMENT COMPLET en 3.87s
+2026-03-16 20:47:52 - chatbot - INFO - chat_adaptive.py:196 - ============================================================
+2026-03-16 20:47:52 - chatbot - ERROR - user_preferences.py:77 - ❌ Erreur récupération préférence: badly formed hexadecimal UUID string
+2026-03-16 20:47:52 - chatbot - INFO - chat_adaptive.py:249 - 📊 Préférences pour test-user-123: text
