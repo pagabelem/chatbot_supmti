@@ -1,0 +1,108 @@
+2026-03-21 23:35:53 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-21 23:35:53 - chatbot - INFO - main.py:132 - 🗄️ Création des tables dans la base de données...
+2026-03-21 23:35:53 - chatbot - INFO - main.py:134 - ✅ Tables créées avec succès
+2026-03-21 23:35:53 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2026-03-21 23:35:53 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2026-03-21 23:35:53 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2026-03-21 23:35:53 - passlib.registry - DEBUG - registry.py:296 - registered 'pbkdf2_sha256' handler: <class 'passlib.handlers.pbkdf2.pbkdf2_sha256'>
+2026-03-21 23:36:00 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-21 23:36:05 - chatbot - INFO - stt_service.py:49 - 🔑 Clé API chargée: sk-proj-...D78A
+2026-03-21 23:36:05 - chatbot - INFO - stt_service.py:60 - 🔄 Test de connexion à OpenAI...
+2026-03-21 23:36:06 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'get', 'url': '/models', 'post_parser': <function SyncAPIClient._request_api_list.<locals>._parser at 0x00000167353F3480>, 'json_data': None}
+2026-03-21 23:36:06 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: GET https://api.openai.com/v1/models
+2026-03-21 23:36:06 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=120.0 socket_options=None
+2026-03-21 23:36:06 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000167359C9E80>
+2026-03-21 23:36:06 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000167353ACA70> server_hostname='api.openai.com' timeout=120.0
+2026-03-21 23:36:06 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000167358C9090>
+2026-03-21 23:36:06 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'GET']>
+2026-03-21 23:36:06 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-21 23:36:06 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'GET']>
+2026-03-21 23:36:06 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-21 23:36:06 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'GET']>
+2026-03-21 23:36:07 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 21 Mar 2026 23:36:07 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'openai-version', b'2020-10-01'), (b'x-request-id', b'2ddc3fa5-9534-4840-8bb9-8e46e4d890aa'), (b'openai-processing-ms', b'444'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'set-cookie', b'__cf_bm=fgzUR1czn.Y1.Bx8KNaX1j4bGqiuHgNkSdzms8y.Vyo-1774136167.0263844-1.0.1.1-KnzcrphHravOWpuLKyi5xyT69N0DY_5sYRmNvStxJtXgR7BHbAAzWyuyN3bEKEI0eJC0PKS3l1CYX3XgKDpxIi1kZyAyI5yoZRbs9vunRiddXMKCs7eXDHB4I1fjT9qb; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Mar 2026 00:06:07 GMT'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'br'), (b'CF-RAY', b'9e00c6e3ea10e173-MRS'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-21 23:36:07 - httpx - INFO - _client.py:1025 - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2026-03-21 23:36:07 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'GET']>
+2026-03-21 23:36:07 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-21 23:36:07 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-21 23:36:07 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-21 23:36:07 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: GET https://api.openai.com/v1/models "200 OK" Headers({'date': 'Sat, 21 Mar 2026 23:36:07 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'server': 'cloudflare', 'openai-version': '2020-10-01', 'x-request-id': '2ddc3fa5-9534-4840-8bb9-8e46e4d890aa', 'openai-processing-ms': '444', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=fgzUR1czn.Y1.Bx8KNaX1j4bGqiuHgNkSdzms8y.Vyo-1774136167.0263844-1.0.1.1-KnzcrphHravOWpuLKyi5xyT69N0DY_5sYRmNvStxJtXgR7BHbAAzWyuyN3bEKEI0eJC0PKS3l1CYX3XgKDpxIi1kZyAyI5yoZRbs9vunRiddXMKCs7eXDHB4I1fjT9qb; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Mar 2026 00:06:07 GMT', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'content-encoding': 'br', 'cf-ray': '9e00c6e3ea10e173-MRS', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-21 23:36:07 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: 2ddc3fa5-9534-4840-8bb9-8e46e4d890aa
+2026-03-21 23:36:07 - chatbot - INFO - stt_service.py:62 - ✅ Client OpenAI initialisé avec succès pour STT
+2026-03-21 23:36:08 - chatbot - WARNING - telegram.py:38 - ⚠️ TELEGRAM_BOT_TOKEN non défini, service Telegram en mode démo
+2026-03-21 23:36:09 - faiss.loader - DEBUG - loader.py:96 - Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+2026-03-21 23:36:09 - faiss.loader - INFO - loader.py:132 - Loading faiss with AVX2 support.
+2026-03-21 23:36:09 - faiss.loader - INFO - loader.py:134 - Successfully loaded faiss with AVX2 support.
+2026-03-21 23:36:13 - chatbot - WARNING - main.py:1428 - ⚠️ Dossier static non trouvé: C:\Users\lenovo\Desktop\Competition_Chatbot_SUPMTI\chatbot_supmti\app\..\static
+2026-03-21 23:36:13 - chatbot - INFO - main.py:1430 - 🚀 Application démarrée - Version 0.2.0
+2026-03-21 23:36:27 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-21 23:36:27 - chatbot - INFO - main.py:132 - 🗄️ Création des tables dans la base de données...
+2026-03-21 23:36:27 - chatbot - INFO - main.py:134 - ✅ Tables créées avec succès
+2026-03-21 23:36:27 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2026-03-21 23:36:27 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2026-03-21 23:36:27 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2026-03-21 23:36:27 - passlib.registry - DEBUG - registry.py:296 - registered 'pbkdf2_sha256' handler: <class 'passlib.handlers.pbkdf2.pbkdf2_sha256'>
+2026-03-21 23:36:32 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-21 23:36:35 - chatbot - INFO - stt_service.py:49 - 🔑 Clé API chargée: sk-proj-...D78A
+2026-03-21 23:36:36 - chatbot - INFO - stt_service.py:60 - 🔄 Test de connexion à OpenAI...
+2026-03-21 23:36:36 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'get', 'url': '/models', 'post_parser': <function SyncAPIClient._request_api_list.<locals>._parser at 0x00000138E0D7B530>, 'json_data': None}
+2026-03-21 23:36:36 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: GET https://api.openai.com/v1/models
+2026-03-21 23:36:36 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=120.0 socket_options=None
+2026-03-21 23:36:36 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000138E1349E80>
+2026-03-21 23:36:36 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000138E0D30A70> server_hostname='api.openai.com' timeout=120.0
+2026-03-21 23:36:36 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000138E124D090>
+2026-03-21 23:36:36 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'GET']>
+2026-03-21 23:36:36 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-21 23:36:36 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'GET']>
+2026-03-21 23:36:36 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-21 23:36:36 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'GET']>
+2026-03-21 23:36:37 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 21 Mar 2026 23:36:37 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'openai-version', b'2020-10-01'), (b'x-request-id', b'6e259461-0fcf-402f-bc8a-c0737021f838'), (b'openai-processing-ms', b'391'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'set-cookie', b'__cf_bm=P4LijHBek1MIDRsx_2fxLR7f0QEUOYYs4ffw7IRJmW0-1774136196.8706796-1.0.1.1-ryseuzMaLr0a7glOwfrto9E6QLQv8lJG8_nEfnOTUTQqC2YPEOtkzan.c.ZJzy_9YC1RyhHPj9AG38caNrpgZXGeo2oANL5pCG2ROrOB64ubBcQku3wZypekvBJlr63M; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Mar 2026 00:06:37 GMT'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'br'), (b'CF-RAY', b'9e00c79e6a33cc66-MRS'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-21 23:36:37 - httpx - INFO - _client.py:1025 - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2026-03-21 23:36:37 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'GET']>
+2026-03-21 23:36:37 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-21 23:36:37 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-21 23:36:37 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-21 23:36:37 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: GET https://api.openai.com/v1/models "200 OK" Headers({'date': 'Sat, 21 Mar 2026 23:36:37 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'server': 'cloudflare', 'openai-version': '2020-10-01', 'x-request-id': '6e259461-0fcf-402f-bc8a-c0737021f838', 'openai-processing-ms': '391', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=P4LijHBek1MIDRsx_2fxLR7f0QEUOYYs4ffw7IRJmW0-1774136196.8706796-1.0.1.1-ryseuzMaLr0a7glOwfrto9E6QLQv8lJG8_nEfnOTUTQqC2YPEOtkzan.c.ZJzy_9YC1RyhHPj9AG38caNrpgZXGeo2oANL5pCG2ROrOB64ubBcQku3wZypekvBJlr63M; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Mar 2026 00:06:37 GMT', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'content-encoding': 'br', 'cf-ray': '9e00c79e6a33cc66-MRS', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-21 23:36:37 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: 6e259461-0fcf-402f-bc8a-c0737021f838
+2026-03-21 23:36:37 - chatbot - INFO - stt_service.py:62 - ✅ Client OpenAI initialisé avec succès pour STT
+2026-03-21 23:36:38 - chatbot - WARNING - telegram.py:38 - ⚠️ TELEGRAM_BOT_TOKEN non défini, service Telegram en mode démo
+2026-03-21 23:36:38 - faiss.loader - DEBUG - loader.py:96 - Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+2026-03-21 23:36:38 - faiss.loader - INFO - loader.py:132 - Loading faiss with AVX2 support.
+2026-03-21 23:36:38 - faiss.loader - INFO - loader.py:134 - Successfully loaded faiss with AVX2 support.
+2026-03-21 23:36:40 - chatbot - WARNING - main.py:1479 - ⚠️ Dossier static non trouvé: C:\Users\lenovo\Desktop\Competition_Chatbot_SUPMTI\chatbot_supmti\app\..\static
+2026-03-21 23:36:40 - chatbot - INFO - main.py:1481 - 🚀 Application démarrée - Version 0.2.0
+2026-03-21 23:36:44 - chatbot - INFO - logging.py:46 - ✅ Logging configuré avec succès
+2026-03-21 23:36:44 - chatbot - INFO - main.py:132 - 🗄️ Création des tables dans la base de données...
+2026-03-21 23:36:44 - chatbot - INFO - main.py:134 - ✅ Tables créées avec succès
+2026-03-21 23:36:44 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'SafeConfigParser': <class 'configparser.ConfigParser'>
+2026-03-21 23:36:44 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'NativeStringIO': <class '_io.StringIO'>
+2026-03-21 23:36:44 - passlib.utils.compat - DEBUG - __init__.py:449 - loaded lazy attr 'BytesIO': <class '_io.BytesIO'>
+2026-03-21 23:36:44 - passlib.registry - DEBUG - registry.py:296 - registered 'pbkdf2_sha256' handler: <class 'passlib.handlers.pbkdf2.pbkdf2_sha256'>
+2026-03-21 23:36:50 - easyocr.easyocr - WARNING - easyocr.py:71 - Using CPU. Note: This module is much faster with a GPU.
+2026-03-21 23:36:53 - chatbot - INFO - stt_service.py:49 - 🔑 Clé API chargée: sk-proj-...D78A
+2026-03-21 23:36:54 - chatbot - INFO - stt_service.py:60 - 🔄 Test de connexion à OpenAI...
+2026-03-21 23:36:54 - openai._base_client - DEBUG - _base_client.py:486 - Request options: {'method': 'get', 'url': '/models', 'post_parser': <function SyncAPIClient._request_api_list.<locals>._parser at 0x000002206CBD73D0>, 'json_data': None}
+2026-03-21 23:36:54 - openai._base_client - DEBUG - _base_client.py:1001 - Sending HTTP Request: GET https://api.openai.com/v1/models
+2026-03-21 23:36:54 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=120.0 socket_options=None
+2026-03-21 23:36:55 - httpcore.connection - DEBUG - _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002206D179FD0>
+2026-03-21 23:36:55 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002206CB88A70> server_hostname='api.openai.com' timeout=120.0
+2026-03-21 23:36:55 - httpcore.connection - DEBUG - _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002206D108E10>
+2026-03-21 23:36:55 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.started request=<Request [b'GET']>
+2026-03-21 23:36:55 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_headers.complete
+2026-03-21 23:36:55 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.started request=<Request [b'GET']>
+2026-03-21 23:36:55 - httpcore.http11 - DEBUG - _trace.py:47 - send_request_body.complete
+2026-03-21 23:36:55 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.started request=<Request [b'GET']>
+2026-03-21 23:36:56 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 21 Mar 2026 23:36:56 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Server', b'cloudflare'), (b'openai-version', b'2020-10-01'), (b'x-request-id', b'0e58ff32-f546-48e5-addd-e582e746f731'), (b'openai-processing-ms', b'354'), (b'x-openai-proxy-wasm', b'v0.1'), (b'cf-cache-status', b'DYNAMIC'), (b'set-cookie', b'__cf_bm=c5AvprAb7IoE_x.6.d_gJWPsU1L.tKgYoMbl_VBGSDw-1774136215.614445-1.0.1.1-m_GulIKzYcegZoMS3EueseqYyBjU0Qi5OH75ytngSGA_fgyDaSqbk.yIDrgLzX2auY5UP4mzIlli6hatWXGfrf4I1HXLnuKRMo5mCtrEURCer0mqaWiMnPc2DeYPpcN9; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Mar 2026 00:06:56 GMT'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Content-Encoding', b'br'), (b'CF-RAY', b'9e00c8139bca4aaf-MRS'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2026-03-21 23:36:56 - httpx - INFO - _client.py:1025 - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2026-03-21 23:36:56 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.started request=<Request [b'GET']>
+2026-03-21 23:36:56 - httpcore.http11 - DEBUG - _trace.py:47 - receive_response_body.complete
+2026-03-21 23:36:56 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.started
+2026-03-21 23:36:56 - httpcore.http11 - DEBUG - _trace.py:47 - response_closed.complete
+2026-03-21 23:36:56 - openai._base_client - DEBUG - _base_client.py:1039 - HTTP Response: GET https://api.openai.com/v1/models "200 OK" Headers({'date': 'Sat, 21 Mar 2026 23:36:56 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'server': 'cloudflare', 'openai-version': '2020-10-01', 'x-request-id': '0e58ff32-f546-48e5-addd-e582e746f731', 'openai-processing-ms': '354', 'x-openai-proxy-wasm': 'v0.1', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=c5AvprAb7IoE_x.6.d_gJWPsU1L.tKgYoMbl_VBGSDw-1774136215.614445-1.0.1.1-m_GulIKzYcegZoMS3EueseqYyBjU0Qi5OH75ytngSGA_fgyDaSqbk.yIDrgLzX2auY5UP4mzIlli6hatWXGfrf4I1HXLnuKRMo5mCtrEURCer0mqaWiMnPc2DeYPpcN9; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Mar 2026 00:06:56 GMT', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'x-content-type-options': 'nosniff', 'content-encoding': 'br', 'cf-ray': '9e00c8139bca4aaf-MRS', 'alt-svc': 'h3=":443"; ma=86400'})
+2026-03-21 23:36:56 - openai._base_client - DEBUG - _base_client.py:1047 - request_id: 0e58ff32-f546-48e5-addd-e582e746f731
+2026-03-21 23:36:56 - chatbot - INFO - stt_service.py:62 - ✅ Client OpenAI initialisé avec succès pour STT
+2026-03-21 23:36:56 - chatbot - WARNING - telegram.py:38 - ⚠️ TELEGRAM_BOT_TOKEN non défini, service Telegram en mode démo
+2026-03-21 23:36:56 - faiss.loader - DEBUG - loader.py:96 - Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+2026-03-21 23:36:56 - faiss.loader - INFO - loader.py:132 - Loading faiss with AVX2 support.
+2026-03-21 23:36:56 - faiss.loader - INFO - loader.py:134 - Successfully loaded faiss with AVX2 support.
+2026-03-21 23:37:00 - chatbot - WARNING - main.py:1479 - ⚠️ Dossier static non trouvé: C:\Users\lenovo\Desktop\Competition_Chatbot_SUPMTI\chatbot_supmti\app\..\static
+2026-03-21 23:37:00 - chatbot - INFO - main.py:1481 - 🚀 Application démarrée - Version 0.2.0

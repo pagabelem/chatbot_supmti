@@ -10,6 +10,8 @@ import os
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
+import psycopg2
+from psycopg2.extras import Json
 from app.academic_config import (
     TYPES_BAC,
     COMPATIBILITE_BAC_FILIERE,
@@ -20,6 +22,7 @@ from app.academic_config import (
     SIGNAUX_HESITATION,
     CHATBOT_CONFIG
 )
+
 
 # ============================================================
 # INITIALISATION
@@ -623,3 +626,63 @@ def verifier_declenchement_peer_match(historique_conversation, fitscore_calcule,
     if peer_match_deja_declenche:      return False, None
     hesitation, filiere = detecter_hesitation(historique_conversation)
     return (True, filiere) if hesitation else (False, None)
+
+
+
+
+
+
+# ============================================================
+# PARTIE 4 — PERSISTENCE (SAUVEGARDE)
+# ============================================================
+
+def save_user_profile(user_id, profil_data):
+    """
+    Sauvegarde le profil complet dans PostgreSQL.
+    Résout l'ImportError dans app.api.routes.ocr.
+    """
+    conn = None
+    try:
+        # Configuration de la connexion (à mettre idéalement dans .env)
+        conn = psycopg2.connect(
+            host=os.getenv("DB_HOST", "localhost"),
+            database=os.getenv("DB_NAME", "chatbot_db"),
+            user=os.getenv("DB_USER", "postgres"),
+            password=os.getenv("DB_PASSWORD", "votre_mot_de_passe"),
+            port=os.getenv("DB_PORT", "5432")
+        )
+        cur = conn.cursor()
+
+        # Conversion des données en JSON pour PostgreSQL
+        # On extrait quelques champs clés pour faciliter les recherches futures
+        info_perso = profil_data.get("informations_personnelles", {})
+        prenom = info_perso.get("prenom", "Étudiant")
+        type_bac = profil_data.get("parcours_academique", {}).get("type_bac", "AUTRE")
+
+        # Requête SQL (INSERT ou UPDATE si l'utilisateur existe déjà)
+        query = """
+            INSERT INTO user_profiles (user_id, prenom, type_bac, full_profile_json, updated_at)
+            VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP)
+            ON CONFLICT (user_id) 
+            DO UPDATE SET 
+                prenom = EXCLUDED.prenom,
+                type_bac = EXCLUDED.type_bac,
+                full_profile_json = EXCLUDED.full_profile_json,
+                updated_at = CURRENT_TIMESTAMP;
+        """
+
+        cur.execute(query, (user_id, prenom, type_bac, Json(profil_data)))
+        conn.commit()
+        
+        cur.close()
+        print(f"[DATABASE] ✅ Profil de {prenom} sauvegardé avec succès.")
+        return True
+
+    except Exception as e:
+        if conn:
+            conn.rollback()
+        print(f"[DATABASE ERROR] ❌ Erreur lors de la sauvegarde : {e}")
+        return False
+    finally:
+        if conn:
+            conn.close()

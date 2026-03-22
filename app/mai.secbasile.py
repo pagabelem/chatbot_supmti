@@ -17,8 +17,6 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from app.services.report_service import generer_rapport_pdf, generer_rapport_word
 from fastapi.responses import Response as FastAPIResponse
-from fastapi import UploadFile, File, Form
-import numpy, json
 
 from sqlalchemy import text, func
 from datetime import datetime, timedelta
@@ -719,63 +717,6 @@ def get_filieres():
         for fid, f in FILIERES.items()
     ]}
 
-
-
-
-
-
-
-
-
-# Ajouter dans main.py — après les routes /api/profil
-
-@app.post("/api/auth/change-password")
-async def change_password(request: Request, db: Session = Depends(get_db)):
-    body = await request.json()
-    current_password = body.get("current_password", "")
-    new_password     = body.get("new_password", "")
-
-    if not current_password or not new_password:
-        return JSONResponse(status_code=400, content={"detail": "Mots de passe requis."})
-    if len(new_password) < 6:
-        return JSONResponse(status_code=400, content={"detail": "Le nouveau mot de passe doit faire au moins 6 caractères."})
-
-    # Récupérer l'utilisateur depuis le header X-User-Id ou la session
-    user_id = request.headers.get("X-User-Id") or request.session.get("user_id")
-    if not user_id:
-        return JSONResponse(status_code=401, content={"detail": "Non authentifié."})
-
-    row = db.execute(text("SELECT id, password_hash FROM users WHERE id = :uid"), {"uid": user_id}).fetchone()
-    if not row:
-        return JSONResponse(status_code=404, content={"detail": "Utilisateur introuvable."})
-
-    # Vérifier le mot de passe actuel
-    # Utiliser passlib pbkdf2_sha256 (comme dans auth_routes.py)
-    try:
-        from passlib.hash import pbkdf2_sha256
-        if not pbkdf2_sha256.verify(current_password, row.password_hash):
-            return JSONResponse(status_code=400, content={"detail": "Mot de passe actuel incorrect."})
-        # Hacher le nouveau mot de passe
-        new_hash = pbkdf2_sha256.hash(new_password)
-    except Exception:
-        # Fallback bcrypt si pbkdf2 ne fonctionne pas
-        try:
-            import bcrypt
-            if not bcrypt.checkpw(current_password.encode(), row.password_hash.encode()):
-                return JSONResponse(status_code=400, content={"detail": "Mot de passe actuel incorrect."})
-            new_hash = bcrypt.hashpw(new_password.encode(), bcrypt.gensalt()).decode()
-        except Exception as e:
-            return JSONResponse(status_code=500, content={"detail": f"Erreur serveur: {str(e)}"})
-
-    # Mettre à jour en base
-    db.execute(text("UPDATE users SET password_hash = :h WHERE id = :uid"), {"h": new_hash, "uid": user_id})
-    db.commit()
-
-    return {"success": True, "message": "Mot de passe modifié avec succès."}
-
-
-
-
 # ============================================================
 # ROUTES — PeerMatch (CORRIGÉ : body JSON)
 # ============================================================
@@ -907,39 +848,42 @@ async def telecharger_rapport_word(request: Request, response: Response):
 
 # ── GET /api/admin/stats ─────────────────────────────────────
 @app.get("/api/admin/stats")
-async def admin_stats(db: Session = Depends(get_db)):
+async def admin_stats(request: Request, db: Session = Depends(get_db)):
     try:
-        total_users         = int(db.execute(text("SELECT COUNT(*) FROM users")).scalar() or 0)
-        total_students      = int(db.execute(text("SELECT COUNT(*) FROM students")).scalar() or 0)
-        total_conversations = int(db.execute(text("SELECT COUNT(*) FROM conversations")).scalar() or 0)
-        total_messages      = int(db.execute(text("SELECT COUNT(*) FROM messages")).scalar() or 0)
-        total_ambassadeurs  = int(db.execute(text("SELECT COUNT(*) FROM ambassadeurs WHERE is_active = TRUE")).scalar() or 0)
-        inscriptions_recentes = int(db.execute(text("SELECT COUNT(*) FROM users WHERE created_at >= NOW() - INTERVAL '7 days'")).scalar() or 0)
-        total_documents     = int(db.execute(text("SELECT COUNT(*) FROM documents")).scalar() or 0)
-        total_chunks        = int(db.execute(text("SELECT COUNT(*) FROM document_chunks")).scalar() or 0)
- 
-        bac_rows = db.execute(text(
-            "SELECT bac_type, COUNT(*) as cnt FROM students WHERE bac_type IS NOT NULL AND bac_type != '' GROUP BY bac_type"
-        )).fetchall()
-        bac_distribution = {r[0]: int(r[1]) for r in bac_rows}
- 
+        total_users         = db.execute(text("SELECT COUNT(*) FROM users")).scalar()
+        total_students      = db.execute(text("SELECT COUNT(*) FROM students")).scalar()
+        total_conversations = db.execute(text("SELECT COUNT(*) FROM conversations")).scalar()
+        total_messages      = db.execute(text("SELECT COUNT(*) FROM messages")).scalar()
+        total_ambassadeurs  = db.execute(text("SELECT COUNT(*) FROM ambassadeurs WHERE is_active = TRUE")).scalar()
+        inscriptions_recentes = db.execute(text(
+            "SELECT COUNT(*) FROM users WHERE created_at >= NOW() - INTERVAL '7 days'"
+        )).scalar()
+
+        print(f"[DEBUG] users={total_users}, students={total_students}, conv={total_conversations}")
+
+        try:
+            bac_rows = db.execute(text(
+                "SELECT bac_type, COUNT(*) as cnt FROM students WHERE bac_type IS NOT NULL AND bac_type != '' GROUP BY bac_type"
+            )).fetchall()
+            bac_distribution = {r[0]: int(r[1]) for r in bac_rows}
+        except Exception as e:
+            print(f"[WARN] bac_distribution error: {e}")
+            bac_distribution = {}
+
         return {
-            "total_users":           total_users,
-            "total_students":        total_students,
-            "total_conversations":   total_conversations,
-            "total_messages":        total_messages,
-            "total_ambassadeurs":    total_ambassadeurs,
-            "fitscore_calcules":     total_conversations,
-            "inscriptions_recentes": inscriptions_recentes,
-            "total_documents":       total_documents,
-            "total_chunks":          total_chunks,
+            "total_users":           int(total_users or 0),
+            "total_students":        int(total_students or 0),
+            "total_conversations":   int(total_conversations or 0),
+            "total_messages":        int(total_messages or 0),
+            "total_ambassadeurs":    int(total_ambassadeurs or 0),
+            "fitscore_calcules":     int(total_conversations or 0),
+            "inscriptions_recentes": int(inscriptions_recentes or 0),
             "filiere_top":           "IISIC",
             "bac_distribution":      bac_distribution,
         }
     except Exception as e:
         import traceback; traceback.print_exc()
         return JSONResponse(status_code=500, content={"error": str(e)})
- 
 
 # ── GET /api/admin/students ───────────────────────────────────
 @app.get("/api/admin/students")
@@ -980,35 +924,35 @@ async def admin_delete_student(student_id: str, db: Session = Depends(get_db)):
 
 # Ajouter dans main.py — endpoint PUT pour modifier un étudiant
 
-# @app.put("/api/admin/students/{student_id}")
-# async def admin_update_student(student_id: str, request: Request, db: Session = Depends(get_db)):
-#     body = await request.json()
+@app.put("/api/admin/students/{student_id}")
+async def admin_update_student(student_id: str, request: Request, db: Session = Depends(get_db)):
+    body = await request.json()
     
-#     # Mettre à jour users
-#     if body.get("full_name"):
-#         db.execute(text("UPDATE users SET full_name = :fn WHERE id = :id"),
-#             {"fn": body["full_name"], "id": student_id})
+    # Mettre à jour users
+    if body.get("full_name"):
+        db.execute(text("UPDATE users SET full_name = :fn WHERE id = :id"),
+            {"fn": body["full_name"], "id": student_id})
     
-#     # Mettre à jour students
-#     fields = {}
-#     for key in ["average", "bac_type", "level", "city"]:
-#         if key in body and body[key] is not None:
-#             fields[key] = body[key]
+    # Mettre à jour students
+    fields = {}
+    for key in ["average", "bac_type", "level", "city"]:
+        if key in body and body[key] is not None:
+            fields[key] = body[key]
     
-#     if fields:
-#         set_clause = ", ".join(f"{k} = :{k}" for k in fields)
-#         fields["uid"] = student_id
-#         db.execute(text(f"UPDATE students SET {set_clause} WHERE user_id = :uid"), fields)
+    if fields:
+        set_clause = ", ".join(f"{k} = :{k}" for k in fields)
+        fields["uid"] = student_id
+        db.execute(text(f"UPDATE students SET {set_clause} WHERE user_id = :uid"), fields)
     
-#     db.commit()
-#     return {"success": True}    
+    db.commit()
+    return {"success": True}    
 
 
 # ── GET /api/admin/ambassadeurs ───────────────────────────────
-# @app.get("/api/admin/ambassadeurs")
-# async def admin_ambassadeurs(db: Session = Depends(get_db)):
-#     rows = db.execute(text("SELECT * FROM ambassadeurs ORDER BY created_at DESC")).fetchall()
-#     return {"ambassadeurs": [dict(r._mapping) for r in rows]}
+@app.get("/api/admin/ambassadeurs")
+async def admin_ambassadeurs(db: Session = Depends(get_db)):
+    rows = db.execute(text("SELECT * FROM ambassadeurs ORDER BY created_at DESC")).fetchall()
+    return {"ambassadeurs": [dict(r._mapping) for r in rows]}
 
 
 # ── POST /api/admin/ambassadeurs ─────────────────────────────
@@ -1066,92 +1010,6 @@ async def admin_delete_document(doc_id: str, db: Session = Depends(get_db)):
     db.execute(text("DELETE FROM documents WHERE id = :id"),               {"id": doc_id})
     db.commit()
     return {"success": True}
-
-
-
-
-
-
-
-
-
-
-
-@app.post("/api/admin/documents/upload")
-async def admin_upload_document(
-    title: str = Form(...),
-    file: UploadFile = File(...),
-    db: Session = Depends(get_db)
-):
-    try:
-        content = await file.read()
-        text_content = ""
-
-        # ── Extraire le texte ─────────────────────────────────
-        ext = file.filename.split('.')[-1].lower()
-        if ext == 'txt':
-            text_content = content.decode('utf-8', errors='ignore')
-        elif ext == 'pdf':
-            try:
-                import pdfplumber, io
-                with pdfplumber.open(io.BytesIO(content)) as pdf:
-                    text_content = "\n".join(p.extract_text() or "" for p in pdf.pages)
-            except Exception:
-                text_content = content.decode('utf-8', errors='ignore')
-        else:
-            text_content = content.decode('utf-8', errors='ignore')
-
-        # ── Créer le document en base ─────────────────────────
-        doc_id = str(uuid.uuid4())
-        db.execute(text("""
-            INSERT INTO documents (id, title, source, uploaded_at)
-            VALUES (:id, :title, :source, NOW())
-        """), {"id": doc_id, "title": title, "source": file.filename})
-
-        # ── Découper en chunks ────────────────────────────────
-        words  = text_content.split()
-        chunks = [' '.join(words[i:i+400]) for i in range(0, len(words), 400)]
-        chunks = [c for c in chunks if len(c.strip()) > 50]
-
-        # ── Générer les embeddings OpenAI ─────────────────────
-        from app.services.openai_service import openai_service
-        for i, chunk in enumerate(chunks):
-            try:
-                embedding_response = openai_service.client.embeddings.create(
-                    input=chunk,
-                    model="text-embedding-3-small"
-                )
-                embedding = embedding_response.data[0].embedding
-                embedding_json = json.dumps(embedding)
-            except Exception:
-                embedding_json = None
-
-            chunk_id = str(uuid.uuid4())
-            db.execute(text("""
-                INSERT INTO document_chunks (id, document_id, content, chunk_index, embedding)
-                VALUES (:id, :doc_id, :content, :idx, :emb)
-            """), {
-                "id": chunk_id, "doc_id": doc_id,
-                "content": chunk, "idx": i,
-                "emb": embedding_json
-            })
-
-        db.commit()
-        return {
-            "success": True,
-            "document": {
-                "id": doc_id, "title": title,
-                "source": file.filename,
-                "uploaded_at": datetime.now().strftime("%Y-%m-%d"),
-                "chunks_count": len(chunks),
-                "file_type": ext,
-            }
-        }
-    except Exception as e:
-        db.rollback()
-        import traceback; traceback.print_exc()
-        return JSONResponse(status_code=500, content={"error": str(e)})
-
 
 
 # ── GET /api/admin/conversations ─────────────────────────────
@@ -1424,15 +1282,15 @@ async def export_ambassadeurs(db: Session = Depends(get_db)):
 
 
 # ── DELETE /api/admin/students/{id} ──────────────────────────
-# @app.delete("/api/admin/students/{student_id}")
-# async def admin_delete_student(student_id: str, db: Session = Depends(get_db)):
-#     db.execute(text(
-#         "DELETE FROM student_interests WHERE student_id IN (SELECT id FROM students WHERE user_id = :uid)"),
-#         {"uid": student_id})
-#     db.execute(text("DELETE FROM students WHERE user_id = :uid"), {"uid": student_id})
-#     db.execute(text("DELETE FROM users WHERE id = :uid"),         {"uid": student_id})
-#     db.commit()
-#     return {"success": True}
+@app.delete("/api/admin/students/{student_id}")
+async def admin_delete_student(student_id: str, db: Session = Depends(get_db)):
+    db.execute(text(
+        "DELETE FROM student_interests WHERE student_id IN (SELECT id FROM students WHERE user_id = :uid)"),
+        {"uid": student_id})
+    db.execute(text("DELETE FROM students WHERE user_id = :uid"), {"uid": student_id})
+    db.execute(text("DELETE FROM users WHERE id = :uid"),         {"uid": student_id})
+    db.commit()
+    return {"success": True}
 
 
 # ── PUT /api/admin/students/{id} ─────────────────────────────
@@ -1455,16 +1313,6 @@ async def admin_update_student(student_id: str, request: Request, db: Session = 
         db.execute(text(f"UPDATE students SET {set_clause} WHERE user_id = :uid"), fields)
     db.commit()
     return {"success": True}
-
-
-
-
-
-
-
-
-
-
 
 
 

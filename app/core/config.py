@@ -20,9 +20,6 @@ class Settings:
     # === OpenAI ===
     OPENAI_API_KEY: Optional[str] = os.getenv("OPENAI_API_KEY", "")
     
-    # === Telegram ===
-    TELEGRAM_BOT_TOKEN: Optional[str] = os.getenv("TELEGRAM_BOT_TOKEN", "")
-    
     # === API ===
     API_TITLE: str = "Chatbot SUP'MTI"
     API_VERSION: str = "0.2.0"
@@ -40,7 +37,8 @@ class Settings:
     MAX_UPLOAD_SIZE: int = 10 * 1024 * 1024  # 10 MB
     ALLOWED_EXTENSIONS: list = [".pdf", ".jpg", ".jpeg", ".png"]
 
-# Créer une instance unique
+# Créer une instance unique des settings
 settings = Settings()
 
-TELEGRAM_BOT_TOKEN: Optional[str] = os.getenv("TELEGRAM_BOT_TOKEN", "")
+# Exporter settings pour pouvoir l'importer ailleurs
+__all__ = ["settings"]

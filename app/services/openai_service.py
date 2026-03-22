@@ -44,3 +44,7 @@ class OpenAIService:
             return f"Erreur OpenAI : {str(e)}"
 
 openai_service = OpenAIService()
+
+
+
+
