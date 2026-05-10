@@ -10,15 +10,25 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from openai import OpenAI
 from typing import List, Optional
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
+import base64
+from fastapi import UploadFile, File, Form
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
+from fastapi.responses import StreamingResponse
 from app.services.report_service import generer_rapport_pdf, generer_rapport_word
 from fastapi.responses import Response as FastAPIResponse
 from fastapi import UploadFile, File, Form
 import numpy, json
+import asyncio
+import base64
+from fastapi import UploadFile, File, Form
+from app.api.routes.test_stt import router as voice_router
+
+
 
 from sqlalchemy import text, func
 from datetime import datetime, timedelta
@@ -45,16 +55,179 @@ tts_service = TTSService()
 # ── ÉTAPE 1 : Colle cette fonction dans main.py ──────────────
 # (après les imports, avant les routes)
  
-def charger_profil_depuis_db(user_id: str, sess: dict, db: Session) -> dict:
+# def charger_profil_depuis_db(user_id: str, sess: dict, db: Session) -> dict:
+#     """
+#     Charge les données du profil DB dans la session SAMI en mémoire.
+#     Appelé une fois par session quand le profil est vide ou incomplet.
+#     """
+#     if not user_id:
+#         return sess
+ 
+#     try:
+#         # Récupérer user + student
+#         row = db.execute(text("""
+#             SELECT
+#                 u.full_name,
+#                 u.email,
+#                 s.average,
+#                 s.bac_type,
+#                 s.level,
+#                 s.city
+#             FROM users u
+#             LEFT JOIN students s ON s.user_id = u.id
+#             WHERE u.id = :uid
+#         """), {"uid": user_id}).fetchone()
+ 
+#         if not row:
+#             return sess
+ 
+#         # Récupérer les intérêts
+#         interests_rows = db.execute(text("""
+#             SELECT i.name
+#             FROM interests i
+#             JOIN student_interests si ON si.interest_id = i.id
+#             JOIN students s ON s.id = si.student_id
+#             WHERE s.user_id = :uid
+#         """), {"uid": user_id}).fetchall()
+ 
+#         interests = [r.name for r in interests_rows]
+ 
+#         # Construire un profil si absent
+#         if sess["profil"] is None:
+#             from app.services.profile_service import construire_profil_etudiant
+#             sess["profil"] = construire_profil_etudiant({})
+ 
+#         # Injecter les données DB dans le profil SAMI
+#         profil = sess["profil"]
+ 
+#         # Informations personnelles
+#         info = profil.setdefault("informations_personnelles", {})
+#         if row.full_name:
+#             parts = row.full_name.strip().split()
+#             info["prenom"] = parts[0]
+#             if len(parts) > 1:
+#                 info["nom"] = " ".join(parts[1:])
+#         if row.city:
+#             info["ville"] = row.city
+ 
+#         # Parcours académique
+#         parc = profil.setdefault("parcours_academique", {})
+#         if row.average and row.average > 0:
+#             parc["moyenne_generale"] = float(row.average)
+#         if row.bac_type:
+#             parc["type_bac"] = row.bac_type
+#             parc["label_bac"] = row.bac_type
+#         if row.level:
+#             parc["niveau_actuel"] = row.level
+ 
+#         # Préférences
+#         pref = profil.setdefault("preferences", {})
+#         if interests:
+#             pref["centres_interet"] = interests
+ 
+#         # Marquer comme partiellement complété si on a les données de base
+#         if row.average and row.bac_type:
+#             profil["statut_profil"] = "partiel"
+ 
+#         sess["profil"] = profil
+#         sess["profil_db_charge"] = True  # flag pour ne pas recharger inutilement
+ 
+#     except Exception as e:
+#         print(f"[WARN] Impossible de charger le profil DB: {e}")
+ 
+#     return sess
+
+
+
+
+
+
+
+# ============================================================
+# FIX — charger_profil_depuis_db dans main.py
+#
+# PROBLÈMES CORRIGÉS :
+# 1. mention recalculée depuis la moyenne (plus "insuffisant" avec 18/20)
+# 2. normaliser_niveau() appliqué sur level + bac_type
+# 3. diplome_actuel correctement renseigné
+# 4. statut_profil calculé proprement
+#
+# REMPLACEMENT : colle cette fonction à la place de l'ancienne
+# dans main.py (chercher "def charger_profil_depuis_db")
+# ============================================================
+
+def _calculer_mention(moyenne: float) -> str:
+    """Calcule la mention depuis la moyenne."""
+    if moyenne >= 18:  return "Très Bien"
+    if moyenne >= 16:  return "Bien"
+    if moyenne >= 14:  return "Assez Bien"
+    if moyenne >= 12:  return "Passable"
+    if moyenne >= 10:  return "Passable"
+    return "Insuffisant"
+
+
+def _normaliser_niveau_db(level_raw: str) -> str:
+    """
+    Normalise le niveau académique stocké en DB.
+    Accepte des formats variés (post_bac, bac2, "DUT Informatique", etc.)
+    """
+    if not level_raw:
+        return "post_bac"
+
+    level = level_raw.lower().strip()
+
+    # Déjà normalisé
+    if level in ("post_bac", "bac1", "bac2", "bac3", "bac4", "bac5"):
+        return level
+
+    # BAC+2
+    if any(k in level for k in ("bac+2", "bac 2", "dut", "bts", "deug", "deust", "cpge",
+                                  "technicien spécialisé", "technicien specialise", "ts ",
+                                  "technique supérieur", "+2")):
+        return "bac2"
+
+    # BAC+3
+    if any(k in level for k in ("bac+3", "bac 3", "licence", "bachelor", "l3", "l2",
+                                  "3ème année", "3eme annee", "+3")):
+        return "bac3"
+
+    # BAC+4/5
+    if any(k in level for k in ("bac+4", "bac+5", "master", "m1", "m2", "ingénieur",
+                                  "ingenieur", "mba", "+4", "+5")):
+        return "bac4"
+
+    # BAC+1
+    if any(k in level for k in ("bac+1", "bac 1", "première année", "1ère année",
+                                  "prépa", "prepa", "+1")):
+        return "bac1"
+
+    # Bachelier / Terminale
+    if any(k in level for k in ("terminale", "baccalauréat", "baccalaureat",
+                                  "lycée", "lycee", "post_bac", "post bac")):
+        return "post_bac"
+
+    # Fallback : contient juste "bac" sans numéro → bachelier
+    if "bac" in level:
+        return "post_bac"
+
+    return level_raw   # Inconnu → conserver tel quel
+
+
+def charger_profil_depuis_db(user_id: str, sess: dict, db) -> dict:
     """
     Charge les données du profil DB dans la session SAMI en mémoire.
-    Appelé une fois par session quand le profil est vide ou incomplet.
+    VERSION CORRIGÉE :
+    - mention recalculée depuis la moyenne
+    - niveau_actuel normalisé
+    - diplome_actuel renseigné
+    - statut_profil calculé proprement
     """
     if not user_id:
         return sess
- 
+
     try:
-        # Récupérer user + student
+        from sqlalchemy import text
+
         row = db.execute(text("""
             SELECT
                 u.full_name,
@@ -67,11 +240,11 @@ def charger_profil_depuis_db(user_id: str, sess: dict, db: Session) -> dict:
             LEFT JOIN students s ON s.user_id = u.id
             WHERE u.id = :uid
         """), {"uid": user_id}).fetchone()
- 
+
         if not row:
             return sess
- 
-        # Récupérer les intérêts
+
+        # Intérêts
         interests_rows = db.execute(text("""
             SELECT i.name
             FROM interests i
@@ -79,18 +252,25 @@ def charger_profil_depuis_db(user_id: str, sess: dict, db: Session) -> dict:
             JOIN students s ON s.id = si.student_id
             WHERE s.user_id = :uid
         """), {"uid": user_id}).fetchall()
- 
+
         interests = [r.name for r in interests_rows]
- 
-        # Construire un profil si absent
-        if sess["profil"] is None:
-            from app.services.profile_service import construire_profil_etudiant
-            sess["profil"] = construire_profil_etudiant({})
- 
-        # Injecter les données DB dans le profil SAMI
+
+        # Construire un profil vide si absent
+        if sess.get("profil") is None:
+            try:
+                from app.services.profile_service import construire_profil_etudiant
+                sess["profil"] = construire_profil_etudiant({})
+            except Exception:
+                sess["profil"] = {
+                    "informations_personnelles": {},
+                    "parcours_academique": {},
+                    "preferences": {},
+                    "statut_profil": "vide",
+                }
+
         profil = sess["profil"]
- 
-        # Informations personnelles
+
+        # ── Informations personnelles ─────────────────────────────
         info = profil.setdefault("informations_personnelles", {})
         if row.full_name:
             parts = row.full_name.strip().split()
@@ -99,32 +279,81 @@ def charger_profil_depuis_db(user_id: str, sess: dict, db: Session) -> dict:
                 info["nom"] = " ".join(parts[1:])
         if row.city:
             info["ville"] = row.city
- 
-        # Parcours académique
+        if row.email:
+            info["email"] = row.email
+
+        # ── Parcours académique ───────────────────────────────────
         parc = profil.setdefault("parcours_academique", {})
-        if row.average and row.average > 0:
-            parc["moyenne_generale"] = float(row.average)
+
+        # Moyenne + mention recalculée
+        if row.average is not None and float(row.average) > 0:
+            moyenne = float(row.average)
+            parc["moyenne_generale"] = moyenne
+            parc["mention"]          = _calculer_mention(moyenne)   # ← FIX: recalcul
+            parc["type_moyenne"]     = "generale"
+
+        # Type BAC / diplôme
         if row.bac_type:
-            parc["type_bac"] = row.bac_type
-            parc["label_bac"] = row.bac_type
+            bac_raw = str(row.bac_type).strip()
+
+            # Détecter si c'est un diplôme post-BAC (DUT, BTS, Licence…)
+            est_post_bac = any(k in bac_raw.lower() for k in (
+                "dut", "bts", "deug", "licence", "bachelor", "master", "ingénieur",
+                "ingenieur", "l3", "l2", "m1", "m2", "technicien spécialisé",
+                "technicien specialise", "ts "
+            ))
+
+            if est_post_bac:
+                # C'est un diplôme post-BAC → stocker en diplome_actuel
+                parc["diplome_actuel"] = bac_raw
+                # Garder type_bac vide ou existant
+                if not parc.get("type_bac"):
+                    parc["type_bac"]   = "AUTRE"
+                    parc["label_bac"]  = bac_raw
+            else:
+                # C'est un BAC classique (BAC S, BAC STI2D…)
+                parc["type_bac"]   = bac_raw
+                parc["label_bac"]  = bac_raw
+
+        # Niveau actuel normalisé ← FIX PRINCIPAL
         if row.level:
-            parc["niveau_actuel"] = row.level
- 
-        # Préférences
+            niveau_normalise = _normaliser_niveau_db(str(row.level))
+            parc["niveau_actuel"] = niveau_normalise
+        elif parc.get("diplome_actuel"):
+            # Déduire le niveau depuis le diplôme
+            parc["niveau_actuel"] = _normaliser_niveau_db(parc["diplome_actuel"])
+
+        # ── Préférences ───────────────────────────────────────────
         pref = profil.setdefault("preferences", {})
         if interests:
             pref["centres_interet"] = interests
- 
-        # Marquer comme partiellement complété si on a les données de base
-        if row.average and row.bac_type:
+
+        # ── Statut profil ─────────────────────────────────────────
+        has_moyenne = parc.get("moyenne_generale", 0) > 0
+        has_niveau  = bool(parc.get("niveau_actuel"))
+        has_prenom  = bool(info.get("prenom"))
+
+        if has_moyenne and has_niveau and has_prenom:
             profil["statut_profil"] = "partiel"
- 
-        sess["profil"] = profil
-        sess["profil_db_charge"] = True  # flag pour ne pas recharger inutilement
- 
+        elif has_moyenne or has_niveau:
+            profil["statut_profil"] = "partiel"
+        else:
+            profil["statut_profil"] = "vide"
+
+        sess["profil"]           = profil
+        sess["profil_db_charge"] = True
+
+        print(f"[DB→SESSION] Profil chargé — "
+            f"moyenne={parc.get('moyenne_generale')}, "
+            f"mention={parc.get('mention')}, "
+            f"niveau={parc.get('niveau_actuel')}, "
+            f"diplome={parc.get('diplome_actuel')}")
+
     except Exception as e:
+        import traceback
         print(f"[WARN] Impossible de charger le profil DB: {e}")
- 
+        traceback.print_exc()
+
     return sess
 
 
@@ -186,6 +415,8 @@ app.include_router(telegram.router)
 app.include_router(chat_adaptive.router)
 app.include_router(test_stt.router)
 app.include_router(crud.router)   # ← CRUD visible dans Swagger
+app.include_router(voice_router, prefix="/api")
+
 
 # ── Services RAG ─────────────────────────────────────────────
 from app.services.chat_session_service import chat_session_service
@@ -264,8 +495,13 @@ class MessageSchema(BaseModel):
     content: str
 
 class ChatRequest(BaseModel):
-    user_message: str
+    user_message: str = ""
+    message:      str = ""
     historique: Optional[List[MessageSchema]] = []
+
+
+    def get_message(self) -> str:
+        return self.user_message or self.message
 
 class ChatV2Request(BaseModel):
     message: str
@@ -393,9 +629,98 @@ def health_check():
 async def api_chat(body: ChatV2Request, request: Request, response: Response, db: Session = Depends(get_db)):
     return await _process_chat(body.message, request, response, db)
  
+# @app.post("/chat")
+# async def chat_endpoint(body: ChatRequest, request: Request, response: Response, db: Session = Depends(get_db)):
+#     return await _process_chat(body.user_message, request, response, db)
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+
+
 @app.post("/chat")
-async def chat_endpoint(body: ChatRequest, request: Request, response: Response, db: Session = Depends(get_db)):
-    return await _process_chat(body.user_message, request, response, db)
+async def chat_endpoint(
+    body: ChatRequest,
+    request: Request,
+    response: Response,
+    db: Session = Depends(get_db)
+):
+    """
+    Endpoint SSE — envoie la réponse token par token.
+    Format de chaque événement :
+        data: {"token": "..."}\n\n          ← chunk de texte
+        data: {"done": true, "profil": ..., "peer_match": ...}\n\n  ← fin
+        data: {"error": "message"}\n\n     ← en cas d'erreur
+    """
+    sid  = get_or_create_session(request, response)
+    sess = sessions_data[sid]
+ 
+    user_message = body.user_message   # ou body.message selon ta définition ChatRequest
+ 
+    async def stream_generator():
+        full_response = ""
+        profil_result     = None
+        peer_match_result = None
+ 
+        try:
+            # ── Construire les messages pour OpenAI ──────────────────────────
+            messages_openai = build_messages_for_openai(sess, user_message)
+            # └─ remplace par ta fonction existante qui prépare l'historique
+ 
+            # ── Appel OpenAI avec stream=True ────────────────────────────────
+            stream = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=messages_openai,
+                stream=True,
+                temperature=0.7,
+                max_tokens=1000,
+            )
+ 
+            for chunk in stream:
+                delta = chunk.choices[0].delta.content
+                if delta is None:
+                    continue
+                full_response += delta
+                # Envoyer le token au frontend
+                yield f"data: {json.dumps({'token': delta}, ensure_ascii=False)}\n\n"
+                await asyncio.sleep(0)   # libérer l'event loop entre chaque chunk
+ 
+            # ── Post-traitement (même logique qu'avant) ───────────────────────
+            sess["historique"].append({"role": "user",      "content": user_message})
+            sess["historique"].append({"role": "assistant", "content": full_response})
+            sess["nb_messages"] = sess.get("nb_messages", 0) + 1
+ 
+            # Auto-titre depuis le premier message
+            if sess["nb_messages"] == 1:
+                sess["chat_actuel_titre"] = user_message[:40]
+ 
+            # Extraction du profil depuis la conversation
+            profil_result = extraire_infos_conversation(sess, full_response)
+            # └─ ta fonction existante
+ 
+            # Peer match si déclenché
+            peer_match_result = verifier_peer_match(sess, full_response)
+            # └─ ta fonction existante (retourne None si pas déclenché)
+ 
+        except Exception as e:
+            yield f"data: {json.dumps({'error': str(e)})}\n\n"
+            return
+ 
+        # ── Événement final : done + métadonnées ─────────────────────────────
+        yield f"data: {json.dumps({'done': True, 'profil': profil_result, 'peer_match': peer_match_result}, ensure_ascii=False)}\n\n"
+ 
+    return StreamingResponse(
+        stream_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control":               "no-cache",
+            "X-Accel-Buffering":           "no",      # désactive le buffering nginx
+            "Access-Control-Allow-Origin": "http://localhost:3000",
+            "Access-Control-Allow-Credentials": "true",
+        }
+    )
+
+
+
 
 # ============================================================
 # ROUTES — Session
@@ -577,14 +902,14 @@ async def psycho_answer(body: PsychoAnswerRequest, request: Request, response: R
 
 
 class ProfilUpdateRequest(BaseModel):
-    full_name:  Optional[str]       = None
-    average:    Optional[float]     = None
-    bac_type:   Optional[str]       = None
-    level:      Optional[str]       = None
-    city:       Optional[str]       = None
-    interests:  Optional[List[str]] = None
-    user_id:    Optional[str]       = None  # envoyé aussi dans le body en backup
-# ── GET /api/profil (lecture session en mémoire — inchangé) ──
+    full_name:     Optional[str]       = None
+    average:       Optional[float]     = None
+    bac_type:      Optional[str]       = None
+    level:         Optional[str]       = None
+    city:          Optional[str]       = None
+    interests:     Optional[List[str]] = None
+    user_id:       Optional[str]       = None
+    diplome_actuel: Optional[str]      = None  # ← NOUVEAU
  
 @app.get("/api/profil")
 async def get_profil(request: Request, response: Response):
@@ -594,6 +919,134 @@ async def get_profil(request: Request, response: Response):
  
 
  
+# @app.put("/api/profil")
+# async def update_profil(
+#     body: ProfilUpdateRequest,
+#     request: Request,
+#     response: Response,
+#     db: Session = Depends(get_db)
+# ):
+#     # ── Récupérer user_id : header X-User-Id en priorité, sinon body, sinon session
+#     user_id = (
+#         request.headers.get("X-User-Id")
+#         or body.user_id
+#         or request.session.get("user_id")
+#     )
+ 
+#     if not user_id:
+#         return JSONResponse(
+#             status_code=401,
+#             content={"error": True, "message": "Non authentifié."}
+#         )
+ 
+#     # Vérifier que l'utilisateur existe vraiment en base
+#     user_exists = db.execute(
+#         text("SELECT id FROM users WHERE id = :id"),
+#         {"id": user_id}
+#     ).fetchone()
+ 
+#     if not user_exists:
+#         return JSONResponse(
+#             status_code=404,
+#             content={"error": True, "message": "Utilisateur introuvable."}
+#         )
+ 
+#     # ── Mettre à jour users (full_name) ──────────────────────
+#     if body.full_name:
+#         db.execute(
+#             text("UPDATE users SET full_name = :fn WHERE id = :id"),
+#             {"fn": body.full_name, "id": user_id}
+#         )
+ 
+#     # ── Mettre à jour students ────────────────────────────────
+#     update_fields = {}
+#     if body.average  is not None: update_fields["average"]  = body.average
+#     if body.bac_type is not None: update_fields["bac_type"] = body.bac_type
+#     if body.level    is not None: update_fields["level"]    = body.level
+#     if body.city     is not None: update_fields["city"]     = body.city
+ 
+#     if update_fields:
+#         set_clause = ", ".join(f"{k} = :{k}" for k in update_fields)
+#         update_fields["user_id"] = user_id
+#         db.execute(
+#             text(f"UPDATE students SET {set_clause} WHERE user_id = :user_id"),
+#             update_fields
+#         )
+ 
+#     # ── Mettre à jour student_interests ──────────────────────
+#     if body.interests is not None:
+#         student_row = db.execute(
+#             text("SELECT id FROM students WHERE user_id = :uid"),
+#             {"uid": user_id}
+#         ).fetchone()
+ 
+#         if student_row:
+#             sid_student = student_row.id
+#             db.execute(
+#                 text("DELETE FROM student_interests WHERE student_id = :sid"),
+#                 {"sid": sid_student}
+#             )
+#             for interest_name in body.interests:
+#                 if not interest_name:
+#                     continue
+#                 db.execute(
+#                     text("""
+#                         INSERT INTO interests (id, name)
+#                         VALUES (gen_random_uuid(), :name)
+#                         ON CONFLICT (name) DO NOTHING
+#                     """),
+#                     {"name": interest_name}
+#                 )
+#                 interest_row = db.execute(
+#                     text("SELECT id FROM interests WHERE name = :name"),
+#                     {"name": interest_name}
+#                 ).fetchone()
+#                 if interest_row:
+#                     db.execute(
+#                         text("""
+#                             INSERT INTO student_interests (student_id, interest_id)
+#                             VALUES (:sid, :iid)
+#                             ON CONFLICT DO NOTHING
+#                         """),
+#                         {"sid": sid_student, "iid": interest_row.id}
+#                     )
+ 
+#     db.commit()
+ 
+#     # ── Synchroniser aussi le profil SAMI en mémoire ─────────
+#     sid_cookie = get_session_id(request, response)
+#     sess = chat_session_service.get_or_create(sid_cookie)
+#     if sess["profil"] is None:
+#         from app.services.profile_service import construire_profil_etudiant
+#         sess["profil"] = construire_profil_etudiant({})
+ 
+#     if body.full_name:
+#         sess["profil"].setdefault("informations_personnelles", {})["prenom"] = body.full_name.split()[0]
+#     if body.average is not None:
+#         sess["profil"].setdefault("parcours_academique", {})["moyenne_generale"] = body.average
+#     if body.bac_type:
+#         sess["profil"].setdefault("parcours_academique", {})["type_bac"] = body.bac_type
+#     if body.city:
+#         sess["profil"].setdefault("informations_personnelles", {})["ville"] = body.city
+#     if body.interests:
+#         sess["profil"].setdefault("preferences", {})["centres_interet"] = body.interests
+ 
+#     return {
+#         "success": True,
+#         "message": "Profil mis à jour avec succès.",
+#     }
+
+
+
+
+
+
+
+
+
+
+
+ 
 @app.put("/api/profil")
 async def update_profil(
     body: ProfilUpdateRequest,
@@ -601,7 +1054,6 @@ async def update_profil(
     response: Response,
     db: Session = Depends(get_db)
 ):
-    # ── Récupérer user_id : header X-User-Id en priorité, sinon body, sinon session
     user_id = (
         request.headers.get("X-User-Id")
         or body.user_id
@@ -609,121 +1061,244 @@ async def update_profil(
     )
  
     if not user_id:
-        return JSONResponse(
-            status_code=401,
-            content={"error": True, "message": "Non authentifié."}
-        )
+        return JSONResponse(status_code=401, content={"error": True, "message": "Non authentifié."})
  
-    # Vérifier que l'utilisateur existe vraiment en base
-    user_exists = db.execute(
-        text("SELECT id FROM users WHERE id = :id"),
-        {"id": user_id}
-    ).fetchone()
- 
+    user_exists = db.execute(text("SELECT id FROM users WHERE id = :id"), {"id": user_id}).fetchone()
     if not user_exists:
-        return JSONResponse(
-            status_code=404,
-            content={"error": True, "message": "Utilisateur introuvable."}
-        )
+        return JSONResponse(status_code=404, content={"error": True, "message": "Utilisateur introuvable."})
  
-    # ── Mettre à jour users (full_name) ──────────────────────
+    # ── users (full_name) ─────────────────────────────────────
     if body.full_name:
-        db.execute(
-            text("UPDATE users SET full_name = :fn WHERE id = :id"),
-            {"fn": body.full_name, "id": user_id}
-        )
+        db.execute(text("UPDATE users SET full_name = :fn WHERE id = :id"), {"fn": body.full_name, "id": user_id})
  
-    # ── Mettre à jour students ────────────────────────────────
+    # ── students ──────────────────────────────────────────────
     update_fields = {}
     if body.average  is not None: update_fields["average"]  = body.average
-    if body.bac_type is not None: update_fields["bac_type"] = body.bac_type
-    if body.level    is not None: update_fields["level"]    = body.level
     if body.city     is not None: update_fields["city"]     = body.city
+ 
+    # Normaliser bac_type et level avant sauvegarde
+    if body.bac_type is not None:
+        update_fields["bac_type"] = body.bac_type
+ 
+    if body.level is not None:
+        # Normaliser et sauvegarder le niveau normalisé
+        niveau_norm = _normaliser_niveau_db(body.level)
+        update_fields["level"] = niveau_norm
+    elif body.diplome_actuel is not None:
+        # Déduire le niveau depuis le diplôme
+        niveau_norm = _normaliser_niveau_db(body.diplome_actuel)
+        update_fields["level"] = niveau_norm
+        # Stocker aussi le diplôme dans bac_type si pas déjà renseigné
+        if "bac_type" not in update_fields:
+            update_fields["bac_type"] = body.diplome_actuel
  
     if update_fields:
         set_clause = ", ".join(f"{k} = :{k}" for k in update_fields)
         update_fields["user_id"] = user_id
-        db.execute(
-            text(f"UPDATE students SET {set_clause} WHERE user_id = :user_id"),
-            update_fields
-        )
+        db.execute(text(f"UPDATE students SET {set_clause} WHERE user_id = :user_id"), update_fields)
  
-    # ── Mettre à jour student_interests ──────────────────────
+    # ── student_interests ─────────────────────────────────────
     if body.interests is not None:
-        student_row = db.execute(
-            text("SELECT id FROM students WHERE user_id = :uid"),
-            {"uid": user_id}
-        ).fetchone()
- 
+        student_row = db.execute(text("SELECT id FROM students WHERE user_id = :uid"), {"uid": user_id}).fetchone()
         if student_row:
             sid_student = student_row.id
-            db.execute(
-                text("DELETE FROM student_interests WHERE student_id = :sid"),
-                {"sid": sid_student}
-            )
+            db.execute(text("DELETE FROM student_interests WHERE student_id = :sid"), {"sid": sid_student})
             for interest_name in body.interests:
-                if not interest_name:
-                    continue
-                db.execute(
-                    text("""
-                        INSERT INTO interests (id, name)
-                        VALUES (gen_random_uuid(), :name)
-                        ON CONFLICT (name) DO NOTHING
-                    """),
-                    {"name": interest_name}
-                )
-                interest_row = db.execute(
-                    text("SELECT id FROM interests WHERE name = :name"),
-                    {"name": interest_name}
-                ).fetchone()
+                if not interest_name: continue
+                db.execute(text("INSERT INTO interests (id, name) VALUES (gen_random_uuid(), :name) ON CONFLICT (name) DO NOTHING"), {"name": interest_name})
+                interest_row = db.execute(text("SELECT id FROM interests WHERE name = :name"), {"name": interest_name}).fetchone()
                 if interest_row:
-                    db.execute(
-                        text("""
-                            INSERT INTO student_interests (student_id, interest_id)
-                            VALUES (:sid, :iid)
-                            ON CONFLICT DO NOTHING
-                        """),
-                        {"sid": sid_student, "iid": interest_row.id}
-                    )
+                    db.execute(text("INSERT INTO student_interests (student_id, interest_id) VALUES (:sid, :iid) ON CONFLICT DO NOTHING"), {"sid": sid_student, "iid": interest_row.id})
  
     db.commit()
  
-    # ── Synchroniser aussi le profil SAMI en mémoire ─────────
+    # ── Synchroniser le profil SAMI en mémoire ────────────────
     sid_cookie = get_session_id(request, response)
     sess = chat_session_service.get_or_create(sid_cookie)
     if sess["profil"] is None:
         from app.services.profile_service import construire_profil_etudiant
         sess["profil"] = construire_profil_etudiant({})
  
-    if body.full_name:
-        sess["profil"].setdefault("informations_personnelles", {})["prenom"] = body.full_name.split()[0]
-    if body.average is not None:
-        sess["profil"].setdefault("parcours_academique", {})["moyenne_generale"] = body.average
-    if body.bac_type:
-        sess["profil"].setdefault("parcours_academique", {})["type_bac"] = body.bac_type
-    if body.city:
-        sess["profil"].setdefault("informations_personnelles", {})["ville"] = body.city
-    if body.interests:
-        sess["profil"].setdefault("preferences", {})["centres_interet"] = body.interests
+    profil = sess["profil"]
+    parc   = profil.setdefault("parcours_academique", {})
+    info   = profil.setdefault("informations_personnelles", {})
+    pref   = profil.setdefault("preferences", {})
  
-    return {
-        "success": True,
-        "message": "Profil mis à jour avec succès.",
-    }
+    if body.full_name:
+        info["prenom"] = body.full_name.split()[0]
+    if body.average is not None:
+        parc["moyenne_generale"] = body.average
+        parc["mention"]          = _calculer_mention(body.average)   # ← recalcul
+    if body.bac_type:
+        parc["type_bac"]  = body.bac_type
+        parc["label_bac"] = body.bac_type
+    if body.level:
+        parc["niveau_actuel"] = _normaliser_niveau_db(body.level)
+    if body.diplome_actuel:
+        parc["diplome_actuel"] = body.diplome_actuel
+        if not parc.get("niveau_actuel"):
+            parc["niveau_actuel"] = _normaliser_niveau_db(body.diplome_actuel)
+    if body.city:
+        info["ville"] = body.city
+    if body.interests:
+        pref["centres_interet"] = body.interests
+ 
+    # Recalculer statut
+    has_moyenne = parc.get("moyenne_generale", 0) > 0
+    has_niveau  = bool(parc.get("niveau_actuel"))
+    if has_moyenne and has_niveau:
+        profil["statut_profil"] = "partiel"
+ 
+    sess["profil"] = profil
+ 
+    print(f"[PUT /api/profil] Sauvegardé — moyenne={parc.get('moyenne_generale')}, "
+          f"mention={parc.get('mention')}, niveau={parc.get('niveau_actuel')}")
+ 
+    return {"success": True, "message": "Profil mis à jour avec succès."}
+
+
+
+
+
 
 @app.get("/api/filieres")
-def get_filieres():
-    return {"filieres": [
-        {"id": fid, "nom": f["nom"], "niveau": f["niveau"],
-         "duree": f["duree"], "description": f.get("description", "")}
-        for fid, f in FILIERES.items()
-    ]}
+async def get_filieres(request: Request, response: Response):
+    """
+    Retourne toutes les filières.
+    Si une session existe avec un niveau déclaré,
+    marque chaque filière comme accessible ou non.
+    """
+    sid  = get_session_id(request, response)
+    sess = chat_session_service.get_or_create(sid)
+    profil = sess.get("profil")
+ 
+    filieres_accessibles_ids = None
+    if profil:
+        niveau = profil.get("parcours_academique", {}).get("niveau_actuel", "")
+        if niveau:
+            info = obtenir_filieres_comparables(profil)
+            filieres_accessibles_ids = info["filieres_accessibles"]
+ 
+    result = []
+    for fid, f in FILIERES.items():
+        item = {
+            "id":          fid,
+            "nom":         f["nom"],
+            "niveau":      f["niveau"],
+            "duree":       f["duree"],
+            "description": f.get("description", ""),
+            "accessible":  True  # par défaut si pas de profil
+        }
+        if filieres_accessibles_ids is not None:
+            item["accessible"] = fid in filieres_accessibles_ids
+        result.append(item)
+ 
+    return {"filieres": result}
 
 
 
 
 
+# ── GET /api/filieres/accessibles ────────────────────────────
+# Appelé par renderComparer() dans le frontend
+# Retourne uniquement les filières accessibles selon le niveau
+@app.get("/api/filieres/accessibles")
+async def get_filieres_accessibles(request: Request, response: Response):
+    sid  = get_session_id(request, response)
+    sess = chat_session_service.get_or_create(sid)
+ 
+    profil = sess.get("profil")
+ 
+    # Si profil absent ou niveau non déclaré → retourner toutes les filières
+    if not profil:
+        return {
+            "filieres": [
+                {
+                    "id":      fid,
+                    "nom":     f["nom"],
+                    "niveau":  f["niveau"],
+                    "duree":   f["duree"],
+                }
+                for fid, f in FILIERES.items()
+            ],
+            "explication": "",
+            "annee_entree": "1ère année"
+        }
+ 
+    # Utiliser obtenir_filieres_comparables() pour filtrer par niveau
+    info = obtenir_filieres_comparables(profil)
+    filieres_accessibles_ids = info["filieres_accessibles"]
+ 
+    filieres_filtrees = [
+        {
+            "id":     fid,
+            "nom":    FILIERES[fid]["nom"],
+            "niveau": FILIERES[fid]["niveau"],
+            "duree":  FILIERES[fid]["duree"],
+        }
+        for fid in filieres_accessibles_ids
+        if fid in FILIERES
+    ]
+ 
+    return {
+        "filieres":     filieres_filtrees,
+        "explication":  info.get("explication", ""),
+        "annee_entree": info.get("annee_entree", "1ère année"),
+        "note":         info.get("note", ""),
+    }
 
+
+
+
+# ── GET /api/peermatch/filieres ───────────────────────────────
+# Appelé par renderPeerMatch() dans le frontend
+# Retourne les filières disponibles pour le Peer Match
+# filtrées selon le niveau de l'étudiant + filière recommandée FitScore
+@app.get("/api/peermatch/filieres")
+async def get_peermatch_filieres(request: Request, response: Response):
+    sid  = get_session_id(request, response)
+    sess = chat_session_service.get_or_create(sid)
+ 
+    profil   = sess.get("profil")
+    fitscore = sess.get("fitscore")
+ 
+    # Filière recommandée par le FitScore (si calculé)
+    filiere_recommandee = None
+    if fitscore and fitscore.get("meilleure_filiere"):
+        filiere_recommandee = fitscore["meilleure_filiere"]
+ 
+    # Filtrer les filières par niveau
+    if profil:
+        info = obtenir_filieres_comparables(profil)
+        filieres_ids = info["filieres_accessibles"]
+        explication  = info.get("explication", "")
+    else:
+        # Pas de profil → toutes les filières
+        filieres_ids = list(FILIERES.keys())
+        explication  = ""
+ 
+    filieres = [
+        {
+            "id":     fid,
+            "nom":    FILIERES[fid]["nom"],
+            "niveau": FILIERES[fid]["niveau"],
+        }
+        for fid in filieres_ids
+        if fid in FILIERES
+    ]
+ 
+    # Si la filière recommandée n'est pas dans les accessibles
+    # (ex: fitscore calculé avant que le niveau soit déclaré),
+    # on ne l'ajoute pas — cohérence avec la règle de niveau
+    if filiere_recommandee and filiere_recommandee not in filieres_ids:
+        filiere_recommandee = filieres[0]["id"] if filieres else None
+ 
+    return {
+        "filieres":             filieres,
+        "filiere_recommandee":  filiere_recommandee,
+        "explication":          explication,
+    }
+     
 
 
 
@@ -1435,6 +2010,347 @@ async def export_ambassadeurs(db: Session = Depends(get_db)):
 #     return {"success": True}
 
 
+
+
+
+# ============================================================
+# PATCH main.py — Ajouter les 3 routes Voice Live
+# Colle ces routes dans main.py AVANT if __name__ == "__main__"
+# ============================================================
+# Dépendances à ajouter en haut de main.py si pas déjà présentes :
+#   import base64
+#   from fastapi import UploadFile, File, Form
+# ============================================================
+
+
+
+
+
+
+
+
+# ============================================================
+# PATCH main.py — Remplacer les 3 routes voice existantes
+# Fix : get_or_create_session → get_session_id + chat_session_service
+# ============================================================
+
+# ─── 1. TRANSCRIPTION (Whisper) ──────────────────────────────────────────────
+@app.post("/api/voice/transcribe")
+async def voice_transcribe(
+    audio:    UploadFile = File(...),
+    lang:     str        = Form("fr"),
+    request:  Request    = None,
+    response: Response   = None,
+):
+    try:
+        audio_bytes = await audio.read()
+
+        PROMPTS = {
+            "fr": "Bonjour. Orientation académique SUPMTI Meknès. Filières : IISI, IISIC, IISRT, MGE, MDI, FACG, MRI.",
+            "en": "Hello. Academic orientation at SUPMTI Meknes. Programs: IISI, IISIC, IISRT, MGE, MDI, FACG, MRI.",
+            "ar": "مرحبا. توجيه أكاديمي في SUPMTI مكناس.",
+        }
+        prompt = PROMPTS.get(lang, PROMPTS["fr"])
+
+        ext      = (audio.filename or "voice.webm").split(".")[-1]
+        filename = f"voice.{ext}"
+        mime     = audio.content_type or "audio/webm"
+
+        transcription = client.audio.transcriptions.create(
+            model    = "whisper-1",
+            file     = (filename, audio_bytes, mime),
+            language = lang if lang in ("fr", "en", "ar") else "fr",
+            prompt   = prompt,
+        )
+
+        text_raw = (transcription.text or "").strip()
+        print(f"[VOICE] Transcription ({lang}): {text_raw[:80]}")
+        return {"success": True, "text": text_raw, "lang": lang}
+
+    except Exception as e:
+        print(f"[VOICE] Erreur transcription : {e}")
+        return {"success": False, "text": "", "error": str(e)}
+
+
+# ─── 2. CHAT VOCAL ────────────────────────────────────────────────────────────
+@app.post("/api/voice/chat")
+async def voice_chat(
+    body:     dict,
+    request:  Request,
+    response: Response,
+):
+    try:
+        # ── Session (utilise les fonctions existantes de main.py) ────────────
+        sid  = get_session_id(request, response)          # ← corrigé
+        sess = chat_session_service.get_or_create(sid)    # ← corrigé
+
+        message = body.get("message", "").strip()
+        voice   = body.get("voice", "nova")
+        lang    = body.get("lang",  "fr")
+
+        if not message:
+            return {"success": False, "error": "Message vide"}
+
+        # ── Prompt vocal court (sans markdown) ───────────────────────────────
+        SYSTEM = {
+            "fr": ("Tu es Sami, conseiller académique vocal de SUPMTI Meknès. "
+                   "Réponds en 2-3 phrases naturelles, sans markdown, sans listes, sans emojis. "
+                   "Parle comme dans une vraie conversation."),
+            "en": ("You are Sami, vocal academic advisor at SUPMTI Meknes. "
+                   "Reply in 2-3 natural sentences, no markdown, no lists, no emojis."),
+            "ar": ("أنت سامي، مستشار أكاديمي صوتي في SUPMTI مكناس. "
+                   "أجب في 2-3 جمل طبيعية بالدارجة المغربية، بدون تنسيق."),
+        }
+        system_prompt = SYSTEM.get(lang, SYSTEM["fr"])
+
+        # Historique court (6 derniers)
+        hist = sess.get("historique", [])[-6:]
+        msgs = [{"role": "system", "content": system_prompt}]
+        msgs += hist
+        msgs += [{"role": "user", "content": message}]
+
+        # ── GPT ──────────────────────────────────────────────────────────────
+        gpt = client.chat.completions.create(
+            model       = os.getenv("MODEL_NAME", "gpt-4o-mini"),
+            messages    = msgs,
+            max_tokens  = 150,
+            temperature = 0.7,
+        )
+        reply = gpt.choices[0].message.content.strip()
+
+        # Sauvegarder dans la session
+        sess["historique"].append({"role": "user",      "content": message})
+        sess["historique"].append({"role": "assistant", "content": reply})
+        sess["nb_messages"] = sess.get("nb_messages", 0) + 1
+
+        # Extraire infos du profil depuis le message vocal
+        try:
+            sess["profil"] = extraire_infos_conversation(message, sess.get("profil") or {})
+        except Exception:
+            pass
+
+        # ── TTS ──────────────────────────────────────────────────────────────
+        audio_b64 = None
+        clean = (reply
+            .replace("**", "").replace("*", "").replace("#", "")
+            .replace("\n", ". ").strip()[:1000]
+        )
+        try:
+            tts = client.audio.speech.create(
+                model           = "tts-1",
+                voice           = voice,
+                input           = clean,
+                response_format = "mp3",
+            )
+            audio_b64 = base64.b64encode(tts.content).decode("utf-8")
+            print(f"[VOICE] TTS généré — voix={voice} ({len(tts.content)} bytes)")
+        except Exception as e:
+            print(f"[VOICE] TTS erreur : {e}")
+
+        return {
+            "success": True,
+            "text":    reply,
+            "audio":   audio_b64,
+            "lang":    lang,
+            "profil":  sess.get("profil"),
+        }
+
+    except Exception as e:
+        import traceback; traceback.print_exc()
+        return {"success": False, "error": str(e), "text": "", "audio": None}
+
+
+# ─── 3. TTS SEUL ─────────────────────────────────────────────────────────────
+@app.post("/api/voice/tts")
+async def voice_tts(body: dict):
+    try:
+        text  = (body.get("text", "") or "")[:1000]
+        voice = body.get("voice", "nova")
+        if not text.strip():
+            return {"success": False, "error": "Texte vide"}
+        clean = (text
+            .replace("**", "").replace("*", "").replace("#", "")
+            .replace("\n", ". ").strip()
+        )
+        tts = client.audio.speech.create(
+            model=  "tts-1", voice=voice, input=clean, response_format="mp3"
+        )
+        return {"success": True, "audio": base64.b64encode(tts.content).decode("utf-8")}
+    except Exception as e:
+        return {"success": False, "error": str(e), "audio": None}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ============================================================
+# REMPLACE les 3 endpoints forgot-password dans main.py
+# ✅ Utilise text() comme le reste du code — pas besoin de User
+# ============================================================
+
+import os, random, string
+from datetime import datetime, timedelta
+from fastapi import HTTPException   # ← ajouter cet import en haut de main.py si absent
+
+_reset_codes: dict = {}
+
+def _gen_code() -> str:
+    return ''.join(random.choices(string.digits, k=6))
+
+def _send_or_log(email: str, code: str):
+    smtp_user = os.getenv("SMTP_USER", "")
+    smtp_pass = os.getenv("SMTP_PASS", "")
+    print(f"\n{'='*45}")
+    print(f"[RESET CODE] {email}  →  {code}  (expire dans 10 min)")
+    print(f"{'='*45}\n")
+    if not smtp_user or not smtp_pass:
+        return
+    import smtplib
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = "SUPMTI — Code de réinitialisation"
+    msg["From"]    = f"SUPMTI <{smtp_user}>"
+    msg["To"]      = email
+    msg.attach(MIMEText(f"""
+    <div style="font-family:sans-serif;max-width:480px;margin:auto;padding:32px;
+                background:#f9fafb;border-radius:16px">
+      <h2 style="color:#005555">Réinitialisation du mot de passe</h2>
+      <p style="color:#6b7280">Votre code de vérification :</p>
+      <div style="background:#005555;color:white;font-size:32px;font-weight:900;
+                  letter-spacing:0.4em;text-align:center;padding:20px 32px;
+                  border-radius:12px;margin:24px 0">{code}</div>
+      <p style="color:#6b7280;font-size:13px">Expire dans <strong>10 minutes</strong>.</p>
+    </div>""", "html"))
+    with smtplib.SMTP(smtp_host, smtp_port) as s:
+        s.starttls()
+        s.login(smtp_user, smtp_pass)
+        s.sendmail(smtp_user, email, msg.as_string())
+
+
+# ── Schémas ───────────────────────────────────────────────
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+class VerifyCodeRequest(BaseModel):
+    email: str
+    code:  str
+
+class ResetPasswordRequest(BaseModel):
+    email:        str
+    token:        str
+    new_password: str
+
+
+# ══════════════════════════════════════════════════════════
+# ENDPOINT 1 — POST /api/auth/forgot-password
+# ══════════════════════════════════════════════════════════
+@app.post("/api/auth/forgot-password")
+async def forgot_password(payload: ForgotPasswordRequest, db: Session = Depends(get_db)):
+    # ✅ SQL direct — pas besoin du modèle User
+    row = db.execute(
+        text("SELECT id FROM users WHERE email = :email"),
+        {"email": payload.email}
+    ).fetchone()
+
+    if not row:
+        raise HTTPException(status_code=404, detail="Aucun compte trouvé avec cet email.")
+
+    code = _gen_code()
+    _reset_codes[payload.email] = {
+        "code":       code,
+        "expires_at": datetime.utcnow() + timedelta(minutes=10),
+    }
+
+    try:
+        _send_or_log(payload.email, code)
+    except Exception as e:
+        print(f"[WARN] Email non envoyé : {e}")
+
+    is_dev = not os.getenv("SMTP_USER")
+    return {
+        "message":  "Code envoyé.",
+        "dev_code": code if is_dev else None,
+    }
+
+
+# ══════════════════════════════════════════════════════════
+# ENDPOINT 2 — POST /api/auth/verify-reset-code
+# ══════════════════════════════════════════════════════════
+@app.post("/api/auth/verify-reset-code")
+async def verify_reset_code(payload: VerifyCodeRequest):
+    entry = _reset_codes.get(payload.email)
+
+    if not entry:
+        raise HTTPException(status_code=400, detail="Aucun code en attente pour cet email.")
+    if datetime.utcnow() > entry["expires_at"]:
+        _reset_codes.pop(payload.email, None)
+        raise HTTPException(status_code=400, detail="Code expiré. Veuillez recommencer.")
+    if entry["code"] != payload.code.strip():
+        raise HTTPException(status_code=400, detail="Code incorrect.")
+
+    return {"token": payload.code, "message": "Code vérifié."}
+
+
+# ══════════════════════════════════════════════════════════
+# ENDPOINT 3 — POST /api/auth/reset-password
+# ══════════════════════════════════════════════════════════
+@app.post("/api/auth/reset-password")
+async def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
+    entry = _reset_codes.get(payload.email)
+
+    if not entry:
+        raise HTTPException(status_code=400, detail="Session expirée. Veuillez recommencer.")
+    if datetime.utcnow() > entry["expires_at"]:
+        _reset_codes.pop(payload.email, None)
+        raise HTTPException(status_code=400, detail="Code expiré. Veuillez recommencer.")
+    if entry["code"] != payload.token.strip():
+        raise HTTPException(status_code=400, detail="Token invalide.")
+
+    # ✅ SQL direct — récupérer le hash existant pour détecter le bon champ
+    row = db.execute(
+        text("SELECT id, password_hash FROM users WHERE email = :email"),
+        {"email": payload.email}
+    ).fetchone()
+
+    if not row:
+        raise HTTPException(status_code=404, detail="Utilisateur introuvable.")
+
+    # Hacher le nouveau mot de passe avec pbkdf2_sha256 (même algo que auth_routes.py)
+    try:
+        from passlib.hash import pbkdf2_sha256
+        new_hash = pbkdf2_sha256.hash(payload.new_password)
+    except Exception:
+        try:
+            import bcrypt
+            new_hash = bcrypt.hashpw(payload.new_password.encode(), bcrypt.gensalt()).decode()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Erreur hash : {str(e)}")
+
+    # ✅ SQL direct — pas besoin de deviner le nom du champ
+    db.execute(
+        text("UPDATE users SET password_hash = :h WHERE email = :email"),
+        {"h": new_hash, "email": payload.email}
+    )
+    db.commit()
+    _reset_codes.pop(payload.email, None)
+
+    return {"message": "Mot de passe réinitialisé avec succès."}
+
+
+
+
 # ── PUT /api/admin/students/{id} ─────────────────────────────
 @app.put("/api/admin/students/{student_id}")
 async def admin_update_student(student_id: str, request: Request, db: Session = Depends(get_db)):
@@ -1461,10 +2377,207 @@ async def admin_update_student(student_id: str, request: Request, db: Session = 
 
 
 
+# ============================================================
+# WhatsApp Webhook — SAMI via Twilio
+# Colle ce code dans main.py (remplace l'ancien @app.post("/api/whatsapp"))
+# ============================================================
+#
+# FONCTIONNEMENT :
+# 1. Twilio envoie POST /api/whatsapp avec Body= (message WhatsApp)
+# 2. On crée une session stable par numéro (From=whatsapp:+212...)
+# 3. On appelle generer_reponse_rag() avec l'historique de la session
+# 4. On renvoie la réponse formatée en TwiML XML
+#
+# POUR ACTIVER :
+# - Twilio Console → Messaging → WhatsApp Sandbox
+# - "When a message comes in" → ton URL ngrok + /api/whatsapp
+# ============================================================
+
+import re
+from fastapi import Form
+from fastapi.responses import Response as FastAPIResponse
+
+# Stockage sessions WhatsApp en mémoire (numéro → {historique, profil})
+_wa_sessions: dict = {}
+
+def _get_wa_session(phone: str) -> dict:
+    """Retourne ou crée une session WhatsApp pour ce numéro."""
+    if phone not in _wa_sessions:
+        _wa_sessions[phone] = {
+            "historique": [],
+            "profil":     None,
+            "nb_messages": 0,
+        }
+    return _wa_sessions[phone]
+
+
+def _nettoyer_pour_whatsapp(texte: str) -> str:
+    """
+    Simplifie le markdown pour WhatsApp.
+    WhatsApp supporte *gras* et _italique_ mais pas ## ou ---
+    """
+    # Titres markdown → majuscules
+    texte = re.sub(r'^## (.+)$', r'*\1*', texte, flags=re.MULTILINE)
+    texte = re.sub(r'^### (.+)$', r'*\1*', texte, flags=re.MULTILINE)
+
+    # **gras** → *gras* (WhatsApp)
+    texte = re.sub(r'\*\*(.+?)\*\*', r'*\1*', texte)
+
+    # Supprimer les séparateurs ═══
+    texte = re.sub(r'[═─]{3,}', '', texte)
+
+    # Limiter à 1500 caractères (limite SMS/WhatsApp)
+    if len(texte) > 1500:
+        texte = texte[:1450] + '\n\n_[réponse tronquée — pose une question plus précise]_'
+
+    return texte.strip()
+
+
+@app.post("/api/whatsapp")
+async def whatsapp_webhook(
+    Body:      str = Form(""),
+    From:      str = Form(""),
+    ProfileName: str = Form(""),
+):
+    """
+    Webhook Twilio WhatsApp.
+    Body      = message de l'utilisateur
+    From      = numéro expéditeur (ex: whatsapp:+212600000000)
+    ProfileName = prénom WhatsApp de l'utilisateur
+    """
+    message = (Body or "").strip()
+    phone   = (From or "unknown").replace("whatsapp:", "")
+
+    print(f"[WA] {phone} ({ProfileName}): {message[:60]}")
+
+    if not message:
+        return _twiml("Désolé, je n'ai pas reçu ton message.")
+
+    # ── Session ──────────────────────────────────────────────────
+    sess = _get_wa_session(phone)
+
+    # Initialiser le profil si absent
+    if sess["profil"] is None:
+        try:
+            from app.services.profile_service import construire_profil_etudiant
+            sess["profil"] = construire_profil_etudiant({})
+            # Injecter le prénom WhatsApp si disponible
+            if ProfileName:
+                sess["profil"]["informations_personnelles"]["prenom"] = ProfileName.split()[0]
+        except Exception:
+            sess["profil"] = {}
+
+    # ── Commandes spéciales ──────────────────────────────────────
+    msg_lower = message.lower().strip()
+
+    if msg_lower in ("reset", "nouveau", "recommencer", "/reset"):
+        _wa_sessions.pop(phone, None)
+        return _twiml("✅ Conversation réinitialisée. Bonjour ! Je suis SAMI, l'assistant d'orientation de SUPMTI Meknès. Comment puis-je t'aider ?")
+
+    if msg_lower in ("aide", "help", "/aide", "?"):
+        return _twiml(
+            "*SAMI — Assistant SUPMTI Meknès* 🎓\n\n"
+            "Je peux t'aider sur :\n"
+            "• Les filières (IISI, MGE, MDI, IISIC...)\n"
+            "• Les frais de scolarité et bourses\n"
+            "• L'admission et les conditions\n"
+            "• Ton orientation personnalisée\n\n"
+            "Envoie *RESET* pour recommencer une nouvelle conversation."
+        )
+
+    # ── Extraction profil depuis le message ──────────────────────
+    try:
+        from app.services.profile_service import extraire_infos_conversation
+        sess["profil"] = extraire_infos_conversation(message, sess["profil"])
+    except Exception:
+        pass
+
+    # ── Appel RAG ────────────────────────────────────────────────
+    try:
+        from app.services.rag_service import generer_reponse_rag
+
+        sess["historique"].append({"role": "user", "content": message})
+        sess["nb_messages"] += 1
+
+        resultat = generer_reponse_rag(
+            question     = message,
+            historique   = sess["historique"][-10:],  # 10 derniers messages
+            profil_etudiant = sess["profil"],
+        )
+
+        reponse_brute = resultat.get("reponse", "Je n'ai pas pu générer une réponse.")
+        reponse_wa    = _nettoyer_pour_whatsapp(reponse_brute)
+
+        sess["historique"].append({"role": "assistant", "content": reponse_brute})
+
+        # Limiter l'historique en mémoire
+        if len(sess["historique"]) > 20:
+            sess["historique"] = sess["historique"][-20:]
+
+        print(f"[WA] Réponse → {reponse_wa[:80]}...")
+        return _twiml(reponse_wa)
+
+    except Exception as e:
+        print(f"[WA] Erreur RAG : {e}")
+        import traceback; traceback.print_exc()
+        return _twiml(
+            "Désolé, je rencontre une difficulté technique. "
+            "Réessaie dans quelques instants ou contacte SUPMTI : +212 5 35 51 10 11"
+        )
+
+
+def _twiml(message: str) -> FastAPIResponse:
+    """Génère une réponse TwiML XML pour Twilio."""
+    # Échapper les caractères XML spéciaux
+    safe = message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    xml  = f"""<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Message>{safe}</Message>
+</Response>"""
+    return FastAPIResponse(content=xml, media_type="application/xml")
+
+
+# ── Endpoint stats WhatsApp (optionnel, pour l'admin) ────────
+@app.get("/api/admin/whatsapp/stats")
+async def wa_stats():
+    """Retourne les stats des sessions WhatsApp actives."""
+    return {
+        "sessions_actives": len(_wa_sessions),
+        "details": [
+            {
+                "phone":       phone,
+                "nb_messages": sess["nb_messages"],
+                "prenom":      sess["profil"].get("informations_personnelles", {}).get("prenom", "?") if sess["profil"] else "?",
+            }
+            for phone, sess in _wa_sessions.items()
+        ]
+    }
+
+
+# ── Endpoint reset session WhatsApp (admin) ──────────────────
+@app.delete("/api/admin/whatsapp/session/{phone}")
+async def wa_reset_session(phone: str):
+    """Supprime la session WhatsApp d'un numéro."""
+    _wa_sessions.pop(phone, None)
+    _wa_sessions.pop(f"whatsapp:{phone}", None)
+    return {"success": True, "message": f"Session {phone} réinitialisée."}
 
 
 
 
+
+
+
+
+
+
+@app.get("/debug/routes")
+def debug_routes():
+    return [
+        {"path": route.path, "methods": list(route.methods)}
+        for route in app.routes
+        if hasattr(route, "path") and hasattr(route, "methods")
+    ]
 
 
 

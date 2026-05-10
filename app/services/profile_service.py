@@ -63,6 +63,8 @@ MAPPING_INTERETS = {
     "data": ["data science", "intelligence artificielle", "machine learning"],
     "data science": ["data science", "intelligence artificielle", "machine learning"],
     "machine learning": ["machine learning", "intelligence artificielle", "data science"],
+    "international": ["international", "commerce international", "développement international"],
+    "diplomatie": ["relations internationales", "diplomatie"],
 }
 
 
@@ -570,12 +572,13 @@ def identifier_filiere_hesitation(derniers_messages, historique_complet):
     ]).lower()
 
     mots_cles = {
-        "ISI":   ["isi", "informatique", "systèmes informatiques", "développement", "programmation"],
+        "IISI":  ["iisi", "informatique", "systèmes informatiques", "développement", "programmation"],
         "IISRT": ["iisrt", "réseaux", "télécommunications", "télécom", "réseau"],
         "IISIC": ["iisic", "intelligence artificielle", "ia", "data science", "machine learning"],
-        "ME":    ["management", "entreprise", "marketing", "commerce", "gestion"],
+        "MGE":   ["mge", "management", "entreprise", "marketing", "commerce", "gestion"],
+        "MDI":   ["mdi", "international", "export", "import", "commerce international"],
         "FACG":  ["facg", "finance", "audit", "comptabilité", "contrôle de gestion"],
-        "MSTIC": ["mstic", "systèmes d'information", "digital", "management digital"]
+        "MRI":   ["mri", "relations internationales", "diplomatie", "international"],
     }
     scores = {fid: sum(1 for m in mots if m in texte) for fid, mots in mots_cles.items()}
     return max(scores, key=scores.get) if max(scores.values()) > 0 else None

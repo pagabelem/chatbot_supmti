@@ -254,7 +254,7 @@ INSERT INTO ambassadeurs (id, nom, program_id, niveau, email, whatsapp, is_activ
   (uuid_generate_v4(), 'Nadia Essaidi',   'IISIC', 'Licence 3',  'nadia.amb@supmtimeknes.ac.ma',  '+212698222222', TRUE),
   (uuid_generate_v4(), 'Hamza Benkirane', 'ME',    'Master 2',   'hamza.amb@supmtimeknes.ac.ma',  '+212644333333', TRUE),
   (uuid_generate_v4(), 'Fatima Zahra',    'FACG',  'Licence 2',  'fatima.amb@supmtimeknes.ac.ma', '+212600444444', TRUE),
-  (uuid_generate_v4(), 'Adil Rachidi',    'IISRT', 'Master 1',   'adil.amb@supmtimeknes.ac.ma',   '+212611555555', TRUE),
+  (uuid_generate_v4(), 'Adil Rachidi',    'IISRT', 'Master 1',   'adil.amb@supmtimeknes.ac.ma',   '+22674673278', TRUE),
   (uuid_generate_v4(), 'Leila Hamdaoui',  'MSTIC', 'Licence 3',  'leila.amb@supmtimeknes.ac.ma',  '+212697666666', TRUE),
   -- Ambassadeur inactif (pour tester la logique de filtrage)
   (uuid_generate_v4(), 'Rachid Test',     'ISI',   'Diplômé',    'rachid.amb@supmtimeknes.ac.ma', '+212600000000', FALSE)

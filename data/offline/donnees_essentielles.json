@@ -1,5 +1,5 @@
 {
-  "derniere_mise_a_jour": "2026-03-22T00:43:37.757192",
+  "derniere_mise_a_jour": "2026-05-10T17:43:15.153541",
   "ecole": {
     "nom": "SUP MTI Meknès",
     "telephone": "+212 5 35 51 10 11",
@@ -18,8 +18,22 @@
     "devise": "MAD (Dirhams Marocains)"
   },
   "filieres": {
-    "ME": {
-      "nom": "Management des Entreprises",
+    "IISI": {
+      "nom": "Ingénierie Intelligente des Systèmes Informatiques",
+      "niveau": "BAC+3",
+      "duree": 3,
+      "description": "Formation de techniciens spécialisés capables de concevoir, déployer et gérer des solutions informatiques performantes.",
+      "debouches": [
+        "Développeur web",
+        "Analyste programmeur",
+        "Administrateur réseaux",
+        "Responsable informatique",
+        "Webmaster",
+        "Intégrateur de solutions"
+      ]
+    },
+    "MGE": {
+      "nom": "Management de l'Entreprise",
       "niveau": "BAC+3",
       "duree": 3,
       "description": "Formation en management digital, informatique de gestion, marketing digital et e-commerce. Prépare à des carrières en management ou à des poursuites d'études.",
@@ -33,47 +47,18 @@
         "Cadre administratif"
       ]
     },
-    "FACG": {
-      "nom": "Finance, Audit et Contrôle de Gestion",
-      "niveau": "BAC+5",
-      "duree": 2,
-      "description": "Formation de cadres financiers et contrôleurs de gestion hautement qualifiés pour des postes à responsabilités dans des entreprises nationales et internationales.",
-      "debouches": [
-        "Auditeur interne ou externe",
-        "Auditeur financier",
-        "Commissaire aux comptes",
-        "Contrôleur de gestion",
-        "Expert-comptable",
-        "Directeur comptable et financier",
-        "Conseiller en finance internationale"
-      ]
-    },
-    "MSTIC": {
-      "nom": "Management des Systèmes et Technologies de l'Information et de la Communication",
-      "niveau": "BAC+5",
-      "duree": 2,
-      "description": "Formation de cadres supérieurs capables de manager des entreprises en s'appuyant sur les nouvelles technologies (Big Data, IoT, Cloud, IA, Blockchain).",
-      "debouches": [
-        "Manager d'entreprise",
-        "Responsable des systèmes d'information",
-        "Responsable marketing digital",
-        "Responsable commercial",
-        "Responsable RH",
-        "Responsable administratif et financier"
-      ]
-    },
-    "ISI": {
-      "nom": "Ingénierie Intelligente des Systèmes Informatiques",
+    "MDI": {
+      "nom": "Management et Développement International",
       "niveau": "BAC+3",
       "duree": 3,
-      "description": "Formation de techniciens spécialisés capables de concevoir, déployer et gérer des solutions informatiques performantes.",
+      "description": "Formation orientée vers le commerce international, le développement des marchés à l'export, et les relations d'affaires interculturelles.",
       "debouches": [
-        "Développeur web",
-        "Analyste programmeur",
-        "Administrateur réseaux",
-        "Responsable informatique",
-        "Webmaster",
-        "Intégrateur de solutions"
+        "Responsable du commerce international",
+        "Chargé de développement international",
+        "Responsable import-export",
+        "Chargé d'affaires internationales",
+        "Responsable marketing international",
+        "Consultant en développement international"
       ]
     },
     "IISIC": {
@@ -101,6 +86,35 @@
         "Ingénieur en télécommunications",
         "Technico-commercial en solutions réseaux"
       ]
+    },
+    "FACG": {
+      "nom": "Finance, Audit et Contrôle de Gestion",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation de cadres financiers et contrôleurs de gestion hautement qualifiés pour des postes à responsabilités dans des entreprises nationales et internationales.",
+      "debouches": [
+        "Auditeur interne ou externe",
+        "Auditeur financier",
+        "Commissaire aux comptes",
+        "Contrôleur de gestion",
+        "Expert-comptable",
+        "Directeur comptable et financier",
+        "Conseiller en finance internationale"
+      ]
+    },
+    "MRI": {
+      "nom": "Management et Relations Internationales",
+      "niveau": "BAC+5",
+      "duree": 2,
+      "description": "Formation de cadres capables de piloter les relations institutionnelles, commerciales et diplomatiques à l'international, avec maîtrise de plusieurs langues et cultures.",
+      "debouches": [
+        "Responsable des relations institutionnelles",
+        "Chargé de mission international",
+        "Consultant en stratégie internationale",
+        "Attaché commercial export",
+        "Responsable de la communication internationale",
+        "Chargé des partenariats ONG"
+      ]
     }
   },
   "faq": [
@@ -110,7 +124,7 @@
     },
     {
       "question": "filieres formations",
-      "reponse": "SUPMTI Meknès propose 6 filières : Ingénierie (ISI, IISRT, IISIC) et Management (ME, FACG, MSTIC)."
+      "reponse": "SUPMTI Meknès propose 7 filières : Ingénierie (IISI → IISIC, IISRT) et Management (MGE/MDI → FACG, MRI)."
     },
     {
       "question": "contact telephone email",

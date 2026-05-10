@@ -11,7 +11,7 @@ class OpenAIService:
         if not api_key:
             raise ValueError("OPENAI_API_KEY non trouvée dans .env")
         self.client = OpenAI(api_key=api_key)
-        self.model = os.getenv("MODEL_NAME", "gpt-5.2")
+        self.model = os.getenv("MODEL_NAME", "gpt-4o-mini")
 
     def get_chat_response(self, message: str, historique: list = None) -> str:
         
