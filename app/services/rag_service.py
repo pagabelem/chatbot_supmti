@@ -1092,8 +1092,11 @@ def _construire_contenu_hardcode():
     """
     global _HARDCODE_CACHE
     if _HARDCODE_CACHE is not None:
+        print(f"[CACHE] Utilisation du cache existant ({len(_HARDCODE_CACHE):,} chars)")
         return _HARDCODE_CACHE
 
+    print("[HARDCODE] 🔨 Construction du contenu hardcode...")
+    
     lignes = [
         "=== SOURCE: academic_config_supmti ===",
         f"École : {SCHOOL_INFO['nom']} — {SCHOOL_INFO['nom_complet']}",
@@ -1151,21 +1154,66 @@ def _construire_contenu_hardcode():
         "Toutes nationalités acceptées. Étudiants internationaux bienvenus.",
     ]
 
+    # ============================================================
+    # CHARGEMENT DE Data1.txt AVEC LOGS DÉTAILLÉS
+    # ============================================================
+    
+    # Récupérer le chemin absolu pour le log
+    documents_path = os.getenv("DOCUMENTS_PATH", "./data/documents")
+    doc_path = os.path.join(documents_path, "Data1.txt")
+    
+    # Afficher le chemin absolu pour déboguer
+    abs_path = os.path.abspath(doc_path)
+    print(f"[HARDCODE] 📁 Recherche du fichier Data1.txt")
+    print(f"[HARDCODE]    Chemin relatif: {doc_path}")
+    print(f"[HARDCODE]    Chemin absolu: {abs_path}")
+    print(f"[HARDCODE]    DOCUMENTS_PATH env: {os.getenv('DOCUMENTS_PATH', 'non défini (valeur par défaut: ./data/documents)')}")
+    
     try:
-        doc_path = os.path.join(
-            os.getenv("DOCUMENTS_PATH", "./data/documents"), "Data1.txt"
-        )
         if os.path.exists(doc_path):
             with open(doc_path, "r", encoding="utf-8") as f:
                 data_raw = f.read()
+            
+            print(f"[HARDCODE] ✅ Data1.txt trouvé et chargé")
+            print(f"[HARDCODE]    Taille: {len(data_raw)} caractères")
+            print(f"[HARDCODE]    Nombre de lignes: {len(data_raw.splitlines())}")
+            print(f"[HARDCODE]    Premier aperçu: {data_raw[:150]}...")
+            
+            # Vérifier si le contenu contient des questions/réponses
+            if "QUESTION:" in data_raw and "RÉPONSE:" in data_raw:
+                print(f"[HARDCODE] ✅ Format Q/R détecté dans Data1.txt")
+            else:
+                print(f"[HARDCODE] ⚠️ Data1.txt ne contient pas de format QUESTION:/RÉPONSE:")
+            
             lignes.append("")
             lignes.append("=== PROGRAMMES COMPLETS PAR SEMESTRE (SOURCE: Data1.txt) ===")
             lignes.append(data_raw)
+        else:
+            print(f"[HARDCODE] ❌ Data1.txt NON TROUVÉ!")
+            print(f"[HARDCODE]    Vérifie que le fichier existe à: {abs_path}")
+            
+            # Lister le contenu du dossier pour déboguer
+            try:
+                dossier = os.path.dirname(abs_path)
+                if os.path.exists(dossier):
+                    fichiers = os.listdir(dossier)
+                    print(f"[HARDCODE]    Contenu du dossier {dossier}:")
+                    for f in fichiers:
+                        print(f"[HARDCODE]      - {f}")
+                else:
+                    print(f"[HARDCODE]    Le dossier {dossier} n'existe pas!")
+            except Exception as e:
+                print(f"[HARDCODE]    Impossible de lister le dossier: {e}")
+                
     except Exception as e:
-        print(f"[HARDCODE] Impossible de charger Data1.txt: {e}")
+        print(f"[HARDCODE] ❌ Erreur lors du chargement de Data1.txt: {e}")
+        import traceback
+        traceback.print_exc()
 
     _HARDCODE_CACHE = "\n".join(lignes)
-    print(f"[CACHE] Hardcode chargé en mémoire ({len(_HARDCODE_CACHE):,} chars)")
+    print(f"[CACHE] ✅ Hardcode chargé en mémoire ({len(_HARDCODE_CACHE):,} chars)")
+    print(f"[CACHE]    Taille du cache: {len(_HARDCODE_CACHE):,} caractères")
+    
     return _HARDCODE_CACHE
 
 # ============================================================
@@ -1237,7 +1285,7 @@ def _tokens_pour_question(question):
 # ÉTAPE 7 — RÉPONSE RAG PRINCIPALE
 # ============================================================
 
-def generer_reponse_rag(question, historique=None, profil_etudiant=None):
+def generer_reponse_rag(question, historique=None, profil=None, fitscore_session=None):
     global _index, _metadonnees
 
     if not verifier_connexion():
@@ -1263,7 +1311,7 @@ def generer_reponse_rag(question, historique=None, profil_etudiant=None):
     contexte_garanti = _construire_contenu_hardcode()
     contexte = f"{contexte_garanti}\n\n===CONTEXTE RAG===\n{contexte_faiss}" if contexte_faiss else contexte_garanti
 
-    resume_profil = construire_resume_profil(profil_etudiant)
+    resume_profil = construire_resume_profil(profil)
 
     messages = [
         {"role": "system", "content": construire_prompt_systeme(langue)},
@@ -1650,3 +1698,106 @@ def demarrer_scheduler():
     else:
         print("[SCHEDULER] ⏸️  Scheduler démarré — scraping SUSPENDU (SCRAPING_ACTIF=false)")
     return scheduler
+
+
+
+
+
+    
+
+  # ============================================================
+# FONCTIONS POUR L'ADMIN - À AJOUTER À LA FIN DU FICHIER
+# ============================================================
+
+async def rebuild_vector_index():
+    """
+    Reconstruit l'index vectoriel FAISS à partir de tous les documents
+    dans le dossier ./data/documents/
+    """
+    global _index, _metadonnees, _HARDCODE_CACHE
+    
+    print("[RAG] 🔨 Début de la reconstruction de l'index vectoriel...")
+    
+    try:
+        from app.services.embedding_service import initialiser_base_vectorielle, charger_base_existante
+        
+        # ============================================================
+        # NOUVEAU : Forcer la reconstruction depuis tous les fichiers
+        # ============================================================
+        documents_path = os.getenv("DOCUMENTS_PATH", "./data/documents")
+        
+        print(f"[RAG] 📁 Dossier documents: {os.path.abspath(documents_path)}")
+        
+        # Lister tous les fichiers .txt dans le dossier
+        if os.path.exists(documents_path):
+            txt_files = [f for f in os.listdir(documents_path) if f.endswith('.txt')]
+            print(f"[RAG] 📄 Fichiers trouvés: {txt_files}")
+            
+            # Pour chaque fichier, s'assurer qu'il est bien pris en compte
+            for txt_file in txt_files:
+                file_path = os.path.join(documents_path, txt_file)
+                size = os.path.getsize(file_path)
+                print(f"[RAG]    - {txt_file} ({size} bytes)")
+        else:
+            print(f"[RAG] ⚠️ Le dossier {documents_path} n'existe pas!")
+            os.makedirs(documents_path, exist_ok=True)
+            print(f"[RAG] 📁 Dossier créé: {documents_path}")
+        
+        print("[RAG] 📁 Réinitialisation complète de la base vectorielle...")
+        initialiser_base_vectorielle()
+        
+        print("[RAG] 🔄 Rechargement de l'index...")
+        _index, _metadonnees = charger_base_existante()
+        
+        if _index is not None:
+            print(f"[RAG] ✅ Index reconstruit avec succès !")
+            
+            print("[RAG] 📝 Rechargement du cache hardcode...")
+            _HARDCODE_CACHE = None
+            _construire_contenu_hardcode()
+            
+            print("[RAG] 🗑️ Vidage du cache des prompts système...")
+            construire_prompt_systeme.cache_clear()
+            
+            print("[RAG] ✅ Tous les caches ont été rechargés avec succès !")
+        else:
+            print("[RAG] ⚠️ Échec de la reconstruction de l'index")
+            
+    except Exception as e:
+        print(f"[RAG] ❌ Erreur reconstruction index: {e}")
+        import traceback
+        traceback.print_exc()
+        raise
+
+def invalidate_cache():
+    """
+    Vide le cache mémoire hardcodé et revalide les prompts.
+    """
+    global _HARDCODE_CACHE, _index, _metadonnees
+    
+    print("[RAG] 🗑️ Invalidation du cache...")
+    
+    # Vider le cache hardcode
+    old_size = len(_HARDCODE_CACHE) if _HARDCODE_CACHE else 0
+    _HARDCODE_CACHE = None
+    print(f"[RAG]    Cache hardcode vidé (était {old_size:,} chars)")
+    
+    # Recharger le contenu hardcode
+    print("[RAG] 📝 Rechargement du contenu hardcode...")
+    _construire_contenu_hardcode()
+    
+    # Vider le cache des prompts système
+    old_cache_size = construire_prompt_systeme.cache_info().currsize
+    construire_prompt_systeme.cache_clear()
+    print(f"[RAG]    Cache prompts système vidé ({old_cache_size} entrées)")
+    
+    # Optionnel : recharger aussi l'index FAISS depuis les fichiers
+    try:
+        from app.services.embedding_service import charger_base_existante
+        print("[RAG] 🔄 Rechargement de l'index FAISS...")
+        _index, _metadonnees = charger_base_existante()
+        print("[RAG] ✅ Index FAISS rechargé avec succès")
+    except Exception as e:
+        print(f"[RAG] ⚠️ Impossible de recharger l'index: {e}")
+    
+    print("[RAG] ✅ Cache invalidé avec succès !")

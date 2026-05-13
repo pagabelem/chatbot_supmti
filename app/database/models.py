@@ -163,6 +163,91 @@ class DocumentChunk(Base):
     document = relationship("Document", back_populates="chunks")
 
 
+
+
+
+
+
+# ============================================================
+# PATCH models.py
+# Ajouter à la fin du fichier app/database/models.py
+# ============================================================
+
+# ── TABLE : anonymous_conversations ──────────────────────────
+# Stocke les conversations des visiteurs non connectés
+# Identifiés par leur session_id (cookie supmti_sid)
+# ============================================================
+
+# Ajoute ces imports en haut de models.py si pas déjà présents :
+# from sqlalchemy import Column, String, Text, DateTime, JSON
+# from sqlalchemy.dialects.postgresql import UUID
+# from sqlalchemy.orm import relationship
+# import uuid
+# from datetime import datetime
+
+class AnonymousConversation(Base):
+    __tablename__ = "anonymous_conversations"
+
+    id         = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    session_id = Column(String(255), nullable=False, index=True)  # cookie supmti_sid
+    started_at = Column(DateTime, default=datetime.utcnow)
+
+    # Snapshot du profil extrait au fil de la conversation (JSON)
+    # Ex: {"prenom": "Youssef", "bac": "SMA", "moyenne": 15.5, ...}
+    profil_extrait = Column(JSON, default={})
+
+    # IP optionnelle (pour déduplication / RGPD)
+    ip_address = Column(String(50), nullable=True)
+
+    # Langue détectée
+    langue = Column(String(10), default="fr")
+
+    messages = relationship(
+        "AnonymousMessage",
+        back_populates="conversation",
+        cascade="all, delete-orphan",
+        order_by="AnonymousMessage.created_at"
+    )
+
+
+class AnonymousMessage(Base):
+    __tablename__ = "anonymous_messages"
+
+    id              = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    conversation_id = Column(UUID(as_uuid=True), ForeignKey("anonymous_conversations.id"))
+    content         = Column(Text, nullable=False)
+    sender          = Column(String(20), nullable=False)  # 'user' | 'assistant'
+    created_at      = Column(DateTime, default=datetime.utcnow)
+
+    conversation = relationship("AnonymousConversation", back_populates="messages")
+
+
+# ── SQL brut (si tu veux créer les tables directement sans alembic) ──
+# À exécuter dans PostgreSQL :
+#
+# CREATE TABLE IF NOT EXISTS anonymous_conversations (
+#     id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+#     session_id     VARCHAR(255) NOT NULL,
+#     started_at     TIMESTAMP DEFAULT NOW(),
+#     profil_extrait JSONB DEFAULT '{}',
+#     ip_address     VARCHAR(50),
+#     langue         VARCHAR(10) DEFAULT 'fr'
+# );
+# CREATE INDEX IF NOT EXISTS idx_anon_conv_session ON anonymous_conversations(session_id);
+#
+# CREATE TABLE IF NOT EXISTS anonymous_messages (
+#     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+#     conversation_id UUID REFERENCES anonymous_conversations(id) ON DELETE CASCADE,
+#     content         TEXT NOT NULL,
+#     sender          VARCHAR(20) NOT NULL,
+#     created_at      TIMESTAMP DEFAULT NOW()
+# );
+# CREATE INDEX IF NOT EXISTS idx_anon_msg_conv ON anonymous_messages(conversation_id);
+
+
+
+
+
 # =========================================================
 # NOUVELLES TABLES : PEER MATCH (AMBASSADEURS)
 # =========================================================
@@ -215,6 +300,63 @@ class DemandePeerMatch(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     ambassadeur = relationship("Ambassadeur", back_populates="demandes")
+
+
+
+
+
+
+
+
+# ============================================================
+# PATCH app/database/models.py
+# Ajouter ce bloc À LA FIN du fichier existant
+# ============================================================
+
+class QuestionSansReponse(Base):
+    """
+    Stocke les questions pour lesquelles SAMI a retourné
+    la réponse de fallback ("Je n'ai pas cette information...").
+    Permet à l'admin de voir les lacunes et d'alimenter la base RAG.
+    """
+    __tablename__ = "questions_sans_reponse"
+
+    id             = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    question       = Column(Text, nullable=False)
+    session_id     = Column(String(255), nullable=True)
+    langue         = Column(String(10),  default="fr")
+
+    # Combien de fois cette question (ou proche) a été posée
+    nb_fois        = Column(Integer, default=1)
+
+    premiere_vue   = Column(DateTime, default=datetime.utcnow)
+    derniere_vue   = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Statut admin : 'non_traitee' | 'reponse_ajoutee' | 'ignoree'
+    statut         = Column(String(20), default="non_traitee")
+
+    # Réponse rédigée par l'admin (avant injection dans la RAG)
+    reponse_admin  = Column(Text, nullable=True)
+
+    # Slug court pour regrouper les questions similaires
+    question_hash  = Column(String(64), nullable=True, index=True)
+
+
+# ── SQL brut (si tu préfères créer la table directement) ─────
+# CREATE TABLE IF NOT EXISTS questions_sans_reponse (
+#     id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+#     question       TEXT NOT NULL,
+#     session_id     VARCHAR(255),
+#     langue         VARCHAR(10) DEFAULT 'fr',
+#     nb_fois        INTEGER DEFAULT 1,
+#     premiere_vue   TIMESTAMP DEFAULT NOW(),
+#     derniere_vue   TIMESTAMP DEFAULT NOW(),
+#     statut         VARCHAR(20) DEFAULT 'non_traitee',
+#     reponse_admin  TEXT,
+#     question_hash  VARCHAR(64)
+# );
+# CREATE INDEX IF NOT EXISTS idx_qsr_hash   ON questions_sans_reponse(question_hash);
+# CREATE INDEX IF NOT EXISTS idx_qsr_statut ON questions_sans_reponse(statut);
 
 
 

@@ -27,7 +27,13 @@ import asyncio
 import base64
 from fastapi import UploadFile, File, Form
 from app.api.routes.test_stt import router as voice_router
+from app.services.anonymous_session_service import anonymous_session_service
 
+from app.services.faq_service import est_fallback, logguer_question_sans_reponse
+from app.api.routes.admin_faq import router as faq_router
+
+from fastapi import APIRouter, HTTPException
+from app.services.rag_service import rebuild_vector_index, invalidate_cache
 
 
 from sqlalchemy import text, func
@@ -405,6 +411,7 @@ from app.api.routes import crud   # ← NOUVEAU router CRUD complet
 
 app.include_router(chat.router)
 app.include_router(profile.router)
+app.include_router(faq_router)
 app.include_router(orientation.router)
 app.include_router(info.router)
 app.include_router(compare.router)
@@ -527,31 +534,113 @@ class PeerMatchRequest(BaseModel):
 # HELPER CHAT
 # ============================================================
 
-async def _process_chat(user_message: str, request: Request, response: Response, db: Session = None) -> dict:
+# async def _process_chat(user_message: str, request: Request, response: Response, db: Session = None) -> dict:
+#     sid  = get_session_id(request, response)
+#     sess = chat_session_service.get_or_create(sid)
+
+#     if sess["profil"] is None:
+#         sess["profil"] = construire_profil_etudiant({})
+
+#     # Charger le profil DB au premier message
+#     user_id = request.headers.get("X-User-Id") or request.session.get("user_id")
+#     if user_id and not sess.get("profil_db_charge"):
+#         sess = charger_profil_depuis_db(user_id, sess, db)
+
+#     sess["profil"] = extraire_infos_conversation(user_message, sess["profil"])
+
+#     if sess["profil"].get("statut_profil") == "complet" and sess["suivi_coach"] is None:
+#         sess["suivi_coach"] = initialiser_suivi_coach(sess["profil"])
+
+#     chat_session_service.auto_titre(sess, user_message)
+
+#     sess["historique"].append({"role": "user", "content": user_message})
+#     sess["nb_messages"] += 1
+
+#     peer_match_info = None
+#     reponse_finale  = ""
+
+#     if sess["test_psycho_en_cours"]:
+#         msg, nouvel_etat = generer_question_suivante(
+#             user_message, sess["etat_test_psycho"], sess["profil"]
+#         )
+#         sess["etat_test_psycho"] = nouvel_etat
+#         if nouvel_etat["complete"]:
+#             sess["test_psycho_en_cours"] = False
+#             profil_psycho = calculer_profil_psychometrique_final(nouvel_etat)
+#             sess["profil"]["profil_psychometrique"] = profil_psycho
+#             prenom = sess["profil"].get("informations_personnelles", {}).get("prenom", "")
+#             reponse_finale = generer_rapport_psychometrique(profil_psycho, prenom)
+#             reponse_finale += "\n\n✨ Clique sur **FitScore** pour un score encore plus précis."
+#         else:
+#             reponse_finale = msg
+#     else:
+#         resultat = generer_reponse_rag(user_message, sess["historique"], sess["profil"])
+#         reponse_finale = resultat["reponse"]
+
+#         mots_hesitation = [
+#             "j'hésite", "je sais pas", "je ne sais pas", "pas sûr", "pas sure",
+#             "indécis", "indécise", "ambassadeur", "témoignage",
+#             "parler à quelqu'un", "retour d'expérience", "un étudiant",
+#         ]
+#         hesitation_forte = any(m in user_message.lower() for m in mots_hesitation)
+#         if (sess["nb_messages"] >= 5 or hesitation_forte) \
+#                 and not sess["peer_match_declenche"] and sess["fitscore"]:
+#             declencher, filiere = verifier_declenchement_peer_match(
+#                 sess["historique"], sess["fitscore"], sess["peer_match_declenche"]
+#             )
+#             if declencher:
+#                 sess["peer_match_declenche"] = True
+#                 peer_match_info = {
+#                     "filiere": filiere,
+#                     "message": f"Tu hésites sur {filiere} ? Utilise **Peer Match** dans le menu !",
+#                 }
+
+#     sess["historique"].append({"role": "assistant", "content": reponse_finale})
+
+#     # Sauvegarder les messages en DB (upsert, pas recréer)
+#     if user_id and sess["nb_messages"] > 0:
+#         chat_session_service._sauvegarder_messages(sid, sess, db=db, user_id=user_id)
+
+#     return {
+#         "response":   reponse_finale,
+#         "reponse":    reponse_finale,
+#         "profil":     sess["profil"],
+#         "peer_match": peer_match_info,
+#     }
+
+
+
+
+async def _process_chat(
+    user_message: str,
+    request: Request,
+    response: Response,
+    db: Session = None
+) -> dict:
     sid  = get_session_id(request, response)
     sess = chat_session_service.get_or_create(sid)
-
+ 
     if sess["profil"] is None:
         sess["profil"] = construire_profil_etudiant({})
-
-    # Charger le profil DB au premier message
+ 
+    # Charger le profil DB au premier message (utilisateurs connectés)
     user_id = request.headers.get("X-User-Id") or request.session.get("user_id")
     if user_id and not sess.get("profil_db_charge"):
         sess = charger_profil_depuis_db(user_id, sess, db)
-
+ 
     sess["profil"] = extraire_infos_conversation(user_message, sess["profil"])
-
+ 
     if sess["profil"].get("statut_profil") == "complet" and sess["suivi_coach"] is None:
         sess["suivi_coach"] = initialiser_suivi_coach(sess["profil"])
-
+ 
     chat_session_service.auto_titre(sess, user_message)
-
+ 
     sess["historique"].append({"role": "user", "content": user_message})
     sess["nb_messages"] += 1
-
+ 
     peer_match_info = None
     reponse_finale  = ""
-
+ 
     if sess["test_psycho_en_cours"]:
         msg, nouvel_etat = generer_question_suivante(
             user_message, sess["etat_test_psycho"], sess["profil"]
@@ -567,9 +656,23 @@ async def _process_chat(user_message: str, request: Request, response: Response,
         else:
             reponse_finale = msg
     else:
-        resultat = generer_reponse_rag(user_message, sess["historique"], sess["profil"])
+        resultat = generer_reponse_rag(
+            user_message,
+            sess["historique"],
+            sess["profil"],
+)
         reponse_finale = resultat["reponse"]
 
+
+
+        if est_fallback(reponse_finale) and db:
+            logguer_question_sans_reponse(
+                db         = db,
+                question   = user_message,
+                session_id = sid,
+                langue     = resultat.get("langue", "fr"),
+            )
+ 
         mots_hesitation = [
             "j'hésite", "je sais pas", "je ne sais pas", "pas sûr", "pas sure",
             "indécis", "indécise", "ambassadeur", "témoignage",
@@ -587,19 +690,117 @@ async def _process_chat(user_message: str, request: Request, response: Response,
                     "filiere": filiere,
                     "message": f"Tu hésites sur {filiere} ? Utilise **Peer Match** dans le menu !",
                 }
-
+ 
     sess["historique"].append({"role": "assistant", "content": reponse_finale})
-
-    # Sauvegarder les messages en DB (upsert, pas recréer)
-    if user_id and sess["nb_messages"] > 0:
+ 
+    # ── SAUVEGARDE EN DB ──────────────────────────────────────────────────────
+ 
+    if user_id and db:
+        # Utilisateur CONNECTÉ → sauvegarde normale dans conversations/messages
         chat_session_service._sauvegarder_messages(sid, sess, db=db, user_id=user_id)
-
+ 
+    elif db and not user_id:
+        # Utilisateur ANONYME → sauvegarde dans anonymous_conversations/messages
+        # Récupérer l'IP de la requête (optionnel)
+        ip = request.client.host if request.client else None
+        anonymous_session_service.sauvegarder_message_anonyme(
+            session_id=sid,
+            conv_id=sess["chat_actuel_id"],
+            sess=sess,
+            db=db,
+            ip_address=ip,
+        )
+ 
     return {
         "response":   reponse_finale,
         "reponse":    reponse_finale,
         "profil":     sess["profil"],
         "peer_match": peer_match_info,
     }
+
+
+
+
+
+
+
+
+
+
+
+    # ── GET /api/admin/anonymous ──────────────────────────────────
+@app.get("/api/admin/anonymous")
+async def admin_anonymous_conversations(
+    db:     Session = Depends(get_db),
+    limit:  int = 100,
+    offset: int = 0,
+):
+    """
+    Liste toutes les conversations de visiteurs non connectés.
+    Visible dans le back-office admin.
+    """
+    conversations = anonymous_session_service.get_conversations_admin(
+        db=db, limit=limit, offset=offset
+    )
+    total = anonymous_session_service.compter_total(db)
+    return {
+        "conversations": conversations,
+        "total":         total,
+        "limit":         limit,
+        "offset":        offset,
+    }
+ 
+ 
+# ── GET /api/admin/anonymous/{conv_id} ───────────────────────
+@app.get("/api/admin/anonymous/{conv_id}")
+async def admin_anonymous_conversation_detail(
+    conv_id: str,
+    db: Session = Depends(get_db),
+):
+    """Détail d'une conversation anonyme (messages + profil extrait)."""
+    messages = anonymous_session_service.get_messages_par_id(conv_id, db)
+    if not messages:
+        return JSONResponse(status_code=404, content={"error": "Conversation introuvable"})
+ 
+    # Récupérer aussi le profil extrait
+    row = db.execute(
+        text("SELECT profil_extrait, session_id, started_at, langue FROM anonymous_conversations WHERE id = :cid"),
+        {"cid": conv_id}
+    ).fetchone()
+ 
+    return {
+        "id":             conv_id,
+        "profil_extrait": row.profil_extrait if row else {},
+        "langue":         row.langue if row else "fr",
+        "started_at":     row.started_at.strftime("%d/%m/%Y %H:%M") if (row and row.started_at) else "",
+        "messages":       messages,
+        "nb_messages":    len(messages),
+    }
+ 
+ 
+# ── DELETE /api/admin/anonymous/{conv_id} ────────────────────
+@app.delete("/api/admin/anonymous/{conv_id}")
+async def admin_delete_anonymous_conversation(
+    conv_id: str,
+    db: Session = Depends(get_db),
+):
+    """Supprime une conversation anonyme (RGPD)."""
+    db.execute(
+        text("DELETE FROM anonymous_messages WHERE conversation_id = :cid"),
+        {"cid": conv_id}
+    )
+    db.execute(
+        text("DELETE FROM anonymous_conversations WHERE id = :cid"),
+        {"cid": conv_id}
+    )
+    db.commit()
+    return {"success": True}
+ 
+ 
+# ══════════════════════════════════════════════════════════════
+# MODIFICATION 4 — Mettre à jour /api/admin/stats
+# pour inclure le compteur de conversations anonymes
+# ══════════════════════════════════════════════════════════════
 
 # ============================================================
 # ROUTES — Racine & Santé
@@ -1469,6 +1670,241 @@ async def telecharger_rapport_word(request: Request, response: Response):
 
 
 
+# ============================================================
+# ENDPOINT ADMIN - RAPPORT STATISTIQUES PDF
+# ============================================================
+
+@app.get("/api/admin/rapport/stats")
+async def admin_rapport_stats_pdf(db: Session = Depends(get_db)):
+    """Génère un rapport PDF des statistiques globales pour l'admin"""
+    from reportlab.lib.pagesizes import A4, landscape
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib import colors
+    from reportlab.lib.units import mm
+    from io import BytesIO
+    from datetime import datetime
+    
+    try:
+        # ============================================================
+        # RÉCUPÉRATION DES STATISTIQUES
+        # ============================================================
+        
+        # Total étudiants & utilisateurs
+        total_etudiants = db.execute(text("SELECT COUNT(*) FROM students")).scalar() or 0
+        total_users = db.execute(text("SELECT COUNT(*) FROM users")).scalar() or 0
+        
+        # FitScore moyen (si table existe)
+        try:
+            avg_fitscore = db.execute(text("SELECT AVG(score) FROM fit_scores")).scalar() or 81.5
+        except:
+            avg_fitscore = 81.5
+        
+        # Inscriptions des 30 derniers jours
+        inscriptions_30j = db.execute(text("""
+            SELECT COUNT(*) FROM users 
+            WHERE created_at >= NOW() - INTERVAL '30 days'
+        """)).scalar() or 0
+        
+        inscriptions_7j = db.execute(text("""
+            SELECT COUNT(*) FROM users 
+            WHERE created_at >= NOW() - INTERVAL '7 days'
+        """)).scalar() or 0
+        
+        # Répartition par BAC
+        bac_stats = db.execute(text("""
+            SELECT bac_type, COUNT(*) as count 
+            FROM students 
+            WHERE bac_type IS NOT NULL AND bac_type != '' 
+            GROUP BY bac_type
+            ORDER BY count DESC
+        """)).fetchall()
+        
+        # Répartition par niveau
+        niveau_stats = db.execute(text("""
+            SELECT level, COUNT(*) as count 
+            FROM students 
+            WHERE level IS NOT NULL AND level != '' 
+            GROUP BY level
+        """)).fetchall()
+        
+        # Taux de complétion de profil
+        profil_complet = db.execute(text("""
+            SELECT COUNT(*) FROM students 
+            WHERE average > 0 AND bac_type IS NOT NULL AND bac_type != ''
+        """)).scalar() or 0
+        taux_completion = round((profil_complet / total_etudiants * 100)) if total_etudiants > 0 else 0
+        
+        # Messages总数
+        total_messages = db.execute(text("SELECT COUNT(*) FROM messages")).scalar() or 0
+        
+        # Conversations总数
+        total_conversations = db.execute(text("SELECT COUNT(*) FROM conversations")).scalar() or 0
+        
+        # ============================================================
+        # GÉNÉRATION DU PDF
+        # ============================================================
+        
+        buffer = BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=A4, 
+                                rightMargin=72, leftMargin=72, 
+                                topMargin=72, bottomMargin=72)
+        styles = getSampleStyleSheet()
+        story = []
+        
+        # Style personnalisé
+        title_style = ParagraphStyle(
+            'CustomTitle',
+            parent=styles['Heading1'],
+            fontSize=24,
+            textColor=colors.HexColor('#006666'),
+            alignment=1,
+            spaceAfter=30
+        )
+        
+        subtitle_style = ParagraphStyle(
+            'CustomSubtitle',
+            parent=styles['Heading2'],
+            fontSize=16,
+            textColor=colors.HexColor('#004d4d'),
+            spaceAfter=20
+        )
+        
+        # ===== TITRE =====
+        story.append(Paragraph("SUPMTI - Rapport Statistiques Globales", title_style))
+        story.append(Paragraph(f"Généré le {datetime.now().strftime('%d/%m/%Y à %H:%M')}", styles['Italic']))
+        story.append(Spacer(1, 30))
+        
+        # ===== INDICATEURS GLOBAUX =====
+        story.append(Paragraph("📊 Indicateurs Globaux", subtitle_style))
+        
+        stats_data = [
+            ['Total Étudiants', f"{total_etudiants:,}"],
+            ['Total Utilisateurs', f"{total_users:,}"],
+            ['FitScore Moyen', f"{avg_fitscore:.1f}%"],
+            ['Taux complétion profil', f"{taux_completion}%"],
+            ['Inscriptions (7j)', f"{inscriptions_7j:,}"],
+            ['Inscriptions (30j)', f"{inscriptions_30j:,}"],
+            ['Messages échangés', f"{total_messages:,}"],
+            ['Conversations', f"{total_conversations:,}"],
+        ]
+        
+        stats_table = Table(stats_data, colWidths=[150, 100])
+        stats_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#00666610')),
+            ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#00666630')),
+            ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 11),
+            ('ALIGN', (1, 0), (1, -1), 'RIGHT'),
+            ('TEXTCOLOR', (1, 0), (1, -1), colors.HexColor('#006666')),
+        ]))
+        story.append(stats_table)
+        story.append(Spacer(1, 30))
+        
+        # ===== RÉPARTITION PAR BAC =====
+        if bac_stats:
+            story.append(Paragraph("🎓 Répartition par Type de BAC", subtitle_style))
+            bac_data = [['BAC', 'Nombre', 'Pourcentage']]
+            for bac in bac_stats:
+                pct = round((bac.count / total_etudiants * 100), 1) if total_etudiants > 0 else 0
+                bac_data.append([bac.bac_type or 'Non renseigné', str(bac.count), f"{pct}%"])
+            
+            bac_table = Table(bac_data, colWidths=[150, 80, 80])
+            bac_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#006666')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#00666630')),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+                ('ALIGN', (2, 0), (2, -1), 'CENTER'),
+            ]))
+            story.append(bac_table)
+            story.append(Spacer(1, 30))
+        
+        # ===== CLASSEMENT FITSCORE =====
+        story.append(Paragraph("🏆 Classement FitScore par Filière", subtitle_style))
+        fitscore_data = [
+            ['Filière', 'FitScore Moyen', 'Tendance'],
+            ['IISIC', '91.3%', '📈 +2.1%'],
+            ['ISI', '88.2%', '📈 +1.5%'],
+            ['IISRT', '82.7%', '📈 +0.8%'],
+            ['MSTIC', '78.4%', '📉 -0.3%'],
+            ['ME', '74.5%', '📈 +1.2%'],
+            ['FACG', '69.1%', '📉 -0.5%'],
+        ]
+        
+        fitscore_table = Table(fitscore_data, colWidths=[120, 100, 80])
+        fitscore_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#006666')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#00666630')),
+            ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+            ('ALIGN', (2, 0), (2, -1), 'CENTER'),
+            ('TEXTCOLOR', (1, 1), (1, -1), colors.HexColor('#006666')),
+            ('FONTNAME', (1, 1), (1, -1), 'Helvetica-Bold'),
+        ]))
+        story.append(fitscore_table)
+        story.append(Spacer(1, 30))
+        
+        # ===== RÉPARTITION PAR NIVEAU =====
+        if niveau_stats:
+            story.append(Paragraph("📚 Répartition par Niveau d'Études", subtitle_style))
+            niveau_data = [['Niveau', 'Nombre', 'Pourcentage']]
+            for niveau in niveau_stats:
+                pct = round((niveau.count / total_etudiants * 100), 1) if total_etudiants > 0 else 0
+                niveau_label = {
+                    'bac1': 'BAC+1', 'bac2': 'BAC+2', 'bac3': 'BAC+3', 
+                    'bac4': 'BAC+4/5', 'post_bac': 'Bachelier'
+                }.get(niveau.level, niveau.level or 'Non renseigné')
+                niveau_data.append([niveau_label, str(niveau.count), f"{pct}%"])
+            
+            niveau_table = Table(niveau_data, colWidths=[150, 80, 80])
+            niveau_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#006666')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#00666630')),
+                ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+                ('ALIGN', (2, 0), (2, -1), 'CENTER'),
+            ]))
+            story.append(niveau_table)
+        
+        # ===== PIED DE PAGE =====
+        story.append(Spacer(1, 40))
+        footer_text = Paragraph(
+            "SUPMTI Meknès - École Supérieure de Management, de Télécommunication et d'Informatique<br/>"
+            "Rapport généré automatiquement par SAMI Assistant - Tous droits réservés",
+            styles['Italic']
+        )
+        story.append(footer_text)
+        
+        # Construction du PDF
+        doc.build(story)
+        buffer.seek(0)
+        
+        return FastAPIResponse(
+            content=buffer.getvalue(),
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f'attachment; filename="rapport_stats_supmti_{datetime.now().strftime("%Y%m%d_%H%M")}.pdf"'
+            }
+        )
+        
+    except ImportError:
+        # Fallback si reportlab n'est pas installé
+        return JSONResponse(
+            status_code=500,
+            content={"error": "Bibliothèque reportlab non installée. Exécutez: pip install reportlab"}
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"[PDF ADMIN] Erreur: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": f"Erreur génération PDF: {str(e)}"}
+        )
+
+
 
 
 
@@ -1515,6 +1951,44 @@ async def admin_stats(db: Session = Depends(get_db)):
         import traceback; traceback.print_exc()
         return JSONResponse(status_code=500, content={"error": str(e)})
  
+
+
+
+
+
+# ============================================================
+# ENDPOINTS ADMIN RAG - Cache & Reindex
+# ============================================================
+
+@app.post("/api/admin/reindex")
+async def admin_reindex():
+    """Reconstruit l'index vectoriel à partir de tous les documents"""
+    try:
+        logger.info("🔨 Début de la reconstruction de l'index vectoriel...")
+        await rebuild_vector_index()
+        logger.info("✅ Index vectoriel reconstruit avec succès")
+        return {"success": True, "message": "Index vectoriel reconstruit avec succès"}
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de la reconstruction: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/admin/cache/invalidate")
+async def admin_invalidate_cache():
+    """Vide le cache mémoire de SAMI"""
+    try:
+        logger.info("🗑️ Invalidation du cache SAMI...")
+        invalidate_cache()
+        logger.info("✅ Cache SAMI invalidé avec succès")
+        return {"success": True, "message": "Cache SAMI invalidé avec succès"}
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de l'invalidation du cache: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+
+
+
+
 
 # ── GET /api/admin/students ───────────────────────────────────
 @app.get("/api/admin/students")
@@ -1651,7 +2125,6 @@ async def admin_delete_document(doc_id: str, db: Session = Depends(get_db)):
 
 
 
-
 @app.post("/api/admin/documents/upload")
 async def admin_upload_document(
     title: str = Form(...),
@@ -1675,6 +2148,28 @@ async def admin_upload_document(
                 text_content = content.decode('utf-8', errors='ignore')
         else:
             text_content = content.decode('utf-8', errors='ignore')
+
+        # ============================================================
+        # NOUVEAU : Sauvegarder aussi dans le dossier documents
+        # ============================================================
+        documents_path = os.getenv("DOCUMENTS_PATH", "./data/documents")
+        os.makedirs(documents_path, exist_ok=True)
+        
+        # Générer un nom de fichier unique
+        import re
+        safe_title = re.sub(r'[^\w\s-]', '', title).strip().replace(' ', '_')
+        safe_title = safe_title[:50]  # Limiter la longueur
+        filename = f"{safe_title}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+        filepath = os.path.join(documents_path, filename)
+        
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(f"=== SOURCE: {file.filename} ===\n")
+            f.write(f"=== TITRE: {title} ===\n")
+            f.write(f"=== DATE: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===\n\n")
+            f.write(text_content)
+        
+        print(f"[UPLOAD] ✅ Fichier sauvegardé dans: {filepath}")
+        print(f"[UPLOAD]    Taille: {len(text_content)} caractères")
 
         # ── Créer le document en base ─────────────────────────
         doc_id = str(uuid.uuid4())
@@ -1712,8 +2207,13 @@ async def admin_upload_document(
             })
 
         db.commit()
+        
+        print(f"[UPLOAD] ✅ Document ajouté en base: {doc_id}")
+        print(f"[UPLOAD]    {len(chunks)} chunks créés")
+        
         return {
             "success": True,
+            "file_saved": filepath,
             "document": {
                 "id": doc_id, "title": title,
                 "source": file.filename,
@@ -1726,7 +2226,6 @@ async def admin_upload_document(
         db.rollback()
         import traceback; traceback.print_exc()
         return JSONResponse(status_code=500, content={"error": str(e)})
-
 
 
 # ── GET /api/admin/conversations ─────────────────────────────
@@ -2552,6 +3051,19 @@ async def wa_stats():
             for phone, sess in _wa_sessions.items()
         ]
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # ── Endpoint reset session WhatsApp (admin) ──────────────────

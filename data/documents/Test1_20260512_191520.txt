@@ -1,0 +1,12 @@
+=== SOURCE: test1.txt ===
+=== TITRE: Test1 ===
+=== DATE: 2026-05-12 19:15:20 ===
+
+=== QUESTION: Quel est la date de reconnaissance officielle de SUPMTI MEKNES par l'Etat Marocain ? ===
+RÉPONSE: EN Avril 2026 SUPMTI MEKNES a été reconnu officiellement.
+
+
+
+
+=== QUESTION: Quels débouchés après IISI ? ===
+RÉPONSE: Les diplômés ISI travaillent comme: ingénieurs logiciel, data scientists, chefs de projets IT, consultants. Taux d'emploi: 92% dans les 6 mois suivant le diplôme.
